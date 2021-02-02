@@ -14,7 +14,7 @@ category: CV
 > * Full Text Search: [Elastic](https://www.elastic.co)
 > * DevOps: [Docker](https://www.docker.com/), [Kubernetes](https://kubernetes.io/)
 > * Load Balancer: [Nginx](https://www.nginx.com/)
-> 
+
 ### 2. **Machine Learning**: 
 > * [PyTorch](https://pytorch.org/): Machine Learning Framework.
 > * [Keras](https://keras.io/): Interface for ANN.

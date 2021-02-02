@@ -1,7 +1,7 @@
 ---
-layout: post
-title: CV-short
-permalink: /CV-short/
+layout: page
+title: About
+permalink: /about/
 category: CV
 ---
 
