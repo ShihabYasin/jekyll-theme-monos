@@ -14,7 +14,7 @@ category: MY-TECH-STACK
 > * Full Text Search: [Elastic](https://www.elastic.co)
 > * DevOps: [Docker](https://www.docker.com/), [Kubernetes](https://kubernetes.io/)
 > * Load Balancer: [Nginx](https://www.nginx.com/) .
-> * [Gunicorn](https://gunicorn.org/): WSGI HTTP Server for UNIX.
+> * WSGI HTTP Server for UNIX: [Gunicorn](https://gunicorn.org/) 
 
 ### 2. **Machine Learning**: 
 > * [PyTorch](https://pytorch.org/): Machine Learning Framework.
@@ -24,7 +24,7 @@ category: MY-TECH-STACK
 > * [Shogun](https://www.shogun-toolbox.org/): Standard ML-methods.
 > * [SciKit-Learn](https://scikit-learn.org/stable/): General purpose ML library.
 > * [TensorFlow](https://www.tensorflow.org/): Machine Learning Platform.
-> 
+
 ### 3. Natural Language Processing: 
 > * [KenLM](https://github.com/kpu/kenlm): KenLM estimates, filters, and queries language models.
 > * [fairseq](https://github.com/pytorch/fairseq): Sequence modeling toolkit.
