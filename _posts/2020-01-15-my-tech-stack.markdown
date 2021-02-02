@@ -33,3 +33,8 @@ category: MY-TECH-STACK
 > * [NumPy](https://numpy.org/): Scientific/Numerical computing with Python.
 > * [SciPy](https://www.scipy.org/): Scientific computing with Python.
 > * [Matplotlib](https://matplotlib.org/): Visualizations in Python.
+
+### 5. OS:
+> * Linux
+> * Android
+> * Tizen

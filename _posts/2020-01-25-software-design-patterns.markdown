@@ -1,13 +1,9 @@
 ---
 layout: post
-title: NEW-POST
+title: Some essential software design patterns.
 date: 2020-01-02 19:20:23 +0900
-category: NEW-CATEGORY
+category: MY-TECH-STACK
+tag: design-patterns
 ---
-# post-sample
-> Hello!
-
-This is code
-```ruby
-print 'hello world'
-```
+# Some Essential Software Design Patterns
+### ... to be written soon
