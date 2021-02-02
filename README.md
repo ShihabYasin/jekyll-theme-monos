@@ -6,8 +6,8 @@ permalink: /about/
 
 
 
-> ## _I am Yasin_
-> ## _Software people, love to code & create soft-stuffs._
+## I am Yasin.
+### Software people, love to code & create soft-stuffs.
 
 
 ### [My Short CV/Résumé](https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/cv/Yasin_Resume.pdf)  | [My Blogs](https://shihabyasin.github.io/)  | [LinkedIN](https://www.linkedin.com/in/yasinshihab/)  | [Github](https://github.com/ShihabYasin)
