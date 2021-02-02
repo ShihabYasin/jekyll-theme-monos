@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Voilà !!! This is my Github Website.
+title: CV/Résumé
 permalink: /about/
 ---
 
