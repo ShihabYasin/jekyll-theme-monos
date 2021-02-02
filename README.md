@@ -1,8 +1,7 @@
 ---
 layout: page
-title: About
+title: CV
 permalink: /about/
-category: CV
 ---
 
 > # _Voilà_
