@@ -10,7 +10,7 @@ permalink: /about/
 > ## _Software people, love to code & create soft-stuffs._
 
 
-### [My Short CV/Résumé](https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/cv/Yasin_Resume.pdf)  | [My Blogs](https://shihabyasin.github.io/)  | [LinkedIN](https://www.linkedin.com/in/yasinshihab/)
+### [My Short CV/Résumé](https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/cv/Yasin_Resume.pdf)  | [My Blogs](https://shihabyasin.github.io/)  | [LinkedIN](https://www.linkedin.com/in/yasinshihab/)  | [Github](https://github.com/ShihabYasin)
 
 > 
 >  
