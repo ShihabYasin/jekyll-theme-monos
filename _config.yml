@@ -43,13 +43,13 @@ minima:
   # generate social links in footer
   social_links:
 #    twitter: jekyllrb
-    github:  ShihabYasin
+    github:  shihabyasin
     # devto: jekyll
     # dribbble: jekyll
     # facebook: jekyll
     # flickr:   jekyll
     # instagram: jekyll
-     linkedin: yasinshihab
+    linkedin: yasinshihab
     # pinterest: jekyll
     # youtube: jekyll
     # youtube_channel: UC8CXR0-3I70i1tfPg1PAE1g
