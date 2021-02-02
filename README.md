@@ -5,8 +5,13 @@ permalink: /about/
 category: CV
 ---
 
-# Voilà 
+# _Voilà_ 
 
-### **[Click to See My Short CV/Résumé](https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/cv/Yasin_Resume.pdf)**
 
-### [My LinkedIN](https://www.linkedin.com/in/yasinshihab/)
+> ## _This site contains some of [my blogs](https://shihabyasin.github.io/) & CV/Résumé._
+> 
+> ### **[_Click Here to See My Short CV/Résumé_](https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/cv/Yasin_Resume.pdf)**
+>
+> ### [_My LinkedIN_](https://www.linkedin.com/in/yasinshihab/)
+
+
