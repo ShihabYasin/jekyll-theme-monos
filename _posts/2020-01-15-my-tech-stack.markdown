@@ -2,7 +2,7 @@
 layout: post
 title: Tech-Stack-I-Worked-with
 date: 2020-01-15 19:20:23 +0900
-category: CV
+category: MY-TECH-STACK
 ---
 
 # _Tech-Stack-I-Worked-with_
