@@ -13,7 +13,7 @@ category: CV
 > * Server & Concurrency:  [Flask](https://flask.palletsprojects.com/), [Django](https://www.djangoproject.com/), [Celery](https://docs.celeryproject.org/)
 > * Full Text Search: [Elastic](https://www.elastic.co)
 > * DevOps: [Docker](https://www.docker.com/), [Kubernetes](https://kubernetes.io/)
-> * Load Balancer: [Nginx](https://www.nginx.com/)
+> * Load Balancer: [Nginx](https://www.nginx.com/) .
 
 ### 2. **Machine Learning**: 
 > * [PyTorch](https://pytorch.org/): Machine Learning Framework.
