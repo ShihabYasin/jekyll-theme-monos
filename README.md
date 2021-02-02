@@ -7,6 +7,6 @@ category: CV
 
 # Voilà 
 
-### **[Click to See My Short CV/Résumé](https://github.com/ShihabYasin/Person-Location-Time-Association-by-Classification/blob/master/NLP%20PLT%20CLASSIFIER/Documentation.docx)**
+### **[Click to See My Short CV/Résumé](https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/cv/Yasin_Resume.pdf)**
 
 ### [My LinkedIN](https://www.linkedin.com/in/yasinshihab/)
