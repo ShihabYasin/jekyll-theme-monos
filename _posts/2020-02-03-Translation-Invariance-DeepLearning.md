@@ -45,13 +45,7 @@ Large receptive fields in human visual system give human to have a greater degre
 
 [GAP](https://paperswithcode.com/method/global-average-pooling#:~:text=Global%20Average%20Pooling%20is%20a,in%20the%20last%20mlpconv%20layer.): Global Average Pooling is a pooling operation designed to replace fully connected layers in classical CNNs. The
 idea is to generate one feature map for each corresponding category of the classification task in the last mlpconv
-layer. Instead of adding fully connected layers on top of the feature maps, we take the average of each feature map, and
-the resulting vector is fed directly into the softmax layer.
-
-One advantage of global average pooling over the fully connected layers is that it is more native to the convolution
-structure by enforcing correspondences between feature maps and categories. Thus the feature maps can be easily
-interpreted as categories confidence maps. Another advantage is that there is no parameter to optimize in the global
-average pooling thus overfitting is avoided at this layer. Furthermore, global average pooling sums out the spatial
+layer. Global average pooling sums out the spatial
 information, thus it is more robust to spatial translations of the input.
 
 <p align="center">
