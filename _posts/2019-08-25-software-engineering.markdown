@@ -13,7 +13,11 @@ tag: software-concept-gist
    3.1. Latent Semantic Analysis (LSA)
 4. Bag of Words/Concept/Narratives [study resource](https://web.archive.org/web/2020*/https://sentic.net/computing/)
 
-![Alt text](https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/nlp-bag-of-words-etc.jpg?raw=true "Title")
+![Alt text](https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/nlp-bag-of-words-etc.jpg?raw=true "Evolution of NLP Systems")
 
 5. tf-idf 
 6. n-gram(0/1/2/3/n-gram)
+
+
+Tutorial:
+https://testdriven.io/blog
