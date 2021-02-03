@@ -5,7 +5,7 @@ date: 2020-01-02 19:20:23 +0900
 category: MY-TECH-STACK
 tag: software-concept-gist
 ---
-# Some Software Engineering Concept Gist.
+
 1. SOA: 
 2. Micro-services:
 3. Topic Modeling and Latent Dirichlet Allocation(LDA) [study resource](https://monkeylearn.com/blog/introduction-to-topic-modeling/)

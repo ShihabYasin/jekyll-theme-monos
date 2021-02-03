@@ -6,8 +6,6 @@ category: VISION-AI
 tag: deeplearning
 ---
 
-# Translation Invariance of DeepLearning VisionAI Models
-
 Human are very good at recognising novel objects at one retinal location to other varying 9 to 18 degree of freedom.
 
 Current days CNN models support highly restricted on-line translation tolerance having a dependency over their trained

@@ -1,11 +1,10 @@
 ---
 layout: post
-title: Technologies-I-Worked-with
+title: Technologies I Worked with
 date: 2020-01-15 19:20:23 +0900
 category: MY-TECH-STACK
 ---
 
-# _Technologies I Worked with_
 ### 1. Development:
 > * NoSql DB:  [MongoDB](https://www.mongodb.com/)
 > * SQL DB: [MySQL](https://www.mysql.com/), [PostgreSQL](https://www.postgresql.org/)
