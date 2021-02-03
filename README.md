@@ -7,11 +7,9 @@ permalink: /about/
 Yasin Shihab
 ============
 
------------------------------------------------
-* [shihabyasin@gmail.com]()
------------------------------------------------
+- [shihabyasin@gmail.com]()
 
-###Software people, love to code, practice software engineering ethics & create soft-stuffs.
+**Software people, love to code, practice software engineering ethics & create soft-stuffs.**
 
  **Technology domain interest:** Software development, Machine Learning, 
 Natural language processing
