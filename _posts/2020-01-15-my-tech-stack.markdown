@@ -8,7 +8,7 @@ category: MY-TECH-STACK
 ### 1. Development:
 > * NoSql DB:  [MongoDB](https://www.mongodb.com/)
 > * SQL DB: [MySQL](https://www.mysql.com/), [PostgreSQL](https://www.postgresql.org/)
-> * Message Queue: [RabbitMQ](https://www.rabbitmq.com/), [MQTT](https://mqtt.org/)
+> * Message Queue: [RabbitMQ](https://www.rabbitmq.com/)
 > * Server & Concurrency:  [Flask](https://flask.palletsprojects.com/), [Django](https://www.djangoproject.com/), [Celery](https://docs.celeryproject.org/)
 > * Full Text Search: [Elastic](https://www.elastic.co)
 > * DevOps: [Docker](https://www.docker.com/), [Kubernetes](https://kubernetes.io/)
