@@ -18,6 +18,4 @@ tag: software-concept-gist
 5. tf-idf 
 6. n-gram(0/1/2/3/n-gram)
 
-
-Tutorial:
-https://testdriven.io/blog
+7. Transfer Learning

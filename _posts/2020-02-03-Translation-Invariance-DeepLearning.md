@@ -1,6 +1,9 @@
 ---
-layout: post title: Translation Invariance of DeepLearning VisionAI Models date: 2020-02-03 16:20:23 +0900 category:
-VISION-AI tag: deeplearning
+layout: post 
+title: Translation Invariance of DeepLearning VisionAI Models 
+date: 2020-02-03 16:20:23 +0900 
+category: VISION-AI 
+tag: deeplearning
 ---
 
 # Translation Invariance of DeepLearning VisionAI Models
