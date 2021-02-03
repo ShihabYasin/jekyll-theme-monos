@@ -1,3 +1,9 @@
+---
+layout: page
+title: CV/Résumé
+permalink: /about/
+---
+
 Yasin Shihab
 ============
 
