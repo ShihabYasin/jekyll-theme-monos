@@ -18,7 +18,6 @@ tolerance from training dataset.
 </p>
 <center>Fig 1: Behavioral studies of translation tolerance</center>
 
-[comment]: <> (![Behavioral studies of translation tolerance]&#40;https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/1.png?raw=true "Behavioral studies of translation tolerance"&#41;)
 
 What causes human to perform extreme on-line translation tolerance is still to find.
 
@@ -33,7 +32,7 @@ in CNN, the receptive fields of the neurons at the final layer of the model cove
   <img title="Comparison of accuracy scores Using GAP(5) & without GAP(others)" width="400" height="190" src="https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/3.png?raw=true" alt="Comparison of accuracy scores Using GAP(5) & without GAP(others)">
 </p>
 <center>Fig 2: Comparison of accuracy scores Using GAP(5) & without GAP(others)</center>
-[comment]: <> (![Comparison of accuracy scores Using GAP&#40;5&#41; & without GAP&#40;others&#41;]&#40;https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/3.png?raw=true "Comparison of accuracy scores Using GAP&#40;5&#41; & without GAP&#40;others&#41;"&#41;)
+
 
 
 Large receptive fields in human visual system give human to have a greater degree of visual translation tolerance.
@@ -42,7 +41,7 @@ Large receptive fields in human visual system give human to have a greater degre
   <img title="Accuracy Using GAP over no-GAP" width="400" height="190" src="https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/4.png?raw=true" alt="Accuracy Using GAP over no-GAP">
 </p>
 <center> Fig 3: Accuracy Using GAP over no-GAP</center>
-[comment]: <> (![Accuracy Using GAP over no-GAP]&#40;https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/4.png?raw=true "Accuracy Using GAP over no-GAP"&#41;)
+
 
 ### Notes:
 
@@ -61,7 +60,7 @@ information, thus it is more robust to spatial translations of the input.
   <img title="Global Average Pooling" width="400" height="300" src="https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/2.png?raw=true" alt="Global Average Pooling">
 </p>
 <center> Fig 4: Global Average Pooling</center>
-[comment]: <> (![Global Average Pooling]&#40;https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/2.png?raw=true "Global Average Pooling"&#41;)
+
  
 #### More Study Resources:
 
