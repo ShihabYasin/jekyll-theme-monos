@@ -6,16 +6,15 @@ category: VISION-AI
 tag: deeplearning
 ---
 Key developments:
-- Many-to-Many multilingual translation model(non-English-Centric models) that can translate directly between any pair of 100 languages.
-- Covers thousands of language directions in training data.
-- Transformer-based neural machine translation models.
+1. Many-to-Many multilingual translation model(non-English-Centric models) that can translate directly between any pair of 100 languages. 
+2. Covers thousands of language directions in training data.
+3. Transformer-based neural machine translation models.
 
-<p align="center">
-  <img width="800" height="190" src="https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/5.png?raw=true">
-</p>
-<center>Fig 1: Translating from Chinese to French with Dense + Language-Specific Sparse Model </center>
+    <p align="center"> <img width="800" height="190" src="https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/5.png?raw=true"> </p>
+    <center>Fig 1: Translating from Chinese to French with Dense + Language-Specific Sparse Model </center>
 
-- Controls the distribution of word tokens for different languages found using [SentencePiece](https://web.archive.org/web/20210126045439/https://github.com/google/sentencepiece) from multilingual dataset.
+
+5. Controls the distribution of word tokens for different languages found using [SentencePiece](https://web.archive.org/web/20210126045439/https://github.com/google/sentencepiece) from multilingual dataset.
 - A special token in the encoder indicating the source language and a
 special token in the decoder indicating the target language were added.
 
