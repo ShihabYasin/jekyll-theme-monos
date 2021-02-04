@@ -26,7 +26,7 @@ category: MY-TECH-STACK
 
 ### 3. Natural Language Processing: 
 > * [KenLM](https://github.com/kpu/kenlm): KenLM estimates, filters, and queries language models.
-> * [fairseq](https://github.com/pytorch/fairseq): Sequence modeling toolkit.
+> * [fairseq](https://web.archive.org/web/20201224105639/https://github.com/pytorch/fairseq): Sequence modeling toolkit, [Machine Translation](https://web.archive.org/web/20201101144423/https://github.com/pytorch/fairseq/tree/master/examples/m2m_100)
 > * [G2P](https://github.com/cmusphinx/g2p-seq2seq):  Grapheme-to-Phoneme (G2P) conversion using transformer model from tensor2tensor toolkit.
 > * [kaldi](http://kaldi-asr.org/): LVASR.
 > * [cmusphinx](https://cmusphinx.github.io/): ASR.
@@ -36,6 +36,8 @@ category: MY-TECH-STACK
 > * [NLTK](https://www.nltk.org/): General purpose NLP library.
 > * [polyglot](https://pypi.org/project/polyglot/): Multilingual methods e.g. transliteration.
 > * [TextBlob](https://pypi.org/project/textblob/): General purpose NLP library.
+> * [ibus-avro](https://web.archive.org/web/20201219082607/https://github.com/sarim/ibus-avro) , [jsAvro](https://web.archive.org/web/20201124074359/https://github.com/torifat/jsAvroPhonetic)
+: Transliteration English -> Bengali.
 
 ### 4. Others:
 > * [NumPy](https://numpy.org/): Scientific/Numerical computing with Python.
