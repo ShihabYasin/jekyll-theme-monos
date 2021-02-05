@@ -14,6 +14,12 @@ Published a research paper for Samsung titled ["Customizing Grapheme-to-Phoneme 
 Guided some interns achieving their project goals on time.
 
 
+- **[Context Based Search Using LDA Topic Modelling Algorithm](https://github.com/ShihabYasin/LDA-to-Context-Based-Search)**
+
+  **LDA** is a machine learning algorithm that extracts topics and their related keywords from a collection of documents. Using these information about different documents it is possible to do context based file searching according their relevance with search keyword or document classification based on their context.
+  In LDA, a document may contain several different topics, each with their own related terms. The algorithm uses a probabilistic model for detecting the number of topics specified and extracting their related keywords. For example, a document may contain topics that could be classified as beach-related and weather-related. The beach topic may contain related words, such as sand, ocean, and water. Similarly, the weather topic may contain related words, such as sun, temperature, and clouds.
+
+
 - **Spatio Temporal Relation Extraction From Online News Corpora In Different Languages.** 
    
    Scope: **Relation Extraction** (spatial and temporal together, person-location-time ) from raw web news text in different languages(English, German, Hindi). Different Natural Language Processing techniques and Machine Learning techniques are exercised. **Feature Engineering** was the most critical part that I had already designed common to all experimenting languages. Experimented with **Support Vector Machines** and later **Ensemble Learning**. Before that I designed specialized **annotation scheme** to be applied on collected web data and finally collected in extensible markup language format for further application and improvement. [Here some resources about this project.](https://github.com/ShihabYasin/Person-Location-Time-Association-by-Classification)
@@ -34,6 +40,13 @@ Guided some interns achieving their project goals on time.
 - **Deep-Scaly-Neural-Network-to-recognize-Continuous-Bengali-Sentence.**
    
    Scope: **Speaker recognition** is the identiﬁcation of a person from characteristics of his/her voices and speech recognition concerns the recognizing of what is being said by the speaker.This Project presents a framework to recognize the isolated Bangla words and the corresponding speaker by proposing a semantic **modular time delay neural network** (MTDNN). Underlying acoustic fuzziness of human utterance and ﬂuctuations of data due to environmental disturbance are managed by well-known **Fuzzy C Means clustering** technique. We have used MFCC features to recognize Bangla words and speaker detection. Experimental result with different individuals show that the proposed framework is functioning quite satisfactory with average accuracy of 82.66%. [Here some resources about this project.](https://github.com/ShihabYasin/Deep-Scaly-Neural-Network-to-recognize-Continuous-Bengali-Sentence.)
+
+### **AI**
+
+- [An intelligent Android-ColorPhun-Game-Agent-Using-Deeplearning to play autonomously.](https://github.com/ShihabYasin/Android-ColorPhun-Game-Agent-Using-Deeplearning)
+  
+  This game was played against a trained AI agent by a Human player.
+
 
 ### **Plasma Physics**
 
