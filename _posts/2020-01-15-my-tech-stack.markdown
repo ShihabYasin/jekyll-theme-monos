@@ -11,6 +11,7 @@ category: MY-TECH-STACK
 ### 2. **Machine Learning**:
 > * [PyTorch](https://pytorch.org/), [Keras](https://keras.io/), [Deeplearning4j](https://deeplearning4j.org/), [Moses](https://web.archive.org/web/20210130031610/http://statmt.org/moses/), [Shogun](https://www.shogun-toolbox.org/), [SciKit-Learn](https://scikit-learn.org/stable/), [TensorFlow](https://www.tensorflow.org/), [Tesseract OCR](https://web.archive.org/web/20201220031740/https://github.com/tesseract-ocr/tesseract)
 > * Super Resolution: [waifu2x](https://github.com/nagadomi/waifu2x), [video2x](https://github.com/k4yt3x/video2x)
+
 ### 3. Natural Language Processing: 
 > * [KenLM](https://github.com/kpu/kenlm): Language Model estimates, filters, and queries language models.
 > * [fairseq](https://web.archive.org/web/20201224105639/https://github.com/pytorch/fairseq): Sequence modeling toolkit, [Machine Translation](https://web.archive.org/web/20201101144423/https://github.com/pytorch/fairseq/tree/master/examples/m2m_100)
