@@ -1,8 +1,8 @@
 ---
 layout: post
-title: Some of Research Works
+title: Some of My Research Works
 date: 2017-01-15 19:20:23 +0900
-category: MY-TECH-STACK
+category: RnD
 ---
 
 - NLP 
