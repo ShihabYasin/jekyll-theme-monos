@@ -1,0 +1,46 @@
+---
+layout: post
+title: Some of Research Works
+date: 2017-01-15 19:20:23 +0900
+category: MY-TECH-STACK
+---
+
+- NLP 
+
+1. [Customizing Grapheme-to-Phoneme System for Non-Trivial Transcription Problems in Bangla Language
+publication dateFeb 2019  publication descriptionNorth American Chapter of the Association for Computational Linguistics (NAACL-HLT 2019), At Minneapolis, USA.](https://web.archive.org/web/20200705150821/https://www.aclweb.org/anthology/N19-1322/)
+   
+   Scope: Grapheme to phoneme (G2P) conversion is an integral part of various text and speech processing systems, such as Text to Speech system, Speech Recognition system, etc. The existing methodologies for G2P conversion in Bangla language are mostly rule-based. However, data-driven approaches have proved their superiority over rule-based approaches for large-scale G2P conversion in other languages, such as English, German, etc. As the performance of data-driven approaches for G2P conversion depend largely on pronunciation lexicon on which the system is trained, in this paper, we investigate on developing an improved training lexicon by identifying and categorizing the critical cases in Bangla language and include those critical cases in training lexicon for developing a robust G2P conversion system in Bangla language. Additionally, we have incorporated nasal vowels in our proposed phoneme list. Our methodology outperforms other state-of-the-art approaches for G2P conversion in Bangla language.
+
+
+2. [Isolated Bangla Word Recognition and Speaker Detection by Semantic Modular Time Delay Neural Network (MTDNN), pp-560-565, 18th International Conference on Computer and Information Technology (ICCIT), 21-23 December, 2015](https://web.archive.org/web/20180611013044/https://ieeexplore.ieee.org/document/7488134/).
+
+    Scope: Developed a Neural Network model for Bengali isolated acoustic words recognition on a collected corpus. I used concepts from neuroscience and brain research with the application of Natural Language Processing techniques and Neural Network as Machine Learning approach. Neural network were designed in such a modular way that every module had some semantic role with time delay flavor for increasing experiences with time.   (Undergraduate Final Year Thesis).
+
+
+3. [Extracting semantic relatedness for Bangla words, Technically Co-sponsored by IEEE, IEEE CS, IEICE, IEEE TC-PAMI, IEEJ, JSME, JIN, U of Hyogo
+publication dateMay 2016  publication description5th International Conference on Informatics, Electronics & Vision (ICIEV)](https://web.archive.org/web/20180622095224/https://ieeexplore.ieee.org/document/7760034/)
+   
+   Scope: A framework for extracting semantic relational words in Bangla is presented. Extraction of Synonyms, Antonyms, Hyponym, Hypernym, Meronym, Holonym and Polysemy are primarily investigated as a rule based model. For every word two other things: concept and parts of speech category are also presented for clarification. A semantic analyzer is used to extract these relations from nouns, adjectives and verbs.
+
+- Algorithm 
+
+4. [Transitive Closure Using Path Algebra Algorithm. Published on International Journal of Computer Science Issues, pp. 8-11, Volume 13, Issue 2, March 2016](https://web.archive.org/web/20200721023932/https://www.ijcsi.org/papers/IJCSI-13-2-8-11.pdf). 
+   
+   Scope: Mathematical formulation of algorithm using Max-Plus Algebra to construct transitive closure on any graphs.
+
+- Complexity Theory & Computer Hardware
+
+5. [Hardware Designation for Scaling P=NP Problem. Published in International Journal of Computer Science Issues, pp. 85-88, Volume 13, Issue 1, January 2016, doi:10.20943/IJCSI-201602-8588](https://web.archive.org/web/20200725213624/http://www.ijcsi.org/papers/IJCSI-13-1-85-88.pdf)
+   
+   Scope: One of the fundamental question of computer science P=NP that is intuitively interlinked with many theoretical issues. This paper search for an algorithm or Turing machine equivalent that is reasonably sufficient to cope with this deep problem. Some hardware assistance may enable to get better solution in this respect. In general it shows some analogy that can deal with non-determinism effectively and hope to find some analogical transformation that will help making more powerful solid state computing device.
+
+
+- Software Engineering
+
+6. [A Simple Software Engineering Environment for Coming Decades. Published on International Journal of Education and Management  Engineering(IJEME), Vol.7, No.1,pp.46-53, 2017. DOI: 10.5815/ijeme.2017.01.05](https://web.archive.org/web/20180720083202/http://www.mecs-press.org/ijeme/ijeme-v7-n1/IJEME-V7-N1-5.pdf)
+   Scope: A software engineering environment is proposed for coming days considering major Software Engineering issues hoping that, it will serve as a primary standard of development environment while meeting all demands of developers..
+
+ 
+
+

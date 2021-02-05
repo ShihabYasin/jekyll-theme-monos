@@ -2,7 +2,7 @@
 layout: post 
 title: Fairseq-Multilingual-Translation
 date: 2020-11-03 16:20:23 +0900 
-category: VISION-AI 
+category: NLP
 tag: deeplearning
 ---
 Key developments:
