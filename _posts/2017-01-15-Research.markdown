@@ -30,7 +30,7 @@ publication dateMay 2016  publication description5th International Conference on
    Scope: Mathematical formulation of algorithm using Max-Plus Algebra to construct transitive closure on any graphs.
 
 
-2. Using Prefix Reversals To Looplessly Generate O (1) Time Multiset Permutation By Boustrophedon Linked List
+2. [Using Prefix Reversals To Looplessly Generate O (1) Time Multiset Permutation By Boustrophedon Linked List](https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/files/time-generation.pdf)
    
    Scope: Rigorous mathematical proof constructed for theoretical verification of proposed Algorithm. Simulation results also presented for empirical justifications.
 
