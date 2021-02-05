@@ -1,6 +1,6 @@
 ---
 layout: post 
-title: Fairseq-Multilingual-Translation
+title: Fairseq Multilingual Translation
 date: 2020-11-03 16:20:23 +0900 
 category: NLP
 tag: deeplearning

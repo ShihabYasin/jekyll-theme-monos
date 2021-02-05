@@ -5,7 +5,7 @@ date: 2017-01-15 19:20:23 +0900
 category: RnD
 ---
 
-- NLP 
+### **NLP** 
 
 1. [Customizing Grapheme-to-Phoneme System for Non-Trivial Transcription Problems in Bangla Language
 publication dateFeb 2019  publication descriptionNorth American Chapter of the Association for Computational Linguistics (NAACL-HLT 2019), At Minneapolis, USA.](https://web.archive.org/web/20200705150821/https://www.aclweb.org/anthology/N19-1322/)
@@ -23,22 +23,23 @@ publication dateMay 2016  publication description5th International Conference on
    
    Scope: A framework for extracting semantic relational words in Bangla is presented. Extraction of Synonyms, Antonyms, Hyponym, Hypernym, Meronym, Holonym and Polysemy are primarily investigated as a rule based model. For every word two other things: concept and parts of speech category are also presented for clarification. A semantic analyzer is used to extract these relations from nouns, adjectives and verbs.
 
-- Algorithm 
+### **Algorithm** 
 
-4. [Transitive Closure Using Path Algebra Algorithm. Published on International Journal of Computer Science Issues, pp. 8-11, Volume 13, Issue 2, March 2016](https://web.archive.org/web/20200721023932/https://www.ijcsi.org/papers/IJCSI-13-2-8-11.pdf). 
+1. [Transitive Closure Using Path Algebra Algorithm. Published on International Journal of Computer Science Issues, pp. 8-11, Volume 13, Issue 2, March 2016](https://web.archive.org/web/20200721023932/https://www.ijcsi.org/papers/IJCSI-13-2-8-11.pdf). 
    
    Scope: Mathematical formulation of algorithm using Max-Plus Algebra to construct transitive closure on any graphs.
 
-- Complexity Theory & Computer Hardware
+### **Complexity Theory & Computer Hardware**
 
-5. [Hardware Designation for Scaling P=NP Problem. Published in International Journal of Computer Science Issues, pp. 85-88, Volume 13, Issue 1, January 2016, doi:10.20943/IJCSI-201602-8588](https://web.archive.org/web/20200725213624/http://www.ijcsi.org/papers/IJCSI-13-1-85-88.pdf)
+1. [Hardware Designation for Scaling P=NP Problem. Published in International Journal of Computer Science Issues, pp. 85-88, Volume 13, Issue 1, January 2016, doi:10.20943/IJCSI-201602-8588](https://web.archive.org/web/20200725213624/http://www.ijcsi.org/papers/IJCSI-13-1-85-88.pdf)
    
    Scope: One of the fundamental question of computer science P=NP that is intuitively interlinked with many theoretical issues. This paper search for an algorithm or Turing machine equivalent that is reasonably sufficient to cope with this deep problem. Some hardware assistance may enable to get better solution in this respect. In general it shows some analogy that can deal with non-determinism effectively and hope to find some analogical transformation that will help making more powerful solid state computing device.
 
 
-- Software Engineering
+### **Software Engineering**
 
-6. [A Simple Software Engineering Environment for Coming Decades. Published on International Journal of Education and Management  Engineering(IJEME), Vol.7, No.1,pp.46-53, 2017. DOI: 10.5815/ijeme.2017.01.05](https://web.archive.org/web/20180720083202/http://www.mecs-press.org/ijeme/ijeme-v7-n1/IJEME-V7-N1-5.pdf)
+1. [A Simple Software Engineering Environment for Coming Decades. Published on International Journal of Education and Management  Engineering(IJEME), Vol.7, No.1,pp.46-53, 2017. DOI: 10.5815/ijeme.2017.01.05](https://web.archive.org/web/20180720083202/http://www.mecs-press.org/ijeme/ijeme-v7-n1/IJEME-V7-N1-5.pdf)
+   
    Scope: A software engineering environment is proposed for coming days considering major Software Engineering issues hoping that, it will serve as a primary standard of development environment while meeting all demands of developers..
 
  
