@@ -15,7 +15,7 @@ publication dateFeb 2019  publication descriptionNorth American Chapter of the A
 
 2. [Isolated Bangla Word Recognition and Speaker Detection by Semantic Modular Time Delay Neural Network (MTDNN), pp-560-565, 18th International Conference on Computer and Information Technology (ICCIT), 21-23 December, 2015](https://web.archive.org/web/20180611013044/https://ieeexplore.ieee.org/document/7488134/).
 
-    Scope: Developed a Neural Network model for Bengali isolated acoustic words recognition on a collected corpus. I used concepts from neuroscience and brain research with the application of Natural Language Processing techniques and Neural Network as Machine Learning approach. Neural network were designed in such a modular way that every module had some semantic role with time delay flavor for increasing experiences with time.   (Undergraduate Final Year Thesis).
+    Scope: Developed a Neural Network model for Bengali isolated acoustic words recognition on a collected corpus. I used concepts from neuroscience and brain research with the application of Natural Language Processing techniques and Neural Network as Machine Learning approach. Neural network were designed in such a modular way that every module had some semantic role with time delay flavor for increasing experiences with time.   (Undergraduate Final Year Thesis, supervisor [Moshiul Hoque, PhD](https://www.researchgate.net/profile/Moshiul_Hoque).)
 
 
 3. [Extracting semantic relatedness for Bangla words, Technically Co-sponsored by IEEE, IEEE CS, IEICE, IEEE TC-PAMI, IEEJ, JSME, JIN, U of Hyogo
@@ -29,6 +29,16 @@ publication dateMay 2016  publication description5th International Conference on
    
    Scope: Mathematical formulation of algorithm using Max-Plus Algebra to construct transitive closure on any graphs.
 
+
+2. Using Prefix Reversals To Looplessly Generate O (1) Time Multiset Permutation By Boustrophedon Linked List
+   
+   Scope: Rigorous mathematical proof constructed for theoretical verification of proposed Algorithm. Simulation results also presented for empirical justifications.
+
+
+3. [Simulating mathematical structure of different types built on different theories of Particle Physics using Partial Differential Equation, getting useful data, analyzing graphically and statistically those data for further analysis and visualization.  Also contributed theoretically on some aspects of the above mentioned novel method.](https://github.com/ShihabYasin/Research-on-Plasma-Physics/blob/master/BSS%20EQN%20MATERIALS_PAPER_.pdf)
+   Worked with [M. Golam Hafez, M. Phill, PhD](https://www.researchgate.net/profile/Md-Hafez). 
+   
+
 ### **Complexity Theory & Computer Hardware**
 
 1. [Hardware Designation for Scaling P=NP Problem. Published in International Journal of Computer Science Issues, pp. 85-88, Volume 13, Issue 1, January 2016, doi:10.20943/IJCSI-201602-8588](https://web.archive.org/web/20200725213624/http://www.ijcsi.org/papers/IJCSI-13-1-85-88.pdf)
@@ -40,7 +50,11 @@ publication dateMay 2016  publication description5th International Conference on
 
 1. [A Simple Software Engineering Environment for Coming Decades. Published on International Journal of Education and Management  Engineering(IJEME), Vol.7, No.1,pp.46-53, 2017. DOI: 10.5815/ijeme.2017.01.05](https://web.archive.org/web/20180720083202/http://www.mecs-press.org/ijeme/ijeme-v7-n1/IJEME-V7-N1-5.pdf)
    
-   Scope: A software engineering environment is proposed for coming days considering major Software Engineering issues hoping that, it will serve as a primary standard of development environment while meeting all demands of developers..
+   Scope: A software engineering environment is proposed for coming days considering major Software Engineering issues hoping that, it will serve as a primary standard of development environment while meeting all demands of developers.
+
+
+
+
 
  
 

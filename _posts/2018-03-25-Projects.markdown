@@ -1,0 +1,48 @@
+---
+layout: post
+title: Some of My Project Works
+date: 2017-01-15 19:20:23 +0900
+category: Projects
+---
+### **NLP** 
+
+1. **Spatio Temporal Relation Extraction From Online News Corpora In Different Languages.** 
+   
+   Scope: **Relation Extraction** (spatial and temporal together, person-location-time ) from raw web news text in different languages(English, German, Hindi). Different Natural Language Processing techniques and Machine Learning techniques are exercised. **Feature Engineering** was the most critical part that I had already designed common to all experimenting languages. Experimented with **Support Vector Machines** and later **Ensemble Learning**. Before that I designed specialized **annotation scheme** to be applied on collected web data and finally collected in extensible markup language format for further application and improvement. [Here some resources about this project.](https://github.com/ShihabYasin/Person-Location-Time-Association-by-Classification)
+   
+   This project was from [Language Technologies Institute, School of Computer Science, Carnegie Mellon University](https://www.lti.cs.cmu.edu/) under supervision of [Judith Gelernter, PhD](https://web.archive.org/web/20200923140503/http://www.cs.cmu.edu/~gelernter/)
+
+
+2. **Isolated Bangla Word Recognition** and **Speaker Detection** by Semantic Modular Time Delay **Neural Network**.
+
+    Scope: Developed a Neural Network model for Bengali isolated acoustic words recognition on a collected corpus. I used concepts from **Neuroscience** and **brain research** with the application of **Natural Language Processing** techniques and Neural Network as **Machine Learning** approach. Neural network were designed in such a modular way that every **module had some semantic role** with time delay receptors for increasing experiences with time.   [Here some resources about this project.](https://github.com/ShihabYasin/Isolated-Bengali-Word-and-Speaker-Recognition.).
+
+
+3. **Extracting Semantic Relatedness For Bangla Words.**
+   
+   A framework for extracting **semantic relational words** in Bangla is presented in this project. Here extraction of **Synonyms, Antonyms, Hyponym, Hypernym, Meronym, Holonym** and **Polysemy** are primarily investigated as a rule based model. For every word two other things: concept and parts of speech category are also presented for clarification. A **semantic analyzer** is used to extract these relations from nouns, adjectives and verbs. [Here some resources about this project.](https://github.com/ShihabYasin/Extracting-Semantic-Relatedness-For-Bangla-Words)
+
+
+4. **Deep-Scaly-Neural-Network-to-recognize-Continuous-Bengali-Sentence.**
+   
+   Scope: **Speaker recognition** is the identiﬁcation of a person from characteristics of his/her voices and speech recognition concerns the recognizing of what is being said by the speaker.This Project presents a framework to recognize the isolated Bangla words and the corresponding speaker by proposing a semantic **modular time delay neural network** (MTDNN). Underlying acoustic fuzziness of human utterance and ﬂuctuations of data due to environmental disturbance are managed by well-known **Fuzzy C Means clustering** technique. We have used MFCC features to recognize Bangla words and speaker detection. Experimental result with different individuals show that the proposed framework is functioning quite satisfactory with average accuracy of 82.66%. [Here some resources about this project.](https://github.com/ShihabYasin/Deep-Scaly-Neural-Network-to-recognize-Continuous-Bengali-Sentence.)
+
+### **Plasma Physics**
+
+1. **Solitary and periodic wave solutions of the fourth order Boussinesq equation through the novel exponential expansion method.**
+
+   Worked with [M. Golam Hafez](https://www.researchgate.net/profile/Md-Hafez). Simulating mathematical structure of different types built on different theories of **Particle Physics** using **Partial Differential Equation**, getting useful data, analyzing graphically and statistically those data for further **analysis and visualization**.  Also contributed theoretically on some aspects of the above mentioned novel method. [Here some resources about this project.](https://github.com/ShihabYasin/Research-on-Plasma-Physics)
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
