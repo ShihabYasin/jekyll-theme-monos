@@ -36,8 +36,7 @@ category: MY-TECH-STACK
 > * [NLTK](https://www.nltk.org/): General purpose NLP library.
 > * [polyglot](https://pypi.org/project/polyglot/): Multilingual methods e.g. transliteration.
 > * [TextBlob](https://pypi.org/project/textblob/): General purpose NLP library.
-> * [ibus-avro](https://web.archive.org/web/20201219082607/https://github.com/sarim/ibus-avro) , [jsAvro](https://web.archive.org/web/20201124074359/https://github.com/torifat/jsAvroPhonetic)
-: Transliteration English -> Bengali.
+> * [ibus-avro](https://web.archive.org/web/20201219082607/https://github.com/sarim/ibus-avro) , [jsAvro](https://web.archive.org/web/20201124074359/https://github.com/torifat/jsAvroPhonetic): Transliteration English -> Bengali.
 
 ### 4. Others:
 > * [NumPy](https://numpy.org/): Scientific/Numerical computing with Python.
