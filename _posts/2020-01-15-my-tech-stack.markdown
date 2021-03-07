@@ -30,7 +30,7 @@ category: MY-TECH-STACK
 > * [ibus-avro](https://web.archive.org/web/20201219082607/https://github.com/sarim/ibus-avro) , [jsAvro](https://web.archive.org/web/20201124074359/https://github.com/torifat/jsAvroPhonetic): Transliteration English -> Bengali.
 
 ### 4. Others:
-> * [NumPy](https://numpy.org/), [SciPy](https://www.scipy.org/), [Matplotlib](https://matplotlib.org/), [Pandas](https://pandas.pydata.org/), [BeautifulSoup](https://pypi.org/project/beautifulsoup4/), [OpenCV](https://pypi.org/project/opencv-python/), [Pillow/PIL](https://pypi.org/project/Pillow/)
+> * [NumPy](https://numpy.org/), [SciPy](https://www.scipy.org/), [Matplotlib](https://matplotlib.org/), [Pandas](https://pandas.pydata.org/), [BeautifulSoup](https://pypi.org/project/beautifulsoup4/), [OpenCV](https://pypi.org/project/opencv-python/), [Pillow/PIL](https://pypi.org/project/Pillow/), [Selenium](https://web.archive.org/web/20210224162818/https://pypi.org/project/selenium/)
 
 
 ### 5. OS:
