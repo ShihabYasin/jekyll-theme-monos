@@ -6,8 +6,6 @@ category: Certificates
 tag: Certificates
 ---
 
-# Here listing some of my certificates of completion:
-
 ### DevOps
 1. [**Automating Container Management with Ansible**](https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/CertificatesOfCompletion/Automating%20Container%20Management%20with%20Ansible.pdf)
 2. [**Implementing an Event Log with Kafka**](https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/CertificatesOfCompletion/Implementing%20an%20Event%20Log%20with%20Kafka.pdf)
