@@ -2,7 +2,7 @@
 layout: post 
 title: Some of My Certificates of Completion
 date: 2020-11-03 16:20:23 +0902 
-category: CertificatesOfCompletion
+category: Certificates
 tag: Certificates
 ---
 
