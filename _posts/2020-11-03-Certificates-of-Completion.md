@@ -2,12 +2,23 @@
 layout: post 
 title: Some of My Certificates of Completion
 date: 2020-11-03 16:20:23 +0901 
-category: Certificates of Completion
-tag: deeplearning
+category: Certificates-of-Completion
+tag: Certificates
 ---
 
-Here listing some of my certificates:
+#Here listing some of my certificates of completion:
 
-[**NER-Paper-1**](https://myspaceofgithub.github.io/ner/1/)
+### DevOps
+1. [**Automating Container Management with Ansible**](https://github.com/ShihabYasin/shihabyasin.github.
+io/blob/gh-pages/CertificatesOfCompletion/Automating%Container%Management%with%Ansible.pdf)
+2. [**Implementing an Event Log with Kafka**](https://github.com/ShihabYasin/shihabyasin.github.
+   io/blob/gh-pages/CertificatesOfCompletion/Implementing%an%Event%Log%with%Kafka.pdf)
+3. [**Managing Advanced Kubernetes Logging and Tracing**](https://github.com/ShihabYasin/shihabyasin.github.
+   io/blob/gh-pages/CertificatesOfCompletion/Managing%Advanced%Kubernetes%Logging%and%Tracing.pdf)
+4. [**Monitoring and Event Response on AWS for DevOps Engineers**](https://github.com/ShihabYasin/shihabyasin.github.
+   io/blob/gh-pages/CertificatesOfCompletion/Monitoring%and%Event%Response%on%AWS%for%DevOps%Engineers.pdf)
 
-[**NER-Paper-2**](https://myspaceofgithub.github.io/ner/2/)
+
+### Git
+1. [**Advanced Git Tips and Tricks**](https://github.com/ShihabYasin/shihabyasin.github.
+io/blob/gh-pages/CertificatesOfCompletion/Advanced%Git%Tips%and%Tricks.pdf)
