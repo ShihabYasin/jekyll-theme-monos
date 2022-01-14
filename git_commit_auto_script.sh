@@ -13,6 +13,6 @@ git add .
 currentDate=`date +"%Y-%m-%d %T"`
 git commit -m  currentDate
 git pull origin main
-git push origin main
+git push -u origin main
 
 exit 1
