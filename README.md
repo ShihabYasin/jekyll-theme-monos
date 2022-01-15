@@ -43,14 +43,3 @@ Software R&D on different Machine Learning, NLP projects, designing custom AI so
 
   Samsung NLP & NLU Research, Mobile, Smart-Watch development.
 
-
-
-
-<!-- Original link of my published papers, if null collect from here https://web.archive.org/
-
-https://www.mecs-press.org/ijeme/ijeme-v7-n1/IJEME-V7-N1-5.pdf
-https://ieeexplore.ieee.org/document/7760034
-http://www.ijcsi.org/papers/IJCSI-13-2-8-11.pdf
-http://www.ijcsi.org/papers/IJCSI-13-1-85-88.pdf
-http://www.ijcsi.org/papers/IJCSI-13-1-85-88.pdf
-https://ieeexplore.ieee.org/document/7488134 />
