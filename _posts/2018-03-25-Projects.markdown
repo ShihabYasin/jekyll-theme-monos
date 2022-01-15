@@ -9,7 +9,7 @@ category: Projects
 - **Automatic Speech Recognition (ASR) for [Bixby](https://web.archive.org/web/20210131060707/https://www.samsung.com/us/explore/bixby/) Bengali**.
   * Conducted in [**Samsung Research, Bangladesh**](https://web.archive.org/web/20201020003706/https://research.samsung.com/srbd)
 
-  Scope: [SRBD]((https://web.archive.org/web/20201020003706/https://research.samsung.com/srbd)) [Icon of The month](https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/srbd-iom.jpeg) (July-August 2018) for outstanding contribution to the development of Bangla ASR PoC, participation on an international NLP Workshop in Jordan and inauguration of a collaborative ASR project with BUET professor [Muhammad Abdullah Adnan, PhD](https://web.archive.org/web/20201022201402/https://sites.google.com/site/abdullahadnan/ ) and his students on the development of a full scale Bangla ASR for Samsung Electronics.
+  Scope: [SRBD](https://web.archive.org/web/20201020003706/https://research.samsung.com/srbd) [Icon of The month](https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/srbd-iom.jpeg) (July-August 2018) for outstanding contribution to the development of Bangla ASR PoC, participation on an international NLP Workshop in Jordan and inauguration of a collaborative ASR project with BUET professor [Muhammad Abdullah Adnan, PhD](https://web.archive.org/web/20201022201402/https://sites.google.com/site/abdullahadnan/ ) and his students on the development of a full scale Bangla ASR for Samsung Electronics.
 Published a research paper for Samsung titled ["Customizing Grapheme-to-Phoneme System for Non-Trivial Transcription Problems in Bangla Language" on North American Chapter of the Association for Computational Linguistics (NAACL-HLT 2019), At Minneapolis, USA.]((https://web.archive.org/web/20200705150821/https://www.aclweb.org/anthology/N19-1322/))
 Guided some interns achieving their project goals on time.
 
@@ -35,11 +35,6 @@ Guided some interns achieving their project goals on time.
 - **Extracting Semantic Relatedness For Bangla Words.**
    
    A framework for extracting **semantic relational words** in Bangla is presented in this project. Here extraction of **Synonyms, Antonyms, Hyponym, Hypernym, Meronym, Holonym** and **Polysemy** are primarily investigated as a rule based model. For every word two other things: concept and parts of speech category are also presented for clarification. A **semantic analyzer** is used to extract these relations from nouns, adjectives and verbs. [Here some resources about this project.](https://github.com/ShihabYasin/Extracting-Semantic-Relatedness-For-Bangla-Words)
-
-
-- **Deep-Scaly-Neural-Network-to-recognize-Continuous-Bengali-Sentence.**
-   
-   Scope: **Speaker recognition** is the identiﬁcation of a person from characteristics of his/her voices and speech recognition concerns the recognizing of what is being said by the speaker.This Project presents a framework to recognize the isolated Bangla words and the corresponding speaker by proposing a semantic **modular time delay neural network** (MTDNN). Underlying acoustic fuzziness of human utterance and ﬂuctuations of data due to environmental disturbance are managed by well-known **Fuzzy C Means clustering** technique. We have used MFCC features to recognize Bangla words and speaker detection. Experimental result with different individuals show that the proposed framework is functioning quite satisfactory with average accuracy of 82.66%. [Here some resources about this project.](https://github.com/ShihabYasin/Deep-Scaly-Neural-Network-to-recognize-Continuous-Bengali-Sentence.)
 
 ### **AI**
 
