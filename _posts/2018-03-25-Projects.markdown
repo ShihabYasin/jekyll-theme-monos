@@ -8,12 +8,12 @@ category: Projects
 ### **NLP**
 
 
-- **[KinderMate Kids Videos(Android)](https://play.google.com/store/apps/details?id=com.kindermate.kai)**
+- **[KinderMate Kids Videos(Android)](https://web.archive.org/web/20210510000318/https://play.google.com/store/apps/details?id=com.kindermate.kai)**
 
   Worked on topic modelling, Automatic Bot-QA, turn text response, text similarity, LDA, tf-idf, exceptional question/slang filtering etc. This app is for your child to discover top kids videos, songs and other learning content.
 
 
-- **[Commchat (Android)](https://play.google.com/store/apps/details?id=com.ccp.comm)**
+- **[Commchat (Android)](https://web.archive.org/web/20211004182141/https://play.google.com/store/apps/details?id=com.ccp.comm)**
 
   Worked on topic modelling, Automatic Bot-QA, turn text response, text similarity, LDA, tf-idf, exceptional question/slang filtering etc. This is a messaging and calling app that delivers the utmost privacy and security.
 
