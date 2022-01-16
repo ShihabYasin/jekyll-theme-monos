@@ -60,10 +60,9 @@ tag: deeplearning
   "Unknown" or <unk>, as well as a begin-of-sentence,     "< s >" token, but no end-of-sentence, "< /s >"  token. This sadly has to be corrected currently after the 
   build.
   
-  We can simply add the end-of-sentence token by adding the line 0 </s> -0.11831701(say it's for <s>) below the 
-  begin-of-sentence token and increasing the ngram 1 count by 1. Because the file has roughly 100 million lines, this command will take ca. 2 minutes.
+  We can simply add the end-of-sentence token by adding the line 0 "</s>" -0.11831701(say -0.11831701 is for "<s>")below the begin-of-sentence token and increasing the ngram 1 count by 1.
 
-    ```python
+```python
     with open ("5gram.arpa", "r") as read_file, open ("5gram_correct.arpa", "w") as write_file:
      has_added_eos = False
      for line in read_file:
@@ -76,7 +75,7 @@ tag: deeplearning
        has_added_eos = True
       else:
        write_file.write (line)
-    ```
+```
 
 ### References:
 
