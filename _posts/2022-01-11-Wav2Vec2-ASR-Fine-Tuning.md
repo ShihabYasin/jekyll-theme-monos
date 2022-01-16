@@ -47,11 +47,11 @@ https://www.reddit.com/r/MachineLearning/comments/genjvb/d_why_is_the_maximum_in
   lines to filter all sequences that are longer than 5 seconds for training.
 
 
-```python
+  ```python
 max_input_length_in_sec = 5.0
 common_voice_train = common_voice_train.filter(lambda x: x < max_input_length_in_sec * processor.feature
 
-```
+  ```
 
 
 8. N-gram KenLM Integration(with fine tuned model) :
