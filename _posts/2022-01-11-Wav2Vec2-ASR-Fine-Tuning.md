@@ -21,15 +21,15 @@ tag: deeplearning
   XLS-R models checkpoints should always use the attention_mask.
 
 
-```python
-from transformers import Wav2Vec2FeatureExtractor
-feature_extractor = Wav2Vec2FeatureExtractor(feature_size=1, sampling_rate=16000, padding_value=0.0, do_normalize=True, return_attention_mask=True)
-
-Preprocess Data: audio resampler given by hugging face
-
-common_voice_train = common_voice_train.cast_column("audio", Audio(sampling_rate=16_000))
-common_voice_test = common_voice_test.cast_column("audio", Audio(sampling_rate=16_000))
-```
+    ```python
+    from transformers import Wav2Vec2FeatureExtractor
+    feature_extractor = Wav2Vec2FeatureExtractor(feature_size=1, sampling_rate=16000, padding_value=0.0, do_normalize=True, return_attention_mask=True)
+    
+    Preprocess Data: audio resampler given by hugging face
+    
+    common_voice_train = common_voice_train.cast_column("audio", Audio(sampling_rate=16_000))
+    common_voice_test = common_voice_test.cast_column("audio", Audio(sampling_rate=16_000))
+    ```
 
 
 5. After above code listen for some random audio for quality check .
@@ -47,11 +47,11 @@ https://www.reddit.com/r/MachineLearning/comments/genjvb/d_why_is_the_maximum_in
   lines to filter all sequences that are longer than 5 seconds for training.
 
 
-  ```python
-max_input_length_in_sec = 5.0
-common_voice_train = common_voice_train.filter(lambda x: x < max_input_length_in_sec * processor.feature
-
-  ```
+    ```python
+    max_input_length_in_sec = 5.0
+    common_voice_train = common_voice_train.filter(lambda x: x < max_input_length_in_sec * processor.feature
+  
+    ```
 
 
 8. N-gram KenLM Integration(with fine tuned model) :
