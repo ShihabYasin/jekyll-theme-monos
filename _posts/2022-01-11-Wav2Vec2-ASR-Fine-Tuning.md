@@ -57,10 +57,10 @@ tag: deeplearning
 8. N-gram KenLM Integration(with fine tuned model) :
 
   There is a small problem that 🤗 Transformers will not be happy about later on. The 5-gram correctly includes a 
-  "Unknown" or <unk>, as well as a begin-of-sentence,     "< s >" token, but no end-of-sentence, "< /s >"  token. This sadly has to be corrected currently after the 
+  "Unknown" or <unk>, as well as a begin-of-sentence,     ```< s >``` token, but no end-of-sentence, ```"< /s >" ``` token. This sadly has to be corrected currently after the 
   build.
   
-  We can simply add the end-of-sentence token by adding the line 0 "</s>" -0.11831701(say -0.11831701 is for "<s>")below the begin-of-sentence token and increasing the ngram 1 count by 1.
+  We can simply add the end-of-sentence token by adding the line 0 ```</s>``` -0.11831701(say -0.11831701 is for ```<s>```)below the begin-of-sentence token and increasing the ngram 1 count by 1.
 
 ```python
     with open ("5gram.arpa", "r") as read_file, open ("5gram_correct.arpa", "w") as write_file:
@@ -79,14 +79,13 @@ tag: deeplearning
 
 ### References:
 
-1. [SpecAugment: A Simple Data Augmentation Method for Automatic Speech Recognition](https://arxiv.org/abs/1904.08779)
-2. [UNSUPERVISED CROSS-LINGUAL REPRESENTATION LEARNING FOR SPEECH RECOGNITION](https://arxiv.org/pdf/2006.13979.pdf)
-3. [Sequence Modeling With CTC](https://distill.pub/2017/ctc/)
-4. [wav2vec 2.0: A Framework for Self-Supervised Learning of Speech Representations](https://arxiv.org/abs/2006.11477)
-5. [Fine-Tune Wav2Vec2 for English ASR with 🤗 Transformers](https://huggingface.co/blog/fine-tune-wav2vec2-english)
+1. [SpecAugment: A Simple Data Augmentation Method for Automatic Speech Recognition](https://web.archive.org/web/20211124160343/https://arxiv.org/pdf/1904.08779.pdf)
+2. [UNSUPERVISED CROSS-LINGUAL REPRESENTATION LEARNING FOR SPEECH RECOGNITION](https://web.archive.org/web/20211101231430/https://arxiv.org/pdf/2006.13979.pdf)
+3. [Sequence Modeling With CTC](https://web.archive.org/web/20211207021548/https://distill.pub/2017/ctc/)
+4. [wav2vec 2.0: A Framework for Self-Supervised Learning of Speech Representations](https://web.archive.org/web/20220105140507/https://arxiv.org/pdf/2006.11477.pdf)
+5. [Fine-Tune Wav2Vec2 for English ASR with 🤗 Transformers](https://web.archive.org/web/20211220033856/https://huggingface.co/blog/fine-tune-wav2vec2-english)
 6. [An Illustrated Tour of Wav2vec 2.0](https://huggingface.co/blog/fine-tune-wav2vec2-english)
 
-7. [Fine-Tune Wav2Vec2 for English ASR with 🤗 Transformers](https://huggingface.co/blog/fine-tune-wav2vec2-english)
 
 
 
