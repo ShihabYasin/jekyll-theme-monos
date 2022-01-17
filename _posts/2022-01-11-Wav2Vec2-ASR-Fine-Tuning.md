@@ -1,6 +1,6 @@
 ---
 layout: post 
-title: Wav2Vec2 ASR Fine Tuning (Notes)
+title: Wav2Vec2 Huggingface ASR Fine Tuning (Notes)
 date: 2020-11-03 16:20:23 +0900 
 category: NLP
 tag: deeplearning
@@ -82,13 +82,11 @@ tag: deeplearning
 1. [SpecAugment: A Simple Data Augmentation Method for Automatic Speech Recognition](https://arxiv.org/abs/1904.08779)
 2. [UNSUPERVISED CROSS-LINGUAL REPRESENTATION LEARNING FOR SPEECH RECOGNITION](https://arxiv.org/pdf/2006.13979.pdf)
 3. [Sequence Modeling With CTC](https://distill.pub/2017/ctc/)
-
-Read part below:
 4. [wav2vec 2.0: A Framework for Self-Supervised Learning of Speech Representations](https://arxiv.org/abs/2006.11477)
 5. [Fine-Tune Wav2Vec2 for English ASR with 🤗 Transformers](https://huggingface.co/blog/fine-tune-wav2vec2-english)
 6. [An Illustrated Tour of Wav2vec 2.0](https://huggingface.co/blog/fine-tune-wav2vec2-english)
 
-
+7. [Fine-Tune Wav2Vec2 for English ASR with 🤗 Transformers](https://huggingface.co/blog/fine-tune-wav2vec2-english)
 
 
 
