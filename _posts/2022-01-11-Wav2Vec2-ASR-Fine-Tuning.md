@@ -84,7 +84,7 @@ tag: deeplearning
 3. [Sequence Modeling With CTC](https://web.archive.org/web/20211207021548/https://distill.pub/2017/ctc/)
 4. [wav2vec 2.0: A Framework for Self-Supervised Learning of Speech Representations](https://web.archive.org/web/20220105140507/https://arxiv.org/pdf/2006.11477.pdf)
 5. [Fine-Tune Wav2Vec2 for English ASR with 🤗 Transformers](https://web.archive.org/web/20211220033856/https://huggingface.co/blog/fine-tune-wav2vec2-english)
-6. [An Illustrated Tour of Wav2vec 2.0](https://huggingface.co/blog/fine-tune-wav2vec2-english)
+6. [An Illustrated Tour of Wav2vec 2.0](https://web.archive.org/web/20211220033856/https://huggingface.co/blog/fine-tune-wav2vec2-english)
 
 
 
