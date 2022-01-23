@@ -86,22 +86,32 @@ tag: deeplearning
 5. [Fine-Tune Wav2Vec2 for English ASR with 🤗 Transformers](https://web.archive.org/web/20211220033856/https://huggingface.co/blog/fine-tune-wav2vec2-english)
 6. [An Illustrated Tour of Wav2vec 2.0](https://web.archive.org/web/20211210152148/https://jonathanbgn.com/2021/09/30/illustrated-wav2vec-2.html)
 
-Rough:
 
 
-fine-tune:
 
 
-1. https://huggingface.co/arijitx/wav2vec2-large-xlsr-bengali
 
-2. https://huggingface.co/tanmoyio/wav2vec2-large-xlsr-bengali4. 
+[//]: # (Rough:)
 
-Other Resources:
+[//]: # (fine-tune:)
 
-4. (Base)Germnan FineTuning :https://huggingface.co/diego-fustes/wav2vec2-large-xlsr-gl
-5. 1. https://github.com/voidful/wav2vec2-xlsr-multilingual-56
+[//]: # ()
+[//]: # ()
+[//]: # (1. https://huggingface.co/arijitx/wav2vec2-large-xlsr-bengali)
 
- 
+[//]: # ()
+[//]: # (2. https://huggingface.co/tanmoyio/wav2vec2-large-xlsr-bengali4. )
+
+[//]: # ()
+[//]: # (Other Resources:)
+
+[//]: # ()
+[//]: # (4. &#40;Base&#41;Germnan FineTuning :https://huggingface.co/diego-fustes/wav2vec2-large-xlsr-gl)
+
+[//]: # (5. 1. https://github.com/voidful/wav2vec2-xlsr-multilingual-56)
+
+[//]: # ()
+[//]: # ( )
 
 
 
