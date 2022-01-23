@@ -2,7 +2,7 @@
 layout: post 
 title: PyTorch (Notes)
 date: 2020-11-03 16:20:23 +0900 
-category: ML
+category: Rough
 tag: deeplearning
 ---
 
