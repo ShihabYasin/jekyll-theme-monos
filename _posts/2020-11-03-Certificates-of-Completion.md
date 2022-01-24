@@ -1,7 +1,7 @@
 ---
 layout: post 
 title: Some of My Certificates of Completion
-date: 2020-11-03 16:20:23 +0903 
+date: 2020-11-03 16:20:23 +0903
 category: Certificates
 ---
 
