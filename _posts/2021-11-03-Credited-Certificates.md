@@ -3,7 +3,6 @@ layout: post
 title: Some of My Credited Certificates
 date: 2020-12-03 16:20:23 +0902
 category: Certificates
-tag: Certificates
 ---
 Some of My Credited Certificate(s):
 
