@@ -3,7 +3,7 @@ layout: post
 title: Test Automation of Python project in Dockerized Jenkins
 date: 2020-12-05 16:20:23 +0900 
 category: DevOps
-tag: deeplearning
+tag: Jenkins
 ---
 # Test Automation of Python project in Dockerized Jenkins
 
