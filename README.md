@@ -7,15 +7,15 @@ permalink: /about/
 Yasin Shihab
 ============
 
-> - [shihabyasin@gmail.com]()
+- [shihabyasin@gmail.com]()
 
-> **Software people, love to code, practice software engineering ethics & create soft-stuffs.**
+**Software people, love to code, practice software engineering ethics & create soft-stuffs.**
 
-> **Technology domain interest:** Software development, Machine Learning, 
+**Technology domain interest:** Software development, Machine Learning, 
 Natural language processing, DevOps. 
 
 
-> I also love to hear & study people from different expertise like Philosophy, Mathematics, Physics, Cognitive computational neuroscience and Psychology.
+I also love to hear & study people from different expertise like Philosophy, Mathematics, Physics, Cognitive computational neuroscience and Psychology.
 
 
 ### [**My Tech Stack**](https://shihabyasin.github.io/my-tech-stack/2020/01/15/my-tech-stack.html) | [My Short CV/Résumé](https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/cv/Yasin_Resume.pdf)   
@@ -28,11 +28,11 @@ Natural language processing, DevOps.
 
 
 ## Education: 
-> 2011-2015 :   **BSc, Computer Science and Engineering**; Chittagong University of Engineering & Technology, Bangladesh.
+2011-2015 :   **BSc, Computer Science and Engineering**; Chittagong University of Engineering & Technology, Bangladesh.
 
 ## Industry Experience:
 
-> **Current: Senior Software Engineer @ TigerIT Bangladesh Ltd**
+**Current: Senior Software Engineer @ TigerIT Bangladesh Ltd**
 
 * Developed production pipeline for Speech Recognition, Multilingual Machine Translation, Text to Speech System. Improved Bengali Phoneme Transcription Standard, Language Modeling/Integration.
 * Developed Commchat Android app's different ML/NLP & phonetic typing features.
@@ -43,7 +43,7 @@ Natural language processing, DevOps.
 * Improved image tampering classification(using VGG etc.), deepfake detection.
 * Lead a data collection team for machine learning projects.
 
-> **Previous: Senior Software Engineer @ Samsung Electronics**
+**Previous: Senior Software Engineer @ Samsung Electronics**
 
 * Developed Bengali Speech Recognition System with customized Bengali phonemes that earned a funded project from Samsung HQ(Seoul,South Korea) & awarded icon of the month (July-August 2018) for outstanding contribution to the development of Bangla ASR.
 * Code review,codebase improvement for Samsung SDK & Tizen SDK,tracking/reproducing bug reports from app developers/user queries,find out solutions. This helps Samsung & Tizen Developers a lot in the process of monetization using Samsung & Tizen SDKs. Exposed with Zendesk, Confluence.
