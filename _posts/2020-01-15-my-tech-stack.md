@@ -7,7 +7,7 @@ category: MY-TECH-STACK
 
 ### 1. Development:
 * Python, C,C++, Flask, Django, MongoDB, PostgreSQL, RabbitMQ, Redis, Celery, Docker, Nginx, Gunicorn, Jenkins, Git, Selenium, MySQL
-* NumPy, SciPy, Matplotlib, Pandas, Jupyter, PyMySQL, PyMongo, SQLAlchemy, pytest, redis-py, torch-audio
+* NumPy, SciPy, Matplotlib, Pandas, Jupyter, PyMySQL, PyMongo, SQLAlchemy, pytest, unittest, redis-py, torch-audio
 * **OS:** Linux(Bash), Android 
 
 
