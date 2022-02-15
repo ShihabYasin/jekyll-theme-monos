@@ -26,13 +26,13 @@ to translate N languages to N other languages.
 4. trained with temperature upsampling, which upsamples lower resource pairs so that the high resource languages do not dominate the training data.
 
 <p align="center">
-  <img title="" width="200" height="80" src="../public/img/9.png"?raw=true" alt="">
+  <img title="" width="200" height="80" src="https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/9.png"?raw=true" alt="">
 </p>
 
 5. On average, all models have around 5.7 to 7 BLEU points improvement over bilingual baselines.
 6. 
 <p align="center">
-  <img title="" width="800" height="290" src="../public/img/10.png"?raw=true" alt="">
+  <img title="" width="800" height="290" src="https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/10.png"?raw=true" alt="">
 </p>
 
 
@@ -40,7 +40,7 @@ However, multilingual finetuning would mean that the same model capacity must mo
 
 
 <p align="center">
-  <img title="" width="400" height="290" src="../public/img/11.png"?raw=true" alt="">
+  <img title="" width="400" height="290" src="https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/11.png"?raw=true" alt="">
 </p>
 
 
