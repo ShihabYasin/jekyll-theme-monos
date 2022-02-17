@@ -8,7 +8,7 @@ tag: Algorithm
 
 [//]: # (## Given an integer array, check if it contains a subarray &#40;contiguous elements&#41; whose sum is 0.)
 
-```text
+```
 Example:
 Input:  { 3, 4, -7, 3, 1, 3, 1, -4, -2, -2 }
 Output: True
@@ -23,7 +23,7 @@ Output: False
 
 ### * Solution Idea: 
 
-```text
+```
 Let a series, [some x ints] , 1 , (-2) , 2 , (-1) , [other y ints]. 1,-2, 2,-1 sums to 0. Let, SUM([some x ints]) = x0.
  
 x0 + 1 = x1
