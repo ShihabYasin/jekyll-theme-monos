@@ -1,7 +1,7 @@
 ---
 layout: post 
 title: Given an integer array, check if it contains a subarray (contiguous elements) whose sum is 0.
-date: 2020-01-04 16:20:23 +0900 
+date: 2022-01-04 16:20:23 +0900 
 category: Algorithm
 tag: Algorithm
 ---
