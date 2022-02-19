@@ -10,14 +10,14 @@ tag: DataStructure
 
 1. Getting _**nlargest**_, **_nsmallest_** from a list etc.
 
-
 ```python
 from heapq import nlargest, nsmallest
 l = [('a',10), ('b',4)]
 print(nlargest(2, l, key=lambda x: x[1]))
 ```
 
-2. _**Heap**_ as it is
+2. _**Heap**_ as it is.
+
 ```python
 import heapq as heap  # deafult get min heap formation, for max heap just negate all values
 print("Min heap test")
@@ -37,6 +37,7 @@ heap.heappush (pq, -(-100))  # negating original input(-100) too
 for _ in range (0, len (pq)):
     print ((-1) * heap.heappop (pq), end='  ') # -1 * to get original vals
 ```
+
 
 3. _**Customized value/Node**_ based max heap:
 ```python
