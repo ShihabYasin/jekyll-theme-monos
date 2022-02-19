@@ -1,7 +1,7 @@
 ---
 layout: post 
 title: Heap Notes for Python 
-date: 2022-01-04 16:20:23 +0900 
+date: 2022-01-05 16:20:23 +0900 
 category: DataStructure
 tag: DataStructure
 ---
@@ -16,7 +16,8 @@ l = [('a',10), ('b',4)]
 print(nlargest(2, l, key=lambda x: x[1]))
 ```
 
-2. _**Heap**_ as it is.
+2. _**Heap**_ as it is. 
+
 
 ```python
 import heapq as heap  # deafult get min heap formation, for max heap just negate all values
@@ -39,7 +40,7 @@ for _ in range (0, len (pq)):
 ```
 
 
-3. _**Customized value/Node**_ based max heap:
+3. _**Customized value/Node**_ based max heap. 
 ```python
 import heapq
 class Node:
@@ -56,7 +57,7 @@ heapq.heapify(pq)
 for i in range(len(pq)):
     print(heapq.heappop(pq).count)
 ```
-4. _**Important commands**_:
+4. _**Important APIs**_. 
 ```python
 ['heappush', 'heappop', 'heapify', 'heapreplace: pop then push', 'merge: merges 2 sorted list',
            'nlargest', 'nsmallest', 'heappushpop']
