@@ -1,6 +1,6 @@
 ---
 layout: post 
-title: EASY: Given an integer array, check if it contains a subarray (contiguous elements) whose sum is 0.
+title: EASY-> Given an integer array, check if it contains a subarray (contiguous elements) whose sum is 0.
 date: 2022-01-04 16:20:23 +0900 
 category: Algorithm
 tag: Algorithm
