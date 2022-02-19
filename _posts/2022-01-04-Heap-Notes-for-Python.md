@@ -2,8 +2,8 @@
 layout: post 
 title: Heap Notes for Python 
 date: 2022-01-04 16:20:23 +0900 
-category: Algorithm
-tag: Algorithm
+category: DataStructure
+tag: DataStructure
 ---
 
 ## Some usage of Python heapq:
