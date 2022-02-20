@@ -7,6 +7,7 @@ tag: Algorithm
 ---
 
 * Union Find Algorithm:
+
 ```python
 
 class UnionFind:
@@ -81,8 +82,6 @@ class UnionFindbyRank:  # Rank is Tree height, starting from 0
                 b = a
             if self.treeHeight[a] == self.treeHeight[b]:
                 self.treeHeight[a] += 1
-
-
-
-
 ```
+
+
