@@ -25,7 +25,7 @@ Output:[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 
 * Sort by k+1 items window, as any misplacement might occur within this window only.
-* K+1 sized min-heap will do the job. arr = [already-sorted] <- [on-k+1-min-heap] <- [upcoming-elements].
+* K+1 sized min-heap will do the job. ```arr = [already-sorted] <- [on-k+1-min-heap] <- [upcoming-elements].``` 
 * Initially [already-sorted] has no element, for a k+1-min heap from arr[:k+1] elements, ```heapreplace(pop, collect & then push)``` for remaining elements in arr.
 
 ```
