@@ -40,7 +40,9 @@ for _ in range (0, len (pq)):
 ```
 
 
-3. _**Customized value/Node**_ based max heap. 
+3. _**Customized value/Node**_ based max heap.  
+ 
+
 ```python
 import heapq
 class Node:
@@ -57,8 +59,10 @@ heapq.heapify(pq)
 for i in range(len(pq)):
     print(heapq.heappop(pq).count)
 ```
+
+
 4. _**Important APIs**_. 
-```python
+```
 ['heappush', 'heappop', 'heapify', 'heapreplace: pop then push', 'merge: merges 2 sorted list',
            'nlargest', 'nsmallest', 'heappushpop']
 ```
