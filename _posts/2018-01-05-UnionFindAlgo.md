@@ -1,6 +1,6 @@
 ---
 layout: post 
-title: UnionFind Algorithm Python 
+title: UnionFind Algorithm in Python 
 date: 2018-01-05 16:20:23 +0900 
 category: Algorithm
 tag: Algorithm
