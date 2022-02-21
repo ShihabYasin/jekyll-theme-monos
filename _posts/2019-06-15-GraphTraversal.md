@@ -38,7 +38,7 @@ def dfs(root):
 
 ```
 
-### Topological Sort (for DAG only) (finds Graph cycle etc.)
+### Topological Sort (for DAG only)  
  
 ```python
 def tpdfs(adjMat: List[List[int]] = [[0,3,4],[3,5,6]]): # Given graph as adjMat
@@ -62,6 +62,18 @@ def tpdfs(adjMat: List[List[int]] = [[0,3,4],[3,5,6]]): # Given graph as adjMat
     return topoorder
 ```
  
+* Applications: 
+
+1. Topological sort can be used to quickly find the shortest paths from the weighted directed acyclic graph.
+2. It is used to check whether there exists a cycle in the graph or not
+Topological sort is useful to find the deadlock condition in an operating system
+3. It is used in course scheduling problems to schedule jobs
+4. It is used to find the dependency resolution 
+5. Topological sort is very useful to find sentence ordering in very fewer efforts 
+6. It is used in manufacturing workflows or data serialization in an application 
+7. It is used for ordering the cell evaluation while recomputing formula values in an excel sheet or spreadsheet. 
+   
+
 ### BFS Study:
 
 * Iterative
