@@ -15,7 +15,7 @@ adjmat =[[0,3,4],[3,5,6]]
 adjls = {i: adjmat[i] for i in range(len(adjmat))}
 visited = set()
 def dfs(root):
-    if not adjls:
+    if not adjls[root]:
         return True
     if root in visited:
         return False
@@ -41,7 +41,7 @@ visited, toposortorder = [], [],  # toposortorder contains result
 tlnodes = 10
 
 def dfstopo(root):
-    if not adjls:
+    if not adjls[root]:
         return True
     if root in visited:
         return False
