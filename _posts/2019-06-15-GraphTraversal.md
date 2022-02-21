@@ -42,6 +42,7 @@ def tpdfs(adjMat: List[List[int]] = [[0,3,4],[3,5,6]]): # Given graph as adjMat
         if root in visited:
             return 
         if not adjls[root]:
+            visited.append(root)
             topoorder.append(root)
             return True
         visited.append(root)
