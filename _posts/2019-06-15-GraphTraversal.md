@@ -31,7 +31,7 @@ def dfs(root):
 
 ```
 
-### Topological Sort
+### Topological Sort (for DAG only) (finds Graph cycle etc.)
  
 ```python
 def tpdfs(adjMat: List[List[int]] = [[0,3,4],[3,5,6]]): # Given graph as adjMat
