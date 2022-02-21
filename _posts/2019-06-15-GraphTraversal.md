@@ -15,14 +15,14 @@ adjmat =[[0,3,4],[3,5,6]]
 adjls = {i: adjmat[i] for i in range(len(adjmat))}
 visited = set()
 def dfs(root):
-    if not adjls[root]:
-        return True
     if root in visited:
-        return False
-    visited.add(root)
+        return # False
+    if not adjls[root]:
+        visited.add(root)
+        return # True
     for n in adjls[root]:
-        if not dfs(n): return False
-    visited.remove(root)
+        dfs(n)
+    visited.add(root)
     return True
 ```
 
@@ -32,27 +32,28 @@ def dfs(root):
 ```
 
 ### Topological Sort
-
+ 
 ```python
-given__adjmat = [[1, 3, 2], [2, 0, 6], [4, 1, 3]]
+def tpdfs(adjMat: List[List[int]] = [[0,3,4],[3,5,6]]): # Given graph as adjMat
+    adjls = {i: adjMat[i] for i in range(len(adjMat))}
+    visited, topoorder = [], []
 
-adjls = {i: given__adjmat[i] for i in range (len (given__adjmat))}
-visited, toposortorder = [], [],  # toposortorder contains result
-tlnodes = 10
+    def dfs(root):
+        if root in visited:
+            return 
+        if not adjls[root]:
+            topoorder.append(root)
+            return True
+        visited.append(root)
+        for n in adjls[root]:
+            dfs(n) # if topo order impossible
+        topoorder.append(root)
 
-def dfstopo(root):
-    if not adjls[root]:
-        return True
-    if root in visited:
-        return False
-    visited.append (root)
-    for n in adjls[root]:
-        if not dfstopo (n): return False
-    toposortorder.append (root)    
-
-for nd in range (tlnodes): # for disconnected components
-    dfstopo (nd)
+    for n in range(len(adjMat)):
+        dfs(n)
+    return topoorder
 ```
+ 
 ### BFS Study:
 
 * Iterative
