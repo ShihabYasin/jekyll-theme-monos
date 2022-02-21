@@ -39,7 +39,8 @@ def dfs(root):
 ```
 
 ### Topological Sort (for DAG only)  
- 
+
+
 ```python
 def tpdfs(adjMat: List[List[int]] = [[0,3,4],[3,5,6]]): # Given graph as adjMat
     adjls = {i: adjMat[i] for i in range(len(adjMat))}
@@ -99,5 +100,5 @@ def bfs(root: TreeNode):  # iterative bfs using Queue
         if node:  # if node not None / last nodes
             q.append (node.left)
             q.append (node.right)
-
 ```
+
