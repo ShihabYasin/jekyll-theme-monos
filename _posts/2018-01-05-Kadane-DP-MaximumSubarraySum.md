@@ -1,6 +1,6 @@
 ---
 layout: post 
-title: Kadane Algo(DP)-Find maximum contiguous subarray 
+title: Kudane Algo(DP)-Find maximum contiguous subarray 
 date: 2018-01-05 16:20:23 +0900 
 category: Algorithm
 tag: Algorithm
@@ -10,7 +10,7 @@ tag: Algorithm
 
  
 ```python
-from sys import maxsize
+from sys import maxsiz
 from typing import List
 
 
