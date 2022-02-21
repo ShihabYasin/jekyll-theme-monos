@@ -1,11 +1,11 @@
 ---
 layout: post 
-title: Trie Notes for Python 
+title: Kadane Algo(DP): Find maximum contiguous subarray 
 date: 2018-01-05 16:20:23 +0900 
 category: Algorithm
 tag: Algorithm
 ---
-#### Kadane algo(DP): find the maximum contiguous subarray 
+#### Kadane Algo(DP): find the maximum contiguous subarray 
 
 
  
