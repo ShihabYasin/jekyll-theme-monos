@@ -14,7 +14,7 @@ from sys import maxsiz
 from typing import List
 
 
-def kadane(arr: List[int]):
+def kudane(arr: List[int]):
     mxsofar, mxendinghere, start, end, skiprun = -maxsize - 1, 0, 0, 0, 0
     for i in range (len (arr)):  # from index 0 -> len(arr)
         mxendinghere += arr[i]
@@ -29,6 +29,6 @@ def kadane(arr: List[int]):
 
 
 a = [-2, -3, 4, -1, -2, 1, 5, -3]
-print (kadane (a))
+print (kudane (a))
 ```
 
