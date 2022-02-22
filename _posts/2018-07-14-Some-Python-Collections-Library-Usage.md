@@ -2,8 +2,8 @@
 layout: post 
 title:  Some Python Collections Library Usage   
 date: 2018-07-14 16:20:23 +0900 
-category: Algorithm
-tag: Algorithm
+category: Python 
+tag: Python 
 ---
 
 ## Some usage of Python Collections Library:
