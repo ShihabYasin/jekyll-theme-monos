@@ -32,7 +32,13 @@ tag: deeplearning
   <img title="STGAN" width="600" height="190" src="https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/16.png?raw=true" alt="Behavioral studies of translation tolerance">
 </p>
 
-6. 
+6. Comparison: 
+
+<p align="center">
+  <img title="STGAN" width="600" height="190" src="https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/17.png?raw=true" alt="Behavioral studies of translation tolerance">
+</p>
+
+
 
 
 
