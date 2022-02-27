@@ -38,7 +38,7 @@ tag: deeplearning
   <img title="STGAN" width="600" height="190" src="https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/17.png?raw=true" alt="Behavioral studies of translation tolerance">
 </p>
 
-
+7. 13 attributes, including Bald, Bangs, Black Hair, Blond Hair, Brown Hair, Bushy Eyebrows, Eyeglasses, Male, Mouth Slightly Open, Mustache, No Beard, Pale Skin and Young were investigated.
 
 
 
