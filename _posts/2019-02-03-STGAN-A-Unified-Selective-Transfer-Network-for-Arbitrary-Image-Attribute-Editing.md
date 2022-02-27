@@ -6,11 +6,27 @@ category: VISION-AI
 tag: deeplearning
 ---
 
-This work selectively takes the difference between target and source attribute vectors as input. Selective transfer units are used with encoder-decoder to adaptively select and modify encoder feature for enhanced attribute editing.
+1. This work selectively takes the difference between target and source attribute vectors as input. Selective transfer units(STU) are used with encoder-decoder to adaptively select and modify encoder feature for enhanced attribute editing.
 
 <p align="center">
   <img title="STGAN" width="600" height="190" src="https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/13.png?raw=true" alt="Behavioral studies of translation tolerance">
 </p>
+
+2. In terms of **selective**, STGAN is suggested to (i) only consider the attributes to be changed, and (ii) selectively concatenate encoder feature in editing attribute irrelevant regions with decoder feature. In terms of **transfer**, STGAN is expected to adaptively modify encoder feature to match the requirement of varying editing task, thereby providing a unified model for handling both local and global attributes.
+3. Tried to resolve problem with Skip Connections in AttGAN
+4. For arbitrary image attribute editing, instead of full target attribute vector, only the attributes to be changed is considered.
+
+<p align="center">
+  <img title="STGAN" width="600" height="190" src="https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/14.png?raw=true" alt="Behavioral studies of translation tolerance">
+</p>
+
+
+
+
+
+
+
+
 
 
 What causes human to perform extreme on-line translation tolerance is still to find.
