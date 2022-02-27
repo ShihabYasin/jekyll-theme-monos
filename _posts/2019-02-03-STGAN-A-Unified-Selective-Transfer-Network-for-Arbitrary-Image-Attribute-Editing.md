@@ -20,6 +20,7 @@ tag: deeplearning
   <img title="STGAN" width="95" height="30" src="https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/14.png?raw=true" alt="Behavioral studies of translation tolerance">
 </p>
 
+<br> 
 5. STGAN Architecture:
 
 <p align="center">
@@ -32,6 +33,8 @@ tag: deeplearning
   <img title="STGAN" width="650" height="200" src="https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/16.png?raw=true" alt="Behavioral studies of translation tolerance">
 </p>
 
+<br> 
+
 6. Comparison: 
 
 <p align="center">
@@ -39,7 +42,8 @@ tag: deeplearning
 </p>
 
 7. 13 attributes, including Bald, Bangs, Black Hair, Blond Hair, Brown Hair, Bushy Eyebrows, Eyeglasses, Male, Mouth Slightly Open, Mustache, No Beard, Pale Skin and Young were investigated.
-8. Example of testing single attribute:
+<br> 
+8. Example of testing single attribute(Gender):
 
 <p align="center">
   <img title="STGAN" width="300" height="300" src="https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/18.png?raw=true" alt="Behavioral studies of translation tolerance">
