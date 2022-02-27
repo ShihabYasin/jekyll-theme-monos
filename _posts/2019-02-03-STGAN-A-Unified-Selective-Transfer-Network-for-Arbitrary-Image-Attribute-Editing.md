@@ -6,15 +6,11 @@ category: VISION-AI
 tag: deeplearning
 ---
 
-This work selectively takes the difference between target and source attribute vectors as input.
-
-Current days CNN models support highly restricted on-line translation tolerance having a dependency over their trained
-tolerance from training dataset.
+This work selectively takes the difference between target and source attribute vectors as input. Selective transfer units are used with encoder-decoder to adaptively select and modify encoder feature for enhanced attribute editing.
 
 <p align="center">
-  <img title="Behavioral studies of translation tolerance" width="600" height="190" src="https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/13.png?raw=true" alt="Behavioral studies of translation tolerance">
+  <img title="STGAN" width="600" height="190" src="https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/13.png?raw=true" alt="Behavioral studies of translation tolerance">
 </p>
-<center>Fig 1: Behavioral studies of translation tolerance</center>
 
 
 What causes human to perform extreme on-line translation tolerance is still to find.
