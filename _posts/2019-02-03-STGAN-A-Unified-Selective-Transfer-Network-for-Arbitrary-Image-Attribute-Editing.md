@@ -52,12 +52,18 @@ tag: deeplearning
 8.Example of testing single attribute(Gender):
 
 |<img title="STGAN" width="300" height="300" src="https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/18.png?raw=true" alt="">|<img title="STGAN" width="300" height="300" src="https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/19.png?raw=true" alt="">|
+
 |:--:|:--:|
+
 {Img-1|Img-2|
 
+
 |<img title="STGAN" width="300" height="300" src="https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/20.png?raw=true" alt="">|<img title="STGAN" width="300" height="300" src="https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/21.png?raw=true" alt="">|
+
 |:--:|:--:|
+
 {Img-3|Img-4|
+
 
  
 #### Resources:
