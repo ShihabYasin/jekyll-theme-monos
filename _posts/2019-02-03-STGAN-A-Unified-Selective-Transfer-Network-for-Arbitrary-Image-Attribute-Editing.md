@@ -51,31 +51,13 @@ tag: deeplearning
 
 8.Example of testing single attribute(Gender):
 
-<p align="center">
-  <img title="STGAN" width="300" height="300" src="https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/18.png?raw=true" alt="Behavioral studies of translation tolerance">
-</p>
+|<img title="STGAN" width="300" height="300" src="https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/18.png?raw=true" alt="">|<img title="STGAN" width="300" height="300" src="https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/19.png?raw=true" alt="">|
+|:--:|:--:|
+{Img-1|Img-2|
 
-<br>
-
-<p align="center">
-  <img title="STGAN" width="300" height="300" src="https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/19.png?raw=true" alt="Behavioral studies of translation tolerance">
-</p>
-
-<br>
-<p align="center">
-  <img title="STGAN" width="300" height="300" src="https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/20.png?raw=true" alt="Behavioral studies of translation tolerance">
-</p>
-
-<br>
-<p align="center">
-  <img title="STGAN" width="300" height="300" src="https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/21.png?raw=true" alt="Behavioral studies of translation tolerance">
-</p>
-
-<br>
-
-
-
-
+|<img title="STGAN" width="300" height="300" src="https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/20.png?raw=true" alt="">|<img title="STGAN" width="300" height="300" src="https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/21.png?raw=true" alt="">|
+|:--:|:--:|
+{Img-3|Img-4|
 
  
 #### Resources:
