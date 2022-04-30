@@ -41,7 +41,7 @@ Natural language processing, DevOps.
 * Fine tuned/trained wav2vec2, BERT,XLSR ,WMT/NMT, Fairseq(LSTM,self-attention), kaldi models. 
 * Developed an app(Android, Flask) for collecting/editing speech & text data, audio keyword search, audio events detection system.
 * Improved image tampering classification(using VGG etc.), deepfake detection.
-* Lead a data collection team for machine learning projects.
+* Lead a data collection team for machine learning projects. Web scrapping, ETL.
 
 **Previous: Senior Software Engineer @ Samsung Electronics**
 
