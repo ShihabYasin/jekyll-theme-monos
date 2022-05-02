@@ -35,8 +35,8 @@ Natural language processing, DevOps.
 **Current: Senior Software Engineer @ TigerIT Bangladesh Ltd**
 
 * Developed production pipeline for Speech Recognition, Multilingual Machine Translation, Text to Speech System. Improved Bengali Phoneme Transcription Standard, Language Modeling/Integration.
-* Developed Commchat Android app's different ML/NLP & phonetic typing features.
-* Improved KinderMate Android Kids Video app's automatic question answering, topic modeling, turn text response generation, text/document similarity(LDA, tf-idf),sentiment analysis, exceptional question/slang filtering features.
+* Developed [Commchat Android app's](https://web.archive.org/web/20220502095635/https://play.google.com/store/apps/details?id=com.ccp.comm&hl=en_US&gl=US) different ML/NLP & phonetic typing features.
+* Improved [KinderMate Android Kids Video app's](https://web.archive.org/web/20220502095537/https://play.google.com/store/apps/details?id=com.kindermate.kai&hl=en_US) automatic question answering, topic modeling, turn text response generation, text/document similarity(LDA, tf-idf),sentiment analysis, exceptional question/slang filtering features.
 * Developed audio preprocessing system that extracts only audio part from noisy wavs that extensively reduces human effort to prepare quality speech data from collected noisy speech data.
 * Fine tuned/trained wav2vec2, BERT,XLSR ,WMT/NMT, Fairseq(LSTM,self-attention), kaldi models. 
 * Developed an app(Android, Flask) for collecting/editing speech & text data, audio keyword search, audio events detection system.
