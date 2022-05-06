@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Python-simplejson
+title: Python-Simplejson
 date: 2019-02-23 16:20:23 +0900
 category: Python
 tag: Python
