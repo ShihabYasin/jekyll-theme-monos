@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Python-Magic-Methods
-date: 2019-02-12 16:20:23 +0900
+title: Python-Builtins
+date: 2019-02-11 16:20:23 +0900
 category: Python
 tag: Python
 ---
