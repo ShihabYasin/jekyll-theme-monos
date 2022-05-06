@@ -11,7 +11,7 @@ tag: Python
 
 
 ### Let's consider a dummy HTML Example file:
-<div>
+```html
 <!DOCTYPE html>
 <html>
     <head>
@@ -42,7 +42,7 @@ tag: Python
 
     </body>
 </html>
-</div>
+```
 
 ### 1. Get tags:
 ```python
