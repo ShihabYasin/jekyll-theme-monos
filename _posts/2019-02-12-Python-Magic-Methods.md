@@ -10,7 +10,6 @@ tag: Python
 
 <head>
 
-
 </head>
 
 <body>
@@ -18,21 +17,11 @@ tag: Python
 <header>
 
 
-
 </header>
 
 <div class="container">
 
-
 <div class="content">
-
-<h1>Python magic methods</h1>
-
-<p>
-Python Magic Methods tutorial describes what Python magic methods are and
-shows how to use them. In this tutorial we cover some common magic methods.
-</p>
-
 
 <h2>Python magic methods</h2>
 
@@ -216,7 +205,7 @@ for an object looks like the above code.
 <pre class="code">
 #!/usr/bin/env python
 
-
+```python
 class Person:
 
     def __init__(self, name, occupation):
@@ -231,7 +220,7 @@ class Person:
     def __repr__(self):
 
         return f'Person{{name: {self.name}, occupation: {self.occupation}}}'
-
+```
 
 p = Person('John Doe', 'gardener')
 
@@ -270,7 +259,7 @@ from random import choice
 
 Card = collections.namedtuple('Card', ['suit', 'rank'])
 
-
+```python
 class FrenchDeck:
 
     ranks = [str(i) for i in range(2, 11)] + list('JQKA')
@@ -285,6 +274,8 @@ class FrenchDeck:
 
     def __getitem__(self, index):
         return self.total[index]
+```
+
 
 
 deck = FrenchDeck()
@@ -364,9 +355,8 @@ functions.
 <pre class="code">
 #!/usr/bin/env python
 
-
+```python
 class Char:
-
     def __init__(self, val):
         self.val = val
 
@@ -375,6 +365,9 @@ class Char:
 
     def __index__(self):
         return ord(self.val)
+```
+
+
 
 
 c1 = Char('a')
@@ -401,8 +394,6 @@ functions.
 
 
 
-
-
 <h2>The __eq__, __lt__ and __gt__ methods</h2>
 
 <p>
@@ -419,6 +410,8 @@ import collections
 
 Coin = collections.namedtuple('coin', ['rank'])
 
+
+```python
 # a gold coin equals to two silver and six bronze coins
 
 
@@ -517,6 +510,8 @@ elif pouch1 &gt; pouch2:
     print('Pouch 1 is more valueable than Pouch 2')
 else:
     print('Pouch 2 is more valueable than Pouch 1')
+   
+```
 </pre>
 
 <p>
@@ -620,6 +615,7 @@ and <code>__abs__</code>.
 
 import math
 
+```python
 
 class Vec2D:
 
@@ -668,6 +664,8 @@ print(a)
 print(abs(u))
 print(u == v)
 print(u != v)
+
+```
 </pre>
 
 <p>
@@ -687,17 +685,18 @@ False
 True
 </pre>
 
+
 </div> <!-- content -->
 
 <div class="rtow">
 
 
 
+
+
 </div>
 
 </div> <!-- container -->
-
-
 
 </body>
 </html>
