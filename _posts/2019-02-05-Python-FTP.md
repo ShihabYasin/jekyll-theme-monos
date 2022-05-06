@@ -7,7 +7,7 @@ tag: Python FTP
 ---
 
 
-### Python FTP :
+## Python FTP 
 ###  Connect to FTP servers ( e.g: Debian FTP server), list directories, download and upload files
 
 ### Python [ftplib](https://pypi.org/project/pyftpdlib/)   
