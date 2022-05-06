@@ -8,11 +8,7 @@ tag: Python
 
 <html lang="en">
 <head>
-<title>Python Regular Expressions</title>
-<link rel="stylesheet" href="/cfg/style.css" type="text/css">
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="keywords" content="Python, regular expressions, programming, language">
+
 </head>
 
 <body>
