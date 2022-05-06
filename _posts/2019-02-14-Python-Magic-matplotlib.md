@@ -7,7 +7,7 @@ tag: Python
 ---
 
 <html lang="en">
-<title>Python Matplotlib  - creating charts in Python with Matplotlib</title>
+
 <head>
 
 

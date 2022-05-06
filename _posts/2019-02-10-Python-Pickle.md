@@ -7,7 +7,7 @@ tag: Python
 ---
 
 <html lang="en">
-<title>Data serialization in Python with pickle</title>
+
 <head>
 
 </head>

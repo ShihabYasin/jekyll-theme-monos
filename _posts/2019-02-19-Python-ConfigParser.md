@@ -10,7 +10,7 @@ tag: Python
 
 
 <html lang="en">
-<title>Python ConfigParser  - working with configuration files in Python with ConfigParser</title>
+
 <head>
 
 

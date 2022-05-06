@@ -7,7 +7,7 @@ tag: Python
 ---
 
 <html lang="en">
-<title>Python any and all functions (builtins in Python)</title>
+
 <head>
 
 

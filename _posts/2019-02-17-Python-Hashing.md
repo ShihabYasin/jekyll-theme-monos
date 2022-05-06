@@ -10,7 +10,7 @@ tag: Python
  
 
 <html lang="en">
-<title>Python hashing  - explaining hashing in Python</title>
+
 <head>
 
 </head>

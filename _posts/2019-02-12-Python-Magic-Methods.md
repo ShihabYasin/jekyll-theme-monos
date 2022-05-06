@@ -7,7 +7,7 @@ tag: Python
 ---
 
 <html lang="en">
-<title>Python Magic Methods</title>
+
 <head>
 
 

@@ -10,7 +10,7 @@ tag: Python
 
 
 <html lang="en">
-<title>pyDAL  - programming databases in Python with pyDAL</title>
+
 <head>
 
 </head>

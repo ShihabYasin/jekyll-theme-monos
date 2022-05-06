@@ -9,7 +9,7 @@ tag: Python
 
 
 <html lang="en">
-<title>Python multiprocessing  - process-based parallelism in Python</title>
+
 <head>
 
 </head>

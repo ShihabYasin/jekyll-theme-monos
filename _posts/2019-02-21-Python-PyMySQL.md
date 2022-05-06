@@ -10,7 +10,7 @@ tag: Python
 
 <!DOCTYPE html>
 <html lang="en">
-<title>PyMySQL  - Python MySQL programming with PyMySQL module</title>
+
 <head>
 
 </head>

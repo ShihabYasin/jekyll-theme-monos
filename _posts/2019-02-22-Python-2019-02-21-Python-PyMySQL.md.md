@@ -10,7 +10,6 @@ tag: Python
 
 <html lang="en">
 <head>
-<title>Python MongoDB programming</title>
 
 </head>
 

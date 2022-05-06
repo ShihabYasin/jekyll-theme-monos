@@ -7,7 +7,6 @@ tag: Python
 ---
 
 <html lang="en">
-<title>Python simplejson  - read, write JSON in Python with simplejson</title>
 <head>
 
 

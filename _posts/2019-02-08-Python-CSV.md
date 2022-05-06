@@ -7,7 +7,7 @@ tag: Python
 ---
 
 <html lang="en">
-<title>Python CSV (Read, Write)</title>
+
 <head>
 
 </head>

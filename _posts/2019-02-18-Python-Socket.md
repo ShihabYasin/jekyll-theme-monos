@@ -10,7 +10,7 @@ tag: Python
 
 
 <html lang="en">
-<title>Python network programming with sockets</title>
+
 <head>
 
 </head>
