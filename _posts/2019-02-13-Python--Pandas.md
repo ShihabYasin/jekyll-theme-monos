@@ -6,9 +6,6 @@ category: Python
 tag: Python
 ---
 
-
-<html lang="en">
-<title>Python Pandas  - data analysis in Python with Pandas</title>
 <head>
 
 
