@@ -11,7 +11,7 @@ txtfiles = sorted (txtfiles)
 for idx, file in enumerate(txtfiles):
     shutil.copy (file, '_posts/')
     os.system ('./git_commit_auto_script.sh')
-    time.sleep(45)
+    # time.sleep(45)
     print (idx, file)
     break
 
