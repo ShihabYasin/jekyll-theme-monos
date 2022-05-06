@@ -8,16 +8,11 @@ tag: Python
 
 <html lang="en">
 <head>
-<title>Python regular expressions - using regular expressions in Python</title>
+<title>Python Regular Expressions</title>
 <link rel="stylesheet" href="/cfg/style.css" type="text/css">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="keywords" content="Python, regular expressions, programming, language">
-<meta name="description" content="Python regular expressions tutorial shows how
-to use regular expressions in Python. The examples work with quantifiers, character classes,
-alternations, and groups.">
-<meta name="author" content="Jan Bodnar">
-
 </head>
 
 <body>
@@ -31,11 +26,6 @@ alternations, and groups.">
 <div class="content">
 
 <h1>Python regular expressions</h1>
-
-<p>
-Python regular expressions tutorial shows how to use regular expressions 
-in Python. For regular expressions in Python we use the re module.
-</p>
 
 
 <p>
