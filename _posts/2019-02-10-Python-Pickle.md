@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Python-Pickle
+title: Python-Pickle-Examples
 date: 2019-02-10 16:20:23 +0900
 category: Python
 tag: Python
