@@ -3,7 +3,7 @@ layout: post
 title: Python-BeautifulSoup
 date: 2019-02-07 16:20:23 +0900 
 category: Python 
-tag: Python FTP 
+tag: Python 
 ---
 
 ## BeautifulSoup transforms a complex HTML document into a complex tree of Python objects, such as tag, navigable string, or comment. 

@@ -1,9 +1,9 @@
 ---
 layout: post 
-title: Python-FTP
+title: Python-httpx
 date: 2019-02-06 16:20:23 +0900 
 category: Python 
-tag: Python FTP 
+tag: Python 
 ---
 
 ## The [httpx](https://pypi.org/project/httpx/) allows to create both synchronous and asynchronous HTTP requests.
