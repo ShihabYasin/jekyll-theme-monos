@@ -6,8 +6,6 @@ category: Python
 tag: Python 
 ---
 
-
-<!DOCTYPE html>
 <html lang="en">
 <head>
 <title>Python regular expressions - using regular expressions in Python</title>
