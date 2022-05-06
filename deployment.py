@@ -13,4 +13,5 @@ for idx, file in enumerate(txtfiles):
     os.system ('./git_commit_auto_script.sh')
     time.sleep(45)
     print (idx, file)
+    break
 
