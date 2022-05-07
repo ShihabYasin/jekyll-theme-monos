@@ -52,9 +52,7 @@ expression is equivalent to <code>num.__add__(4)</code>.
 
 
 class MyDict(dict):
-
     def __add__(self, other):
-
         self.update(other)
         return MyDict(self)
 
@@ -118,23 +116,19 @@ used to implement the constructor of the object. The
 
 <div class="codehead">init_str.py</div>
 <pre class="code">
+
+
 #!/usr/bin/env python
-
-
 class Person:
-
     def __init__(self, name, occupation):
-
         self.name = name
         self.occupation = occupation
-
     def __str__(self):
-
         return f'{self.name} is a {self.occupation}'
-
-
 p = Person('John Doe', 'gardener')
 print(p)
+
+
 </pre>
 
 <p>
@@ -142,9 +136,8 @@ In the example, we have a Person class with two attributes: <code>name</code>
 and <code>occupation</code>.
 </p>
 
-<pre class="explanation">
+<pre class="code">
 def __init__(self, name, occupation):
-
     self.name = name
     self.occupation = occupation
 </pre>
@@ -156,7 +149,6 @@ that are passed to the constructor.
 
 <pre class="explanation">
 def __str__(self):
-
     return f'{self.name} is a {self.occupation}'
 </pre>
 
@@ -204,26 +196,15 @@ for an object looks like the above code.
 <div class="codehead">repr_ex.py</div>
 <pre class="code">
 #!/usr/bin/env python
-
-```python
 class Person:
-
     def __init__(self, name, occupation):
-        
         self.name = name
         self.occupation = occupation
-
     def __str__(self):
-
         return f'{self.name} is a {self.occupation}'
-
     def __repr__(self):
-
         return f'Person{{name: {self.name}, occupation: {self.occupation}}}'
-```
-
 p = Person('John Doe', 'gardener')
-
 print(p)
 print(repr(p))
 </pre>
