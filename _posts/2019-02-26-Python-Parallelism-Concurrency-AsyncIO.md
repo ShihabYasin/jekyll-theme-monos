@@ -90,8 +90,8 @@ tag: Python
 <span class="k">return</span> <span class="n">numbers</span>
 
 </code>
-</pre><
-/div>
+</pre>
+
 
 <p>Notes:</p>
 <ul>
