@@ -837,7 +837,7 @@ $ docker-compose <span class="nb">exec</span> web python manage.py startapp uplo
 </code></pre></div>
 
 <p>Add a "templates", directory to the "app/upload" directory, and then add a new template called <em>upload.html</em>:</p>
-<div class="codehilite"><pre><span></span><code>{% raw content %}
+<div class="codehilite"><pre><span></span><code>
 
   <span class="p">&lt;</span><span class="nt">form</span> <span class="na">action</span><span class="o">=</span><span class="s">&quot;{% url &quot;</span><span class="na">upload</span><span class="err">&quot;</span> <span class="err">%}&quot;</span> <span class="na">method</span><span class="o">=</span><span class="s">&quot;post&quot;</span> <span class="na">enctype</span><span class="o">=</span><span class="s">&quot;multipart/form-data&quot;</span><span class="p">&gt;</span>
     {% csrf_token %}
@@ -849,7 +849,7 @@ $ docker-compose <span class="nb">exec</span> web python manage.py startapp uplo
     <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>File uploaded at: <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{{ image_url }}&quot;</span><span class="p">&gt;</span>{{ image_url }}<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
   {% endif %}
 
-{% endraw %}
+
 </code></pre></div>
 
 <p><em>app/hello_django/urls.py</em>:</p>
