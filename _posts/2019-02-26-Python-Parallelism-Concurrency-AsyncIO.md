@@ -1,31 +1,26 @@
 ---
 layout: post
 title: Python-Parallelism-Concurrency-AsyncIO
-date: 2019-02-25 16:20:23 +0900
+date: 2019-02-26 16:20:23 +0900
 category: Python
 tag: Python
 ---
 
 ## Parallelism, Concurrency and AsyncIO in Python
 
-[//]: # (<html>)
-
-[//]: # ()
-[//]: # (<body>)
-
 <header class="hero blog-hero blog-detail-hero">
 
 </header>
 
 
-<main>
+
 <div class="container blog-container" style="padding-top: 0;">
     <div class="row">
       <div class="col col-12 col-lg-8">
 
 </div>
 <h2 id="concurrency-vs-parallelism">Concurrency vs Parallelism</h2>
-<p>Concurrency and parallelism are similar terms, but they are not the same thing.</p>
+<p> Concurrency and parallelism are similar terms, but they are not the same thing.</p>
 <p>Concurrency is the ability to run multiple tasks on the CPU at the same time. Tasks can start, run, and complete in overlapping time periods. In the case of a single CPU, multiple tasks are run with the help of <a href="https://en.wikipedia.org/wiki/Context_switch">context switching</a>, where the state of a process is stored so that it can be called and executed later.</p>
 <p>Parallelism, meanwhile, is the ability to run multiple tasks at the same time across multiple CPU cores.</p>
 <p>Though they can increase the speed of your application, concurrency and parallelism should not be used everywhere. The use case depends on whether the task is CPU-bound or IO-bound.</p>
