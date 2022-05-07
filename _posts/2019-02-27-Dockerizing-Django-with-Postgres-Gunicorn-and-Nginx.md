@@ -840,7 +840,7 @@ $ docker-compose <span class="nb">exec</span> web python manage.py startapp uplo
 <div class="codehilite"><pre><span></span><code>
 
 <span class="p">&lt;</span><span class="nt">form</span> <span class="na">action</span><span class="o">=</span><span class="s">&quot;</span><span class="na">upload</span><span class="err">&quot;</span> <span class="err">%}&quot;</span> <span class="na">method</span><span class="o">=</span><span class="s">&quot;post&quot;</span> <span class="na">enctype</span><span class="o">=</span><span class="s">&quot;multipart/form-data&quot;</span><span class="p">&gt;</span>
-    {% csrf_token %}
+
 <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;file&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;image_file&quot;</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;submit&quot;</span> <span class="p">/&gt;</span>
 <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
