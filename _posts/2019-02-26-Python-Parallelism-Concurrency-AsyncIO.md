@@ -8,9 +8,10 @@ tag: Python
 
 ## Parallelism, Concurrency and AsyncIO in Python
 
-<html lang="en">
+[//]: # (<html>)
 
-<body class=" page-blog page-blog-detail">
+[//]: # ()
+[//]: # (<body>)
 
 <header class="hero blog-hero blog-detail-hero">
 
@@ -373,5 +374,6 @@ tag: Python
 </ol>
 
 
-</body>
-</html>
+[//]: # (</body>)
+
+[//]: # (</html>)
