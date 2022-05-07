@@ -87,8 +87,8 @@ and other methods such as <code>__repr__</code> manually.
 <div class="codehead">regular_class.py</div>
 
 <pre class="code">
+{% raw %}
 #!/usr/bin/env python
-
 class Person:
     def __init__(self, name, age):
         self.name = name
@@ -97,6 +97,7 @@ class Person:
         return f'Person{{name: {self.name}, age: {self.age}}}'
 p = Person('John Doe', 34)
 print(p)
+{% endraw %}
 </pre>
 
 <p>
