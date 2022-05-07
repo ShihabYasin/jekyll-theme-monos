@@ -372,8 +372,3 @@ tag: Python
 <li>The dependent libraries don't need to support asyncio (<code>requests</code> vs <code>httpx</code>)</li>
 <li>It's cleaner and easier to read over the other approaches</li>
 </ol>
-
-
-[//]: # (</body>)
-
-[//]: # (</html>)
