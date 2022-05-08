@@ -3,7 +3,7 @@
         <div class="post-title">Articles</div>
     </header>
 <!--    {{ site | debug }}-->
-<!--    {%- set previous_posts = [] -%}-->
+    {%- assign previous_posts = [] -%}
     <div class="post-content">
         {%- if site.posts.size > 0 -%}
         <ul class="post-list">
@@ -15,7 +15,7 @@
                 <span class="post-date">{{ post.date | date: date_format }}</span>
                 <a class="post-link" href="{{ post.url | relative_url }}">
                     {{ post.title | escape }}
-<!--                    {{ previous_posts.append(post.title) }}-->
+                    {{ previous_posts.append(post.title) }}
                 </a>
                 {%- if site.show_excerpts -%}{{ post.excerpt }}{%- endif -%}
             </li>
@@ -26,4 +26,3 @@
 </article>
 
 
-</div>
