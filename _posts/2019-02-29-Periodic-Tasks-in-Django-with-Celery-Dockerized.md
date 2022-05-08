@@ -29,10 +29,10 @@ $ docker-compose logs -f 'celery'
 <body class=" page-blog page-blog-detail">
 
 <main>
-  <div class="container blog-container" style="padding-top: 0;">
-    <div class="row">
-      <div class="col col-12 col-lg-8">
-        
+ <div class="container blog-container" style="padding-top: 0;">
+   <div class="row">
+     <div class="col col-12 col-lg-8">
+      
 
 
 <p>Since we'll need to manage four processes in total (Django, Redis, worker, and scheduler), we'll use Docker to simplify our workflow by wiring them up so that they can all be run from one terminal window with a single command.</p>
@@ -54,31 +54,31 @@ No orders found!
 <div class="codehilite"><pre><span></span><code>├── .gitignore
 ├── docker-compose.yml
 └── project
-    ├── Dockerfile
-    ├── core
-    │   ├── __init__.py
-    │   ├── asgi.py
-    │   ├── settings.py
-    │   ├── urls.py
-    │   └── wsgi.py
-    ├── entrypoint.sh
-    ├── manage.py
-    ├── orders
-    │   ├── __init__.py
-    │   ├── admin.py
-    │   ├── apps.py
-    │   ├── migrations
-    │   │   ├── 0001_initial.py
-    │   │   └── __init__.py
-    │   ├── models.py
-    │   ├── tests.py
-    │   ├── urls.py
-    │   └── views.py
-    ├── products.json
-    ├── requirements.txt
-    └── templates
-        └── orders
-            └── order_list.html
+   ├── Dockerfile
+   ├── core
+   │   ├── __init__.py
+   │   ├── asgi.py
+   │   ├── settings.py
+   │   ├── urls.py
+   │   └── wsgi.py
+   ├── entrypoint.sh
+   ├── manage.py
+   ├── orders
+   │   ├── __init__.py
+   │   ├── admin.py
+   │   ├── apps.py
+   │   ├── migrations
+   │   │   ├── 0001_initial.py
+   │   │   └── __init__.py
+   │   ├── models.py
+   │   ├── tests.py
+   │   ├── urls.py
+   │   └── views.py
+   ├── products.json
+   ├── requirements.txt
+   └── templates
+       └── orders
+           └── order_list.html
 </code></pre></div>
 
 
@@ -234,16 +234,16 @@ $ docker-compose logs <span class="s1">&#39;redis&#39;</span>
 
 <span class="nd">@shared_task</span>
 <span class="k">def</span> <span class="nf">sample_task</span><span class="p">():</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;The sample task just ran.&quot;</span><span class="p">)</span>
+   <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;The sample task just ran.&quot;</span><span class="p">)</span>
 </code></pre></div>
 
 <h3 id="schedule-the-task">Schedule the Task</h3>
 <p>At the end of your <em>settings.py</em> file, add the following code to schedule <code>sample_task</code> to run once per minute, using Celery Beat:</p>
 <div class="codehilite"><pre><span></span><code><span class="n">CELERY_BEAT_SCHEDULE</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;sample_task&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;task&quot;</span><span class="p">:</span> <span class="s2">&quot;core.tasks.sample_task&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;schedule&quot;</span><span class="p">:</span> <span class="n">crontab</span><span class="p">(</span><span class="n">minute</span><span class="o">=</span><span class="s2">&quot;*/1&quot;</span><span class="p">),</span>
-    <span class="p">},</span>
+   <span class="s2">&quot;sample_task&quot;</span><span class="p">:</span> <span class="p">{</span>
+       <span class="s2">&quot;task&quot;</span><span class="p">:</span> <span class="s2">&quot;core.tasks.sample_task&quot;</span><span class="p">,</span>
+       <span class="s2">&quot;schedule&quot;</span><span class="p">:</span> <span class="n">crontab</span><span class="p">(</span><span class="n">minute</span><span class="o">=</span><span class="s2">&quot;*/1&quot;</span><span class="p">),</span>
+   <span class="p">},</span>
 <span class="p">}</span>
 </code></pre></div>
 
@@ -278,10 +278,10 @@ celery_1  <span class="p">|</span>   . core.tasks.sample_task
 <p>We can see that Celery picked up our sample task, <code>core.tasks.sample_task</code>.</p>
 <p>Every minute you should see a row in the log that ends with "The sample task just ran.":</p>
 <div class="codehilite"><pre><span></span><code>celery_1  <span class="p">|</span> <span class="o">[</span><span class="m">2021</span>-07-01 <span class="m">03</span>:06:00,003: INFO/MainProcess<span class="o">]</span>
-              Task core.tasks.sample_task<span class="o">[</span>b8041b6c-bf9b-47ce-ab00-c37c1e837bc7<span class="o">]</span> received
+             Task core.tasks.sample_task<span class="o">[</span>b8041b6c-bf9b-47ce-ab00-c37c1e837bc7<span class="o">]</span> received
 celery_1  <span class="p">|</span> <span class="o">[</span><span class="m">2021</span>-07-01 <span class="m">03</span>:06:00,004: INFO/ForkPoolWorker-8<span class="o">]</span>
-              core.tasks.sample_task<span class="o">[</span>b8041b6c-bf9b-47ce-ab00-c37c1e837bc7<span class="o">]</span>:
-              The sample task just ran.
+             core.tasks.sample_task<span class="o">[</span>b8041b6c-bf9b-47ce-ab00-c37c1e837bc7<span class="o">]</span>:
+             The sample task just ran.
 </code></pre></div>
 
 <h2 id="custom-django-admin-command">Custom Django Admin Command</h2>
@@ -301,10 +301,10 @@ celery_1  <span class="p">|</span> <span class="o">[</span><span class="m">2021<
 
 
 <span class="k">class</span> <span class="nc">Command</span><span class="p">(</span><span class="n">BaseCommand</span><span class="p">):</span>
-    <span class="n">help</span> <span class="o">=</span> <span class="s2">&quot;A description of the command&quot;</span>
+   <span class="n">help</span> <span class="o">=</span> <span class="s2">&quot;A description of the command&quot;</span>
 
 <span class="k">def</span> <span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
-        <span class="k">pass</span>
+       <span class="k">pass</span>
 </code></pre></div>
 
 <p>The <code>BaseCommand</code> has a few <a href="https://docs.djangoproject.com/en/3.2/howto/custom-management-commands/#methods">methods</a> that can be overridden, but the only method that's required is <code>handle</code>. <code>handle</code> is the entry point for custom commands. In other words, when we run the command, this method is called.</p>
@@ -315,10 +315,10 @@ celery_1  <span class="p">|</span> <span class="o">[</span><span class="m">2021<
 
 
 <span class="k">class</span> <span class="nc">Command</span><span class="p">(</span><span class="n">BaseCommand</span><span class="p">):</span>
-    <span class="n">help</span> <span class="o">=</span> <span class="s2">&quot;A description of the command&quot;</span>
+   <span class="n">help</span> <span class="o">=</span> <span class="s2">&quot;A description of the command&quot;</span>
 
 <span class="k">def</span> <span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;My sample command just ran.&quot;</span><span class="p">)</span> <span class="c1"># NEW</span>
+       <span class="bp">self</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;My sample command just ran.&quot;</span><span class="p">)</span> <span class="c1"># NEW</span>
 </code></pre></div>
 
 <p>To test, from the command line, run:</p>
@@ -361,27 +361,27 @@ celery_1  <span class="p">|</span> <span class="o">[</span><span class="m">2021<
 
 
 <span class="k">class</span> <span class="nc">Command</span><span class="p">(</span><span class="n">BaseCommand</span><span class="p">):</span>
-    <span class="n">help</span> <span class="o">=</span> <span class="s2">&quot;Send Today&#39;s Orders Report to Admins&quot;</span>
+   <span class="n">help</span> <span class="o">=</span> <span class="s2">&quot;Send Today&#39;s Orders Report to Admins&quot;</span>
 
 <span class="k">def</span> <span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
-        <span class="n">orders</span> <span class="o">=</span> <span class="n">Order</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">confirmed_date__range</span><span class="o">=</span><span class="p">(</span><span class="n">today_start</span><span class="p">,</span> <span class="n">today_end</span><span class="p">))</span>
+       <span class="n">orders</span> <span class="o">=</span> <span class="n">Order</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">confirmed_date__range</span><span class="o">=</span><span class="p">(</span><span class="n">today_start</span><span class="p">,</span> <span class="n">today_end</span><span class="p">))</span>
 
 <span class="k">if</span> <span class="n">orders</span><span class="p">:</span>
-            <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+           <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
 <span class="k">for</span> <span class="n">order</span> <span class="ow">in</span> <span class="n">orders</span><span class="p">:</span>
-                <span class="n">message</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">order</span><span class="si">}</span><span class="s2"> </span><span class="se">\n</span><span class="s2">&quot;</span>
+               <span class="n">message</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">order</span><span class="si">}</span><span class="s2"> </span><span class="se">\n</span><span class="s2">&quot;</span>
 
 <span class="n">subject</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Order Report for </span><span class="si">{</span><span class="n">today_start</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2"> &quot;</span>
-                <span class="sa">f</span><span class="s2">&quot;to </span><span class="si">{</span><span class="n">today_end</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
-            <span class="p">)</span>
+               <span class="sa">f</span><span class="s2">&quot;Order Report for </span><span class="si">{</span><span class="n">today_start</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2"> &quot;</span>
+               <span class="sa">f</span><span class="s2">&quot;to </span><span class="si">{</span><span class="n">today_end</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+           <span class="p">)</span>
 
 <span class="n">mail_admins</span><span class="p">(</span><span class="n">subject</span><span class="o">=</span><span class="n">subject</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="n">message</span><span class="p">,</span> <span class="n">html_message</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 
 <span class="bp">self</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;E-mail Report was sent.&quot;</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;No orders confirmed today.&quot;</span><span class="p">)</span>
+       <span class="k">else</span><span class="p">:</span>
+           <span class="bp">self</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;No orders confirmed today.&quot;</span><span class="p">)</span>
 </code></pre></div>
 
 <p>In the code, we queried the database for orders with a <code>confirmed_date</code> of today, combined the orders into a single message for the email body, and used Django's built in <code>mail_admins</code> command to send the emails to the admins.</p>
@@ -425,26 +425,26 @@ E-mail Report was sent.
 
 <span class="nd">@shared_task</span>
 <span class="k">def</span> <span class="nf">sample_task</span><span class="p">():</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;The sample task just ran.&quot;</span><span class="p">)</span>
+   <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;The sample task just ran.&quot;</span><span class="p">)</span>
 
 
 <span class="c1"># NEW</span>
 <span class="nd">@shared_task</span>
 <span class="k">def</span> <span class="nf">send_email_report</span><span class="p">():</span>
-    <span class="n">call_command</span><span class="p">(</span><span class="s2">&quot;email_report&quot;</span><span class="p">,</span> <span class="p">)</span>
+   <span class="n">call_command</span><span class="p">(</span><span class="s2">&quot;email_report&quot;</span><span class="p">,</span> <span class="p">)</span>
 </code></pre></div>
 
 <p>So, first we added a <code>call_command</code> import, which is used for programmatically calling django-admin commands. In the new task, we then used the <code>call_command</code> with the name of our custom command as an argument.</p>
 <p>To schedule this task, open the <em>core/settings.py</em> file, and update the <code>CELERY_BEAT_SCHEDULE</code> setting to include the new task:</p>
 <div class="codehilite"><pre><span></span><code><span class="n">CELERY_BEAT_SCHEDULE</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;sample_task&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;task&quot;</span><span class="p">:</span> <span class="s2">&quot;core.tasks.sample_task&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;schedule&quot;</span><span class="p">:</span> <span class="n">crontab</span><span class="p">(</span><span class="n">minute</span><span class="o">=</span><span class="s2">&quot;*/1&quot;</span><span class="p">),</span>
-    <span class="p">},</span>
-    <span class="s2">&quot;send_email_report&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;task&quot;</span><span class="p">:</span> <span class="s2">&quot;core.tasks.send_email_report&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;schedule&quot;</span><span class="p">:</span> <span class="n">crontab</span><span class="p">(</span><span class="n">hour</span><span class="o">=</span><span class="s2">&quot;*/1&quot;</span><span class="p">),</span>
-    <span class="p">},</span>
+   <span class="s2">&quot;sample_task&quot;</span><span class="p">:</span> <span class="p">{</span>
+       <span class="s2">&quot;task&quot;</span><span class="p">:</span> <span class="s2">&quot;core.tasks.sample_task&quot;</span><span class="p">,</span>
+       <span class="s2">&quot;schedule&quot;</span><span class="p">:</span> <span class="n">crontab</span><span class="p">(</span><span class="n">minute</span><span class="o">=</span><span class="s2">&quot;*/1&quot;</span><span class="p">),</span>
+   <span class="p">},</span>
+   <span class="s2">&quot;send_email_report&quot;</span><span class="p">:</span> <span class="p">{</span>
+       <span class="s2">&quot;task&quot;</span><span class="p">:</span> <span class="s2">&quot;core.tasks.send_email_report&quot;</span><span class="p">,</span>
+       <span class="s2">&quot;schedule&quot;</span><span class="p">:</span> <span class="n">crontab</span><span class="p">(</span><span class="n">hour</span><span class="o">=</span><span class="s2">&quot;*/1&quot;</span><span class="p">),</span>
+   <span class="p">},</span>
 <span class="p">}</span>
 </code></pre></div>
 
@@ -492,3 +492,5 @@ celery_1  <span class="p">|</span> <span class="o">[</span><span class="m">2021<
 
 </body>
 </html>
+
+
