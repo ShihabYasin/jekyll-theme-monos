@@ -139,10 +139,10 @@ code {
 }
 
 a.nav-item {
-	font-size: 120%;
+	font-size: 90%;
 	font-family: "Noto Sans";
 	text-transform: capitalize;
-	color: #aaa;
+	color: #ccffff;
 }
 
 a.nav-item:hover { color: #66a3ff; }
