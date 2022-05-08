@@ -14,15 +14,17 @@ tag: Python
 ## How to run:
 1. Prepare virtual environment.
 
+<div style="background-color: rgb(217,238,239,255);">
 
-```
+```shell
 $ python -m venv env
 
 $ source env/bin/activate
 
 (env)$ pip install -r requirements.txt
-
 ```
+
+</div>
 
 
 
