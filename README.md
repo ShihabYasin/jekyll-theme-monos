@@ -1,7 +1,7 @@
 ---
 layout: page
 title: CV/Résumé
-permalink: /
+permalink: /about/
 ---
 
 Yasin Shihab
