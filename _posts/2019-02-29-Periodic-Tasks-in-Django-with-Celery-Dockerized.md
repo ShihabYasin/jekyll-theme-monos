@@ -24,11 +24,6 @@ $ docker-compose logs -f 'celery'
 ## Explanation:
 
 
-<html lang="en">
-
-<body class=" page-blog page-blog-detail">
-
-<main>
  <div class="container blog-container" style="padding-top: 0;">
    <div class="row">
      <div class="col col-12 col-lg-8">
@@ -485,12 +480,10 @@ celery_1  <span class="p">|</span> <span class="o">[</span><span class="m">2021<
 celery_1  <span class="p">|</span> <span class="o">[</span><span class="m">2021</span>-07-01 <span class="m">12</span>:22:00,071: WARNING/ForkPoolWorker-8<span class="o">]</span>
 celery_1  <span class="p">|</span>
 celery_1  <span class="p">|</span> <span class="o">[</span><span class="m">2021</span>-07-01 <span class="m">12</span>:22:00,071: WARNING/ForkPoolWorker-8<span class="o">]</span> E-mail Report was sent.
-</code></pre></div>
+</code>
+</pre>
+</div>
 
-</main>
 
-
-</body>
-</html>
 
 
