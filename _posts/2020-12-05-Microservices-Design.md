@@ -24,7 +24,10 @@ tag: Jenkins
 1. Pipelines
 1. Platform
 
-![microservices-overview](../public/img/microservices-overview.png)
+<p align="center">
+  <img title="microservices-overview" width="600" height="350" src="https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/microservices-overview.png?raw=true" alt="microservices-overview">
+</p>
+
 
 ## Application
 
@@ -116,5 +119,8 @@ Triggers:
 1. [Spinnaker](https://www.spinnaker.io/)
 1. Old Tools (Ansible, Chef, Puppet)
 
-![microservices-overview-ci-cd](../public/img/microservices-overview-ci-cd.png)
+
+<p align="center">
+  <img title="microservices-overview-ci-cd" width="600" height="350" src="https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/microservices-overview-ci-cd.png?raw=true" alt="microservices-overview-ci-cd">
+</p>
 
