@@ -13,11 +13,13 @@ tag: Python
 
 ## How to run:
 1. Prepare virtual environment.
-```shell
+
+<code>
 $ python -m venv env
 $ source env/bin/activate
 (env)$ pip install -r requirements.txt
-```
+</code>
+
 2. Install ChromeDriver globally( e.g. this [one](https://chromedriver.storage.googleapis.com/index.html?path=96.0.4664.45/) )
 
 3. Run different scrapers:
