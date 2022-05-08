@@ -233,6 +233,7 @@ article {
     font-size: 17px;
     margin-bottom: 100px;
     line-height: 1.9;
+    background-color: lightcyan;
 }
 
 article.home div a,
