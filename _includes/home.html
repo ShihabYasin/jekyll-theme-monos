@@ -3,9 +3,10 @@
         <div class="post-title">Articles</div>
     </header>
 <!--    {{ site | debug }}-->
-    {%- assign previous_posts = [] -%}
+
     <div class="post-content">
         {%- if site.posts.size > 0 -%}
+        {%- assign previous_posts = [] -%}
         <ul class="post-list">
             {%- for post in site.posts if post.title not in previous_posts -%}
 <!--            console.log( {{ post.title }} );-->
