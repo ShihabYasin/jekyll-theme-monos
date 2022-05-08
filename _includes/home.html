@@ -1,32 +1,32 @@
-<article class="post">
-    <header class="post-header home">
-        <div class="post-title">Articles</div>
-    </header>
-<!--    {{ site | debug }}-->
 
-    <div class="post-content">
-        {%- if site.posts.size > 0 -%}
-        {%- assign previous_posts = [] -%}
-        <ul class="post-list">
-            {%- for post in site.posts if post.title not in previous_posts -%}
-<!--            console.log( {{ post.title }} );-->
-                {%- if post.title not in previous_posts -%}
-                    <li class="post-list-item">
-                        <!-- {%- assign date_format = site.date_format | default: "%b %-d, %Y" -%} -->
-                        {%- assign date_format = "%Y/%m/%d" -%}
-                        <span class="post-date">{{ post.date | date: date_format }}</span>
-                        <a class="post-link" href="{{ post.url | relative_url }}">
-                            {{ post.title | escape }}
-                            {{ previous_posts.append(post.title) }}
-                        </a>
-                        {%- if site.show_excerpts -%}{{ post.excerpt }}{%- endif -%}
-                    </li>
-                {%- endif -%}
+<!DOCTYPE html>
+<html lang="en"><head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1"><link type="application/atom+xml" rel="alternate" href="https://shihabyasin.github.io/feed.xml" title="Tech" /></head>
+<style>@import url(/public/css/syntax/monokai.css);</style>
+  <title>Tech</title>
+  <!-- <link href="/public/css/bootstrap.min.css" rel="stylesheet"> -->
 
-            {%- endfor -%}
-        </ul>
-        {%- endif -%}
+  <link href="/public/css/style.css" rel="stylesheet">
+  <body>
+  	<div class="container">
+		<div class="sidebar">
+			<div class="sidebar-item sidebar-header">
+	<div class='sidebar-brand'>
+		<a href="/about/">Tech</a>
+	</div>
+	<p class="lead">gist</p></div>
+
+<div class="sidebar-item sidebar-nav">
+	<ul class="nav">
+      <li class="nav-title">Pages</li>
+	  <li>
+	  	<a class="nav-item" href="/">Articles</a>
+	  </li>
+    </ul>
+</div>
+        </div>
     </div>
-</article>
-
-
+  </body>
+</html>
