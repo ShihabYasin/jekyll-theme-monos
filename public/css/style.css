@@ -145,7 +145,7 @@ a.nav-item {
 	color: #aaa;
 }
 
-a.nav-item:hover { color: #777; }
+a.nav-item:hover { color: #66a3ff; }
 
 .badge { font-size: 70%; }
 .badge::before { content: "("; }
