@@ -8,11 +8,11 @@ tag: DevOps
 
 
 
-
+## Docker Layer Caching and BuildKit 
 
 <main>
 
-## Docker Layer Caching and BuildKit 
+
 
 
 <h2 id="docker-layer-caching">Docker Layer Caching</h2>
