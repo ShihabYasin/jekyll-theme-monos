@@ -15,16 +15,8 @@ tag: Python
 1. Prepare virtual environment.
 
 
-<div class="multiline">
-$ python -m venv env 
+<code> 
 
-$ source env/bin/activate
-
-(env)$ pip install -r requirements.txt
-
-</div>
-
-<code>
 
 $ python -m venv env
 
