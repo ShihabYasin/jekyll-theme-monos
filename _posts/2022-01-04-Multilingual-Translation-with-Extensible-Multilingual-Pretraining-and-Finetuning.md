@@ -1,8 +1,8 @@
 ---
-layout: post 
-title: Multilingual Translation with Extensible Multilingual Pretraining and Finetuning 
-date: 2022-01-04 16:20:23 +0900 
-category: NLP 
+layout: post
+title: Multilingual Translation with Extensible Multilingual Pretraining and Finetuning
+date: 2022-01-04 16:20:23 +0900
+category: NLP
 tag: deeplearning
 ---
 * Finetuning on bitext(bilingual finetuning) to translate from
@@ -26,23 +26,23 @@ to translate N languages to N other languages.
 4. trained with temperature upsampling, which upsamples lower resource pairs so that the high resource languages do not dominate the training data.
 
 <p align="center">
-  <img title="" width="200" height="80" src="https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/9.png?raw=true" alt="">
+<img title="" width="200" height="80" src="https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/9.png?raw=true" alt="">
 </p>
 
 5. On average, all models have around 5.7 to 7 BLEU points improvement over bilingual baselines.
 
 <p align="center">
-  <img title="" width="800" height="290" src="https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/10.png?raw=true" alt="">
+<img title="" width="800" height="290" src="https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/10.png?raw=true" alt="">
 </p>
 
 
 However, multilingual finetuning would mean that the same model capacity must model many directions rather than just one, which could decrease performance.
 
 <p align="center">
-  <img title="" width="400" height="290" src="https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/11.png?raw=true" alt="">
+<img title="" width="400" height="290" src="https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/11.png?raw=true" alt="">
 
 </p>
 
-Ref: 
+Ref:
 1. [Multilingual Translation with Extensible Multilingual Pretraining and Finetuning](https://arxiv.org/abs/2008.00401)
 

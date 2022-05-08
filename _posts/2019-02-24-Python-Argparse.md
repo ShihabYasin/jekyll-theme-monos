@@ -30,7 +30,7 @@ tag: Python
 <p>
 The <code>argparse</code> module makes it easy to write user-friendly
 command-line interfaces. It parses the defined arguments from the
-<code>sys.argv</code>. 
+<code>sys.argv</code>.
 </p>
 
 <p>
@@ -43,8 +43,8 @@ The <code>argparse</code> is a standard module; we do not need to install it.
 </p>
 
 <p>
-A parser is created with <code>ArgumentParser</code> and a new parameter is 
-added with <code>add_argument</code>. Arguments can be optional, required, or 
+A parser is created with <code>ArgumentParser</code> and a new parameter is
+added with <code>add_argument</code>. Arguments can be optional, required, or
 positional.
 </p>
 
@@ -61,18 +61,18 @@ The following example creates a simple argument parser.
 import argparse
 
 parser = argparse.ArgumentParser()
-   
-parser.add_argument('-o', '--output', action='store_true', 
-    help="shows output")
+
+parser.add_argument('-o', '--output', action='store_true',
+help="shows output")
 
 args = parser.parse_args()
 
 if args.output:
-    print("This is some output")
+print("This is some output")
 </pre>
 
 <p>
-The example adds one argument having two options: a short <code>-o</code> and 
+The example adds one argument having two options: a short <code>-o</code> and
 a long <code>--ouput</code>. These are optional arguments.
 </p>
 
@@ -85,8 +85,8 @@ The module is imported.
 </p>
 
 <pre class="explanation">
-parser.add_argument('-o', '--output', action='store_true', 
-    help="shows output")
+parser.add_argument('-o', '--output', action='store_true',
+help="shows output")
 </pre>
 
 <p>
@@ -107,7 +107,7 @@ present as object attributes. In our case, there will be
 
 <pre class="explanation">
 if args.output:
-    print("This is some output")
+print("This is some output")
 </pre>
 
 <p>
@@ -130,9 +130,9 @@ $ optional_arg.py --help
 usage: optional_arg.py [-h] [-o]
 
 ```optional arguments:
-    -h, --help    show this help message and exit
-    -o, --output  shows output
-```
+-h, --help    show this help message and exit
+-o, --output  shows output
+</pre>
 
 
 <p>
@@ -152,7 +152,7 @@ An argument is made required with the <code>required</code> option.
 import argparse
 
 parser = argparse.ArgumentParser()
-   
+
 parser.add_argument('--name', required=True)
 
 args = parser.parse_args()
@@ -178,7 +178,7 @@ required_arg.py: error: the following arguments are required: --name
 <h2>Python argparse positional arguments</h2>
 
 <p>
-The following example works with positional arguments. They 
+The following example works with positional arguments. They
 are created with <code>add_argument</code>.
 </p>
 
@@ -189,7 +189,7 @@ are created with <code>add_argument</code>.
 import argparse
 
 parser = argparse.ArgumentParser()
-   
+
 parser.add_argument('name')
 parser.add_argument('age')
 
@@ -224,7 +224,7 @@ This is sample output.
 <h2>Python argparse dest</h2>
 
 <p>
-The <code>dest</code> option of the <code>add_argument</code> gives 
+The <code>dest</code> option of the <code>add_argument</code> gives
 a name to the argument. If not given, it is inferred from the option.
 </p>
 
@@ -238,15 +238,15 @@ import datetime
 
 
 parser = argparse.ArgumentParser()
-   
+
 parser.add_argument('-n', dest='now', action='store_true', help="shows now")
 
 args = parser.parse_args()
 
 if args.now:
 
-    now = datetime.datetime.now()
-    print(f"Now: {now}")
+now = datetime.datetime.now()
+print(f"Now: {now}")
 </pre>
 
 <p>
@@ -277,28 +277,28 @@ import random
 
 
 parser = argparse.ArgumentParser()
-   
-parser.add_argument('-n', type=int, required=True, 
-    help="define the number of random integers")
+
+parser.add_argument('-n', type=int, required=True,
+help="define the number of random integers")
 args = parser.parse_args()
 
 n = args.n
 
 for i in range(n):
-    print(random.randint(-100, 100))
+print(random.randint(-100, 100))
 </pre>
 
 <p>
-The program shows n random integers from -100 to 100. 
+The program shows n random integers from -100 to 100.
 </p>
 
 <pre class="explanation">
-parser.add_argument('-n', type=int, required=True, 
-    help="define the number of random integers")
+parser.add_argument('-n', type=int, required=True,
+help="define the number of random integers")
 </pre>
 
 <p>
-The <code>-n</code> option expects integer value and it is 
+The <code>-n</code> option expects integer value and it is
 required.
 </p>
 
@@ -316,7 +316,7 @@ This is a sample output.
 <h2>Python argparse default</h2>
 
 <p>
-The <code>default</code> option specifies the default value, 
+The <code>default</code> option specifies the default value,
 if the value is not given.
 </p>
 
@@ -340,13 +340,13 @@ base = args.b
 exp = args.e
 
 for i in range(exp):
-    val *= base
+val *= base
 
 print(val)
 </pre>
 
 <p>
-The example computes exponentiation. The exponent value is not required; 
+The example computes exponentiation. The exponent value is not required;
 if not given, the default will be 2.
 </p>
 
@@ -361,7 +361,7 @@ $ power.py -b 3 -e 3
 <h2>Python argparse metavar</h2>
 
 <p>
-The <code>metavar</code> option gives a name to the 
+The <code>metavar</code> option gives a name to the
 expected value in error and help outputs.
 </p>
 
@@ -374,9 +374,9 @@ import argparse
 
 
 parser = argparse.ArgumentParser()
-   
-parser.add_argument('-v', type=int, required=True, metavar='value', 
-    help="computes cube for the given value")
+
+parser.add_argument('-v', type=int, required=True, metavar='value',
+help="computes cube for the given value")
 args = parser.parse_args()
 
 print(args)
@@ -387,7 +387,7 @@ print(val * val * val)
 </pre>
 
 <p>
-The example names the expected value <code>value</code>. The default 
+The example names the expected value <code>value</code>. The default
 name is <code>V</code>.
 </p>
 
@@ -396,8 +396,8 @@ $ metavar.py -h
 usage: metavar.py [-h] -v value
 
 optional arguments:
-  -h, --help  show this help message and exit
-  -v value    computes cube for the given value
+-h, --help  show this help message and exit
+-v value    computes cube for the given value
 </pre>
 
 <p>
@@ -408,7 +408,7 @@ The given name is shown in the help output.
 <h2>Python argparse append action</h2>
 
 <p>
-The <code>append</code> action allows to group repeating 
+The <code>append</code> action allows to group repeating
 options.
 </p>
 
@@ -420,21 +420,21 @@ import argparse
 
 
 parser = argparse.ArgumentParser()
-   
-parser.add_argument('-n', '--name', dest='names', action='append', 
-    help="provides names to greet")
+
+parser.add_argument('-n', '--name', dest='names', action='append',
+help="provides names to greet")
 
 args = parser.parse_args()
 
 names = args.names
 
 for name in names:
-    print(f'Hello {name}!')
+print(f'Hello {name}!')
 </pre>
 
 <p>
-The example produces greeting messages to all names specified with the 
-<code>n</code> or <code>name</code> options; they can be repeated 
+The example produces greeting messages to all names specified with the
+<code>n</code> or <code>name</code> options; they can be repeated
 multipile times.
 </p>
 
@@ -449,7 +449,7 @@ Hello Jane!
 <h2>Python argparse nargs</h2>
 
 <p>
-The <code>nargs</code> specifies the number of command-line arguments 
+The <code>nargs</code> specifies the number of command-line arguments
 that should be consumed.
 </p>
 
@@ -462,34 +462,34 @@ import sys
 
 parser = argparse.ArgumentParser()
 parser.add_argument('chars', type=str, nargs=2, metavar='c',
-                    help='starting and ending character')
+help='starting and ending character')
 
 args = parser.parse_args()
 
 try:
-    v1 = ord(args.chars[0])
-    v2 = ord(args.chars[1])
+v1 = ord(args.chars[0])
+v2 = ord(args.chars[1])
 
 except TypeError as e:
 
-    print('Error: arguments must be characters')
-    parser.print_help()
-    sys.exit(1)
+print('Error: arguments must be characters')
+parser.print_help()
+sys.exit(1)
 
 if v1 > v2:
-    print('first letter must precede the second in alphabet')
-    parser.print_help()
-    sys.exit(1)
+print('first letter must precede the second in alphabet')
+parser.print_help()
+sys.exit(1)
 </pre>
 
 <p>
-The example shows a sequence of characters from character one to 
+The example shows a sequence of characters from character one to
 character two. It expects two arguments.
 </p>
 
 <pre class="compact">
 parser.add_argument('chars', type=str, nargs=2, metavar='c',
-    help='starting and ending character')
+help='starting and ending character')
 </pre>
 
 <p>
@@ -524,7 +524,7 @@ print(f"The sum of values is {sum(args.num)}")
 </pre>
 
 <p>
-The example computes the sum of values; we can specify 
+The example computes the sum of values; we can specify
 variable number of arguments to the program.
 </p>
 
@@ -537,7 +537,7 @@ The sum of values is 15
 <h2>Python argparse choices</h2>
 
 <p>
-The <code>choices</code> option limits arguments 
+The <code>choices</code> option limits arguments
 to the given list.
 </p>
 
@@ -553,23 +553,23 @@ import time
 parser = argparse.ArgumentParser()
 
 parser.add_argument('--now', dest='format', choices=['std', 'iso', 'unix', 'tz'],
-                    help="shows datetime in given format")
+help="shows datetime in given format")
 
 args = parser.parse_args()
 fmt = args.format
 
 if fmt == 'std':
-    print(datetime.date.today())
+print(datetime.date.today())
 elif fmt == 'iso':
-    print(datetime.datetime.now().isoformat())
+print(datetime.datetime.now().isoformat())
 elif fmt == 'unix':
-    print(time.time())
+print(time.time())
 elif fmt == 'tz':
-    print(datetime.datetime.now(datetime.timezone.utc))
+print(datetime.datetime.now(datetime.timezone.utc))
 </pre>
 
 <p>
-In the example, the <code>now</code> option can accept the following 
+In the example, the <code>now</code> option can accept the following
 values: <code>std</code>, <code>iso</code>, <code>unix</code>, or <code>tz</code>.
 </p>
 
@@ -588,8 +588,8 @@ This is a sample output.
 <h2>Head example</h2>
 
 <p>
-The following example mimics the Linux head command. It shows the n 
-lines of a text from the beginning of the file.    
+The following example mimics the Linux head command. It shows the n
+lines of a text from the beginning of the file.
 </p>
 
 <div class="codehead">words.txt</div>
@@ -615,7 +615,7 @@ from pathlib import Path
 
 
 parser = argparse.ArgumentParser()
-   
+
 parser.add_argument('f', type=str, help='file name')
 parser.add_argument('n', type=int, help='show n lines from the top')
 
@@ -626,11 +626,11 @@ filename = args.f
 lines = Path(filename).read_text().splitlines()
 
 for line in lines[:args.n]:
-    print(line) 
+print(line)
 </pre>
 
 <p>
-The example has two options: <code>f</code> for a file name and 
+The example has two options: <code>f</code> for a file name and
 <code>-n</code> for the number of lines to show.
 </p>
 

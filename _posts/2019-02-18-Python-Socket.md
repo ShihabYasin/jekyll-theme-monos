@@ -81,12 +81,12 @@ we can only use addresses of that type with the socket.
 </p>
 
 <ul>
-    <li>AF_UNIX, AF_LOCAL - Local communication</li>
-    <li>AF_INET - IPv4 Internet protocols</li>
-    <li>AF_INET6 - IPv6 Internet protocols</li>
-    <li>AF_IPX - IPX - Novell protocols</li>
-    <li>AF_BLUETOOTH - Wireless bluetooth protocols</li>
-    <li>AF_PACKET - Low level packet interface</li>
+<li>AF_UNIX, AF_LOCAL - Local communication</li>
+<li>AF_INET - IPv4 Internet protocols</li>
+<li>AF_INET6 - IPv6 Internet protocols</li>
+<li>AF_IPX - IPX - Novell protocols</li>
+<li>AF_BLUETOOTH - Wireless bluetooth protocols</li>
+<li>AF_PACKET - Low level packet interface</li>
 </ul>
 
 <p>
@@ -146,13 +146,13 @@ import socket
 
 with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
 
-    message = b''
-    addr = ("djxmmx.net", 17)
+message = b''
+addr = ("djxmmx.net", 17)
 
-    s.sendto(message, addr)
+s.sendto(message, addr)
 
-    data, address = s.recvfrom(1024)
-    print(data.decode())
+data, address = s.recvfrom(1024)
+print(data.decode())
 </pre>
 
 <p>
@@ -181,7 +181,7 @@ message = b''
 
 <p>
 We send an empty message; the QOTD service works by sending arbitrary
-data to the socket; it simply responds with a quote. To communicate over 
+data to the socket; it simply responds with a quote. To communicate over
 TCP/UDP, we use binary strings.
 </p>
 
@@ -223,8 +223,8 @@ We print the decoded data to the terminal.
 <pre class="compact">
 $ ./qotd_client.py
 "Oh the nerves, the nerves; the mysteries of this machine called man!
-    Oh the little that unhinges it, poor creatures that we are!"
-    Charles Dickens (1812-70)
+Oh the little that unhinges it, poor creatures that we are!"
+Charles Dickens (1812-70)
 </pre>
 
 <p>
@@ -253,12 +253,12 @@ import socket
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
 
-    host = "time.nist.gov"
-    port = 13
+host = "time.nist.gov"
+port = 13
 
-    s.connect((host, port))
-    s.sendall(b'')
-    print(str(s.recv(4096), 'utf-8'))
+s.connect((host, port))
+s.sendall(b'')
+print(str(s.recv(4096), 'utf-8'))
 </pre>
 
 <p>
@@ -329,9 +329,9 @@ import socket
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
 
-    s.connect(("webcode.me" , 80))
-    s.sendall(b"HEAD / HTTP/1.1\r\nHost: webcode.me\r\nAccept: text/html\r\n\r\n")
-    print(str(s.recv(1024), 'utf-8'))
+s.connect(("webcode.me" , 80))
+s.sendall(b"HEAD / HTTP/1.1\r\nHost: webcode.me\r\nAccept: text/html\r\n\r\n")
+print(str(s.recv(1024), 'utf-8'))
 </pre>
 
 <p>
@@ -379,17 +379,17 @@ import socket
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
 
-    s.connect(("webcode.me" , 80))
-    s.sendall(b"GET / HTTP/1.1\r\nHost: webcode.me\r\nAccept: text/html\r\nConnection: close\r\n\r\n")
+s.connect(("webcode.me" , 80))
+s.sendall(b"GET / HTTP/1.1\r\nHost: webcode.me\r\nAccept: text/html\r\nConnection: close\r\n\r\n")
 
-    while True:
+while True:
 
-        data = s.recv(1024)
+data = s.recv(1024)
 
-        if not data:
-            break
+if not data:
+break
 
-        print(data.decode())
+print(data.decode())
 </pre>
 
 <p>
@@ -402,26 +402,26 @@ s.sendall(b"GET / HTTP/1.1\r\nHost: webcode.me\r\nAccept: text/html\r\nConnectio
 </pre>
 
 <p>
-For the HTTP 1.1 protocol, the connections may be persistent by default. This is why we 
+For the HTTP 1.1 protocol, the connections may be persistent by default. This is why we
 send the <code>Connection: close</code> header.
 </p>
 
 <pre class="explanation">
 while True:
 
-    data = s.recv(1024)
+data = s.recv(1024)
 
-    if not data:
-        break
+if not data:
+break
 
-    print(data.decode())
+print(data.decode())
 </pre>
 
 <p>
 We use a while loop to process the received data. If no error occurs,
 <code>recv</code> returns the bytes received. If the connection has
 been gracefully closed, the return value is an empty byte string.
-The <code>recv</code> is a blocking method that blocks until it is 
+The <code>recv</code> is a blocking method that blocks until it is
 done, or a timeout is reached or another exception occurs.
 </p>
 
@@ -441,19 +441,19 @@ Accept-Ranges: bytes
 &lt;!DOCTYPE html&gt;
 &lt;html lang="en"&gt;
 &lt;head&gt;
-    &lt;meta charset="UTF-8"&gt;
-    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
-    &lt;title&gt;My html page&lt;/title&gt;
+&lt;meta charset="UTF-8"&gt;
+&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+&lt;title&gt;My html page&lt;/title&gt;
 &lt;/head&gt;
 &lt;body&gt;
 
-    &lt;p&gt;
-        Today is a beautiful day. We go swimming and fishing.
-    &lt;/p&gt;
+&lt;p&gt;
+Today is a beautiful day. We go swimming and fishing.
+&lt;/p&gt;
 
-    &lt;p&gt;
-         Hello there. How are you?
-    &lt;/p&gt;
+&lt;p&gt;
+Hello there. How are you?
+&lt;/p&gt;
 
 &lt;/body&gt;
 &lt;/html&gt;
@@ -464,8 +464,8 @@ Accept-Ranges: bytes
 <h2>Echo client server example</h2>
 
 <p>
-An echo server sends the message from the client back. It is a 
-classic example used for testing and learning.    
+An echo server sends the message from the client back. It is a
+classic example used for testing and learning.
 </p>
 
 <div class="codehead">echo_server.py</div>
@@ -477,26 +477,26 @@ import time
 
 with socket.socket() as s:
 
-    host = 'localhost'
-    port = 8001
+host = 'localhost'
+port = 8001
 
-    s.bind((host, port))
-    print(f'socket binded to {port}')
+s.bind((host, port))
+print(f'socket binded to {port}')
 
-    s.listen()
+s.listen()
 
-    con, addr = s.accept()
+con, addr = s.accept()
 
-    with con:
-   
-        while True:
+with con:
 
-            data = con.recv(1024)
+while True:
 
-            if not data:
-                break
+data = con.recv(1024)
 
-            con.sendall(data)
+if not data:
+break
+
+con.sendall(data)
 </pre>
 
 <p>
@@ -518,7 +518,7 @@ s.bind((host, port))
 
 <p>
 The <code>bind</code> method establishes the communication endpoint.
-It binds the socket to the specified address. The socket must not already be bound. 
+It binds the socket to the specified address. The socket must not already be bound.
 (The format of address depends on the address family.)
 </p>
 
@@ -528,10 +528,10 @@ s.listen()
 
 <p>
 The <code>listen</code> method enables a server to accept connections. The
-server can now listen for connections on a socket. The <code>listen</code> 
+server can now listen for connections on a socket. The <code>listen</code>
 has a <code>backlog</code> parameter. It specifies the number of unaccepted
-connections that the system will allow before refusing new connections. 
-The parameter is optional since Python 3.5. If not specified, a default backlog 
+connections that the system will allow before refusing new connections.
+The parameter is optional since Python 3.5. If not specified, a default backlog
 value is chosen.
 </p>
 
@@ -548,7 +548,7 @@ the address bound to the socket on the other end of the connection.
 </p>
 
 <p>
-Note that the <code>accept</code> creates a new socket for communication with 
+Note that the <code>accept</code> creates a new socket for communication with
 a client, which is a different socket from the listening socket.
 </p>
 
@@ -560,12 +560,12 @@ import socket
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
 
-    host = "localhost"
-    port = 8001
+host = "localhost"
+port = 8001
 
-    s.connect((host, port))
-    s.sendall(b'hello there')
-    print(str(s.recv(4096), 'utf-8'))
+s.connect((host, port))
+s.sendall(b'hello there')
+print(str(s.recv(4096), 'utf-8'))
 </pre>
 
 <p>
@@ -575,7 +575,7 @@ The client sends a message to the echo server.
 <h2>Asynchronous server example</h2>
 
 <p>
-In order to improve the performance of a server, we can use the 
+In order to improve the performance of a server, we can use the
 <code>asyncio</code> module.
 </p>
 
@@ -590,10 +590,10 @@ import asyncio
 
 async def handle_client(reader, writer):
 
-    data = (await reader.read(1024))
+data = (await reader.read(1024))
 
-    writer.write(data)
-    writer.close()
+writer.write(data)
+writer.close()
 
 
 loop = asyncio.get_event_loop()
@@ -602,7 +602,7 @@ loop.run_forever()
 </pre>
 
 <p>
-We can now test the performance of the blocking and non-blocking servers. 
+We can now test the performance of the blocking and non-blocking servers.
 </p>
 
 <pre class="compact">

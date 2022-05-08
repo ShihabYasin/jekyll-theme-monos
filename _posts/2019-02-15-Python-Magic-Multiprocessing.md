@@ -98,11 +98,11 @@ The examples of perfectly parallel computations include:
 </p>
 
 <ul>
-  <li>Monte Carlo analysis</li>
-  <li>numerical integration</li>
-  <li>rendering of computer graphics</li>
-  <li>brute force searches in cryptography</li>
-  <li>genetic algorithms</li>
+<li>Monte Carlo analysis</li>
+<li>numerical integration</li>
+<li>rendering of computer graphics</li>
+<li>brute force searches in cryptography</li>
+<li>genetic algorithms</li>
 </ul>
 
 <p>
@@ -201,16 +201,16 @@ from multiprocessing import Process
 
 
 def fun(name):
-    print(f'hello {name}')
+print(f'hello {name}')
 
 def main():
 
-    p = Process(target=fun, args=('Peter',))
-    p.start()
+p = Process(target=fun, args=('Peter',))
+p.start()
 
 
 if __name__ == '__main__':
-    main()
+main()
 </pre>
 
 <p>
@@ -219,7 +219,7 @@ We create a new process and pass a value to it.
 
 <pre class="explanation">
 def fun(name):
-    print(f'hello {name}')
+print(f'hello {name}')
 </pre>
 
 <p>
@@ -229,8 +229,8 @@ The function prints the passed parameter.
 <pre class="explanation">
 def main():
 
-    p = Process(target=fun, args=('Peter',))
-    p.start()
+p = Process(target=fun, args=('Peter',))
+p.start()
 </pre>
 
 <p>
@@ -242,7 +242,7 @@ The process is started with the <code>start</code> method.
 
 <pre class="explanation">
 if __name__ == '__main__':
-    main()
+main()
 </pre>
 
 <p>
@@ -268,22 +268,22 @@ import time
 
 def fun():
 
-    print('starting fun')
-    time.sleep(2)
-    print('finishing fun')
+print('starting fun')
+time.sleep(2)
+print('finishing fun')
 
 def main():
 
-    p = Process(target=fun)
-    p.start()
-    p.join()
+p = Process(target=fun)
+p.start()
+p.join()
 
 
 if __name__ == '__main__':
 
-    print('starting main')
-    main()
-    print('finishing main')
+print('starting main')
+main()
+print('finishing main')
 </pre>
 
 <p>
@@ -330,34 +330,34 @@ import time
 
 def fun(val):
 
-    print(f'starting fun with {val} s')
-    time.sleep(val)
-    print(f'finishing fun with {val} s')
+print(f'starting fun with {val} s')
+time.sleep(val)
+print(f'finishing fun with {val} s')
 
 
 def main():
 
-    p1 = Process(target=fun, args=(3, ))
-    p1.start()
-    # p1.join()
+p1 = Process(target=fun, args=(3, ))
+p1.start()
+# p1.join()
 
-    p2 = Process(target=fun, args=(2, ))
-    p2.start()
-    # p2.join()
+p2 = Process(target=fun, args=(2, ))
+p2.start()
+# p2.join()
 
-    p3 = Process(target=fun, args=(1, ))
-    p3.start()
-    # p3.join()
+p3 = Process(target=fun, args=(1, ))
+p3.start()
+# p3.join()
 
-    p1.join()
-    p2.join()
-    p3.join()
+p1.join()
+p2.join()
+p3.join()
 
-    print('finished main')
+print('finished main')
 
 if __name__ == '__main__':
 
-    main()
+main()
 </pre>
 
 <p>
@@ -381,22 +381,22 @@ import time
 
 def fun():
 
-    print('calling fun')
-    time.sleep(2)
+print('calling fun')
+time.sleep(2)
 
 def main():
 
-    print('main fun')
+print('main fun')
 
-    p = Process(target=fun)
-    p.start()
-    p.join()
+p = Process(target=fun)
+p.start()
+p.join()
 
-    print(f'Process p is alive: {p.is_alive()}')
+print(f'Process p is alive: {p.is_alive()}')
 
 
 if __name__ == '__main__':
-    main()
+main()
 </pre>
 
 <p>
@@ -423,28 +423,28 @@ import os
 
 def fun():
 
-    print('--------------------------')
+print('--------------------------')
 
-    print('calling fun')
-    print('parent process id:', os.getppid())
-    print('process id:', os.getpid())
+print('calling fun')
+print('parent process id:', os.getppid())
+print('process id:', os.getpid())
 
 def main():
 
-    print('main fun')
-    print('process id:', os.getpid())
+print('main fun')
+print('process id:', os.getpid())
 
-    p1 = Process(target=fun)
-    p1.start()
-    p1.join()
+p1 = Process(target=fun)
+p1.start()
+p1.join()
 
-    p2 = Process(target=fun)
-    p2.start()
-    p2.join()
+p2 = Process(target=fun)
+p2.start()
+p2.join()
 
 
 if __name__ == '__main__':
-    main()
+main()
 </pre>
 
 <p>
@@ -486,27 +486,27 @@ import time
 
 def worker():
 
-    name = current_process().name
-    print(name, 'Starting')
-    time.sleep(2)
-    print(name, 'Exiting')
+name = current_process().name
+print(name, 'Starting')
+time.sleep(2)
+print(name, 'Exiting')
 
 def service():
 
-    name = current_process().name
-    print(name, 'Starting')
-    time.sleep(3)
-    print(name, 'Exiting')
+name = current_process().name
+print(name, 'Starting')
+time.sleep(3)
+print(name, 'Exiting')
 
 if __name__ == '__main__':
 
-    service = Process(name='Service 1', target=service)
-    worker1 = Process(name='Worker 1', target=worker)
-    worker2 = Process(target=worker) # use default name
+service = Process(name='Service 1', target=service)
+worker1 = Process(name='Worker 1', target=worker)
+worker2 = Process(target=worker) # use default name
 
-    worker1.start()
-    worker2.start()
-    service.start()
+worker1.start()
+worker2.start()
+service.start()
 </pre>
 
 <p>
@@ -542,24 +542,24 @@ from multiprocessing import Process
 
 class Worker(Process):
 
-    def run(self):
+def run(self):
 
-        print(f'In {self.name}')
-        time.sleep(2)
+print(f'In {self.name}')
+time.sleep(2)
 
 def main():
 
-    worker = Worker()
-    worker.start()
+worker = Worker()
+worker.start()
 
-    worker2 = Worker()
-    worker2.start()
+worker2 = Worker()
+worker2.start()
 
-    worker.join()
-    worker2.join()
+worker.join()
+worker2.join()
 
 if __name__ == '__main__':
-    main()
+main()
 </pre>
 
 <p>
@@ -596,28 +596,28 @@ from multiprocessing import Pool, cpu_count
 
 def square(n):
 
-    time.sleep(2)
+time.sleep(2)
 
-    return n * n
+return n * n
 
 
 def main():
 
-    start = timer()
+start = timer()
 
-    print(f'starting computations on {cpu_count()} cores')
+print(f'starting computations on {cpu_count()} cores')
 
-    values = (2, 4, 6, 8)
+values = (2, 4, 6, 8)
 
-    with Pool() as pool:
-        res = pool.map(square, values)
-        print(res)
+with Pool() as pool:
+res = pool.map(square, values)
+print(res)
 
-    end = timer()
-    print(f'elapsed time: {end - start}')
+end = timer()
+print(f'elapsed time: {end - start}')
 
 if __name__ == '__main__':
-    main()
+main()
 </pre>
 
 <p>
@@ -670,29 +670,29 @@ from multiprocessing import Pool, cpu_count
 
 def power(x, n):
 
-    time.sleep(1)
+time.sleep(1)
 
-    return x ** n
+return x ** n
 
 
 def main():
 
-    start = timer()
+start = timer()
 
-    print(f'starting computations on {cpu_count()} cores')
+print(f'starting computations on {cpu_count()} cores')
 
-    values = ((2, 2), (4, 3), (5, 5))
+values = ((2, 2), (4, 3), (5, 5))
 
-    with Pool() as pool:
-        res = pool.starmap(power, values)
-        print(res)
+with Pool() as pool:
+res = pool.starmap(power, values)
+print(res)
 
-    end = timer()
-    print(f'elapsed time: {end - start}')
+end = timer()
+print(f'elapsed time: {end - start}')
 
 
 if __name__ == '__main__':
-    main()
+main()
 </pre>
 
 <p>
@@ -727,32 +727,32 @@ import functools
 
 
 def inc(x):
-    return x + 1
+return x + 1
 
 def dec(x):
-    return x - 1
+return x - 1
 
 def add(x, y):
-    return x + y
+return x + y
 
 def smap(f):
-    return f()
+return f()
 
 
 def main():
 
-    f_inc = functools.partial(inc, 4)
-    f_dec = functools.partial(dec, 2)
-    f_add = functools.partial(add, 3, 4)
+f_inc = functools.partial(inc, 4)
+f_dec = functools.partial(dec, 2)
+f_add = functools.partial(add, 3, 4)
 
-    with Pool() as pool:
-        res = pool.map(smap, [f_inc, f_dec, f_add])
+with Pool() as pool:
+res = pool.map(smap, [f_inc, f_dec, f_add])
 
-        print(res)
+print(res)
 
 
 if __name__ == '__main__':
-    main()
+main()
 </pre>
 
 <p>
@@ -792,13 +792,13 @@ from timeit import default_timer as timer
 
 def pi(precision):
 
-    getcontext().prec = precision
+getcontext().prec = precision
 
-    return sum(1/Decimal(16)**k *
-        (Decimal(4)/(8*k+1) -
-         Decimal(2)/(8*k+4) -
-         Decimal(1)/(8*k+5) -
-         Decimal(1)/(8*k+6)) for k in range (precision))
+return sum(1/Decimal(16)**k *
+(Decimal(4)/(8*k+1) -
+Decimal(2)/(8*k+4) -
+Decimal(1)/(8*k+5) -
+Decimal(1)/(8*k+6)) for k in range (precision))
 
 
 start = timer()
@@ -842,30 +842,30 @@ import time
 
 def pi(precision):
 
-    getcontext().prec=precision
+getcontext().prec=precision
 
-    return sum(1/Decimal(16)**k *
-        (Decimal(4)/(8*k+1) -
-         Decimal(2)/(8*k+4) -
-         Decimal(1)/(8*k+5) -
-         Decimal(1)/(8*k+6)) for k in range (precision))
+return sum(1/Decimal(16)**k *
+(Decimal(4)/(8*k+1) -
+Decimal(2)/(8*k+4) -
+Decimal(1)/(8*k+5) -
+Decimal(1)/(8*k+6)) for k in range (precision))
 
 def main():
 
-    start = timer()
+start = timer()
 
-    with Pool(3) as pool:
+with Pool(3) as pool:
 
-        values = (1000, 1500, 2000)
-        data = pool.map(pi, values)
-        print(data)
+values = (1000, 1500, 2000)
+data = pool.map(pi, values)
+print(data)
 
-    end = timer()
-    print(f'paralelly: {end - start}')
+end = timer()
+print(f'paralelly: {end - start}')
 
 
 if __name__ == '__main__':
-    main()
+main()
 </pre>
 
 <p>
@@ -901,23 +901,23 @@ data = [1, 2]
 
 def fun():
 
-    global data
+global data
 
-    data.extend((3, 4, 5))
-    print(f'Result in {current_process().name}: {data}')
+data.extend((3, 4, 5))
+print(f'Result in {current_process().name}: {data}')
 
 def main():
 
-    worker = Process(target=fun)
-    worker.start()
-    worker.join()
+worker = Process(target=fun)
+worker.start()
+worker.join()
 
-    print(f'Result in main: {data}')
+print(f'Result in main: {data}')
 
 
 if __name__ == '__main__':
 
-    main()
+main()
 </pre>
 
 <p>
@@ -961,27 +961,27 @@ from time import sleep
 
 def f(counter):
 
-    sleep(1)
+sleep(1)
 
-    with counter.get_lock():
-        counter.value += 1
+with counter.get_lock():
+counter.value += 1
 
-    print(f'Counter: {counter.value}')
+print(f'Counter: {counter.value}')
 
 def main():
 
-    counter = Value('i', 0)
+counter = Value('i', 0)
 
-    processes = [Process(target=f, args=(counter, )) for _ in range(30)]
+processes = [Process(target=f, args=(counter, )) for _ in range(30)]
 
-    for p in processes:
-        p.start()
+for p in processes:
+p.start()
 
-    for p in processes:
-        p.join()
+for p in processes:
+p.join()
 
 if __name__ == '__main__':
-    main()
+main()
 </pre>
 
 <p>
@@ -991,7 +991,7 @@ Each of the processes increases the counter.
 
 <pre class="explanation">
 with counter.get_lock():
-    counter.value += 1
+counter.value += 1
 </pre>
 
 <p>
@@ -1021,27 +1021,27 @@ import random
 
 def rand_val(queue):
 
-    num = random.random()
-    queue.put(num)
+num = random.random()
+queue.put(num)
 
 
 def main():
 
-    queue = Queue()
+queue = Queue()
 
-    processes = [Process(target=rand_val, args=(queue,)) for _ in range(4)]
+processes = [Process(target=rand_val, args=(queue,)) for _ in range(4)]
 
-    for p in processes:
-        p.start()
+for p in processes:
+p.start()
 
-    for p in processes:
-        p.join()
+for p in processes:
+p.join()
 
-    results = [queue.get() for _ in processes]
-    print(results)
+results = [queue.get() for _ in processes]
+print(results)
 
 if __name__ == "__main__":
-    main()
+main()
 </pre>
 
 <p>
@@ -1088,28 +1088,28 @@ from multiprocessing import Queue, Process, current_process
 
 
 def worker(queue):
-    name = current_process().name
-    print(f'{name} data received: {queue.get()}')
+name = current_process().name
+print(f'{name} data received: {queue.get()}')
 
 
 def main():
 
-    queue = Queue()
-    queue.put("wood")
-    queue.put("sky")
-    queue.put("cloud")
-    queue.put("ocean")
+queue = Queue()
+queue.put("wood")
+queue.put("sky")
+queue.put("cloud")
+queue.put("ocean")
 
-    processes = [Process(target=worker, args=(queue,)) for _ in range(4)]
+processes = [Process(target=worker, args=(queue,)) for _ in range(4)]
 
-    for p in processes:
-        p.start()
+for p in processes:
+p.start()
 
-    for p in processes:
-        p.join()
+for p in processes:
+p.join()
 
 if __name__ == "__main__":
-    main()
+main()
 </pre>
 
 <p>
@@ -1149,31 +1149,31 @@ import random
 
 def square(idx, x, queue):
 
-    time.sleep(random.randint(1, 3))
-    queue.put((idx, x * x))
+time.sleep(random.randint(1, 3))
+queue.put((idx, x * x))
 
 
 def main():
 
-    data = [2, 4, 6, 3, 5, 8, 9, 7]
-    queue = Queue()
-    processes = [Process(target=square, args=(idx, val, queue))
-                 for idx, val in enumerate(data)]
+data = [2, 4, 6, 3, 5, 8, 9, 7]
+queue = Queue()
+processes = [Process(target=square, args=(idx, val, queue))
+for idx, val in enumerate(data)]
 
-    for p in processes:
-        p.start()
+for p in processes:
+p.start()
 
-    for p in processes:
-        p.join()
+for p in processes:
+p.join()
 
-    unsorted_result = [queue.get() for _ in processes]
+unsorted_result = [queue.get() for _ in processes]
 
-    result = [val[1] for val in sorted(unsorted_result)]
-    print(result)
+result = [val[1] for val in sorted(unsorted_result)]
+print(result)
 
 
 if __name__ == '__main__':
-    main()
+main()
 </pre>
 
 <p>
@@ -1185,8 +1185,8 @@ we keep an extra index for each input value.
 <pre class="explanation">
 def square(idx, x, queue):
 
-    time.sleep(random.randint(1, 3))
-    queue.put((idx, x * x))
+time.sleep(random.randint(1, 3))
+queue.put((idx, x * x))
 </pre>
 
 <p>
@@ -1233,15 +1233,15 @@ The following formula is used to calculate the approximation of &pi;:
 </p>
 
 <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
-  <mfrac>
-    <mi>&#x03C0;</mi>
-    <mn>4</mn>
-  </mfrac>
-  <mo>&#x2248;</mo>
-  <mfrac>
-    <mi>M</mi>
-    <mi>N</mi>
-  </mfrac>
+<mfrac>
+<mi>&#x03C0;</mi>
+<mn>4</mn>
+</mfrac>
+<mo>&#x2248;</mo>
+<mfrac>
+<mi>M</mi>
+<mi>N</mi>
+</mfrac>
 </math>
 
 <p>
@@ -1265,18 +1265,18 @@ from timeit import default_timer as timer
 
 def pi(n):
 
-    count = 0
+count = 0
 
-    for i in range(n):
+for i in range(n):
 
-        x, y = random(), random()
+x, y = random(), random()
 
-        r = sqrt(pow(x, 2) + pow(y, 2))
+r = sqrt(pow(x, 2) + pow(y, 2))
 
-        if r &lt; 1:
-            count += 1
+if r &lt; 1:
+count += 1
 
-    return 4 * count / n
+return 4 * count / n
 
 
 start = timer()
@@ -1318,45 +1318,45 @@ from timeit import default_timer as timer
 
 
 def pi_part(n):
-    print(n)
+print(n)
 
-    count = 0
+count = 0
 
-    for i in range(int(n)):
+for i in range(int(n)):
 
-        x, y = random.random(), random.random()
+x, y = random.random(), random.random()
 
-        r = sqrt(pow(x, 2) + pow(y, 2))
+r = sqrt(pow(x, 2) + pow(y, 2))
 
-        if r &lt; 1:
-            count += 1
+if r &lt; 1:
+count += 1
 
-    return count
+return count
 
 
 def main():
 
-    start = timer()
+start = timer()
 
-    np = cpu_count()
-    print(f'You have {np} cores')
+np = cpu_count()
+print(f'You have {np} cores')
 
-    n = 100_000_000
+n = 100_000_000
 
-    part_count = [n/np for i in range(np)]
+part_count = [n/np for i in range(np)]
 
-    with Pool(processes=np) as pool:
+with Pool(processes=np) as pool:
 
-        count = pool.map(pi_part, part_count)
-        pi_est = sum(count) / (n * 1.0) * 4
+count = pool.map(pi_part, part_count)
+pi_est = sum(count) / (n * 1.0) * 4
 
-        end = timer()
+end = timer()
 
-        print(f'elapsed time: {end - start}')
-        print(f'π estimate: {pi_est}')
+print(f'elapsed time: {end - start}')
+print(f'π estimate: {pi_est}')
 
 if __name__=='__main__':
-    main()
+main()
 </pre>
 
 <p>

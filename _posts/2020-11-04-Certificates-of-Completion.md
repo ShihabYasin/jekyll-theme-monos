@@ -1,5 +1,5 @@
 ---
-layout: post 
+layout: post
 title: Some of My Certificates of Completion
 date: 2020-11-04 16:20:23 +0903
 category: Certificates

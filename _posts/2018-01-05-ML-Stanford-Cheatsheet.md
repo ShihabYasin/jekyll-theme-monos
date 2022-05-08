@@ -1,9 +1,9 @@
 ---
-layout: post 
-title: Stanford ML Cheatsheet 
-date: 2018-01-05 16:20:23 +0900 
-category: ML 
-tag: ML 
+layout: post
+title: Stanford ML Cheatsheet
+date: 2018-01-05 16:20:23 +0900
+category: ML
+tag: ML
 ---
 
 ### Stanford ML Cheatsheet:

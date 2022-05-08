@@ -69,13 +69,13 @@ The following example serializes data into a binary file.
 import pickle
 
 data = {
-    'a': [1, 4.0, 3, 4+6j],
-    'b': ("a red fox", b"and old falcon"),
-    'c': {None, True, False}
+'a': [1, 4.0, 3, 4+6j],
+'b': ("a red fox", b"and old falcon"),
+'c': {None, True, False}
 }
 
 with open('data.bin', 'wb') as f:
-    pickle.dump(data, f, pickle.HIGHEST_PROTOCOL)
+pickle.dump(data, f, pickle.HIGHEST_PROTOCOL)
 </pre>
 
 <p>
@@ -85,7 +85,7 @@ binary file.
 
 <pre class="explanation">
 with open('data.bin', 'wb') as f:
-    pickle.dump(data, f, pickle.HIGHEST_PROTOCOL)
+pickle.dump(data, f, pickle.HIGHEST_PROTOCOL)
 </pre>
 
 <p>
@@ -127,9 +127,9 @@ import pickle
 
 with open('data.bin', 'rb') as f:
 
-    data = pickle.load(f)
+data = pickle.load(f)
 
-    print(data)
+print(data)
 </pre>
 
 <p>
@@ -140,7 +140,7 @@ the file object and returns the reconstituted object.
 <pre class="compact">
 $ ./simple_read.py
 {'a': [1, 4.0, 3, (4+6j)], 'b': ('a red fox', b'and old falcon'),
-    'c': {False, True, None}}
+'c': {False, True, None}}
 </pre>
 
 <p>
@@ -189,7 +189,7 @@ b'\x80\x04\x95\x0f\x00\x00\x00\x00\x00\x00\x00]\x94(K\x01K\x02K\x03K\x04K\x05e.'
 
 <p>
 The process of pickling and unpickling can be influenced with the <code>__getstate__</code>
-and <code>__setstate__</code> functions. The <code>__getstate__</code> function 
+and <code>__setstate__</code> functions. The <code>__getstate__</code> function
 is called upon pickling and the <code>__setstate__</code> function upon unpickling.
 </p>
 
@@ -220,23 +220,23 @@ import pickle
 
 class MyData:
 
-    def __init__(self, filename):
+def __init__(self, filename):
 
-        self.name = filename
-        self.fh = open(filename)
+self.name = filename
+self.fh = open(filename)
 
-    def __getstate__(self):
+def __getstate__(self):
 
-        odict = self.__dict__.copy()
-        print(odict)
-        del odict['fh']
-        return odict
+odict = self.__dict__.copy()
+print(odict)
+del odict['fh']
+return odict
 
-    def __setstate__(self, dict):
+def __setstate__(self, dict):
 
-        fh = open(dict['name'])
-        self.name = dict['name']
-        self.fh = fh
+fh = open(dict['name'])
+self.name = dict['name']
+self.fh = fh
 
 obj = MyData('words.txt')
 
@@ -250,12 +250,12 @@ print(res.fh.read())
 </pre>
 
 <p>
-In the example, we store and remove the file handle in the 
+In the example, we store and remove the file handle in the
 <code>__setstate__</code> and <code>__getstate__</code> member functions.
 </p>
 
 <pre class="compact">
-$ ./state.py 
+$ ./state.py
 {'name': 'words.txt', 'fh': &lt;_io.TextIOWrapper name='words.txt' mode='r' encoding='UTF-8'&gt;}
 blue, rock, water, sky, cloud, forest, hawk, falcon
 {'name': 'colours.txt', 'fh': &lt;_io.TextIOWrapper name='colours.txt' mode='r' encoding='UTF-8'&gt;}
@@ -267,9 +267,9 @@ red, green, blue, pink, orange
 <h2>Python pickle is insecure</h2>
 
 <p>
-The <code>pickle</code> module is insecure. The module is a virtual machine 
-which uses predefined opcodes to do its work. By using specially crafted 
-binary strings the attacker can launch system commands which can damage data 
+The <code>pickle</code> module is insecure. The module is a virtual machine
+which uses predefined opcodes to do its work. By using specially crafted
+binary strings the attacker can launch system commands which can damage data
 or launch reverse shells.
 </p>
 
@@ -288,7 +288,7 @@ This example launches the Linux <code>ls</code> command.
 
 
 <pre class="compact">
-$ ./insec.py 
+$ ./insec.py
 total 36
 drwxr-xr-x 2 user2 user2 4096 Aug 13 16:16 Desktop
 drwxr-xr-x 2 user2 user2 4096 Aug 13 16:18 Documents

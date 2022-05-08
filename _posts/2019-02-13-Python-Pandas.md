@@ -28,7 +28,7 @@ tag: Python
 
 <p>
 Basic data analysis in Python with Pandas
-library. 
+library.
 </p>
 
 
@@ -138,7 +138,7 @@ names with <code>columns</code> property.
 
 <pre class="compact">
 $ python simple.py
-    Name  Age
+Name  Age
 0    Alex   10
 1  Ronald   18
 2    Jane   33
@@ -174,7 +174,7 @@ In the example, we add 1 to the index.
 
 <pre class="compact">
 $ python change_index.py
-    Name  Age
+Name  Age
 1    Alex   10
 2  Ronald   18
 3    Jane   33
@@ -367,9 +367,9 @@ index.
 import pandas as pd
 
 data = {"country": ["Brazil", "Russia", "India", "China", "South Africa"],
-        "capital": ["Brasilia", "Moscow", "New Dehli", "Beijing", "Pretoria"],
-        "area": [8.516, 17.10, 3.286, 9.597, 1.221],
-        "population": [200.4, 143.5, 1252, 1357, 52.98]}
+"capital": ["Brasilia", "Moscow", "New Dehli", "Beijing", "Pretoria"],
+"area": [8.516, 17.10, 3.286, 9.597, 1.221],
+"population": [200.4, 143.5, 1252, 1357, 52.98]}
 
 frame = pd.DataFrame(data)
 print(frame)
@@ -388,14 +388,14 @@ We print the data frame and then we change the index column with
 
 <pre class="compact">
 $ python custom_index.py
-        country    capital    area  population
+country    capital    area  population
 0        Brazil   Brasilia   8.516      200.40
 1        Russia     Moscow  17.100      143.50
 2         India  New Dehli   3.286     1252.00
 3         China    Beijing   9.597     1357.00
 4  South Africa   Pretoria   1.221       52.98
 ------------------------------
-         country    capital    area  population
+country    capital    area  population
 BR        Brazil   Brasilia   8.516      200.40
 RU        Russia     Moscow  17.100      143.50
 IN         India  New Dehli   3.286     1252.00
@@ -435,8 +435,8 @@ $ python index_vals_cols.py
 Index: RangeIndex(start=0, stop=3, step=1)
 Columns: Index(['Name', 'Age'], dtype='object')
 Values: [['Alex' 10]
-    ['Ronald' 18]
-    ['Jane' 33]]
+['Ronald' 18]
+['Jane' 33]]
 </pre>
 
 
@@ -554,21 +554,21 @@ Since we have positions column, we hide the index from the output.
 <pre class="compact">
 $ python read_from_csv.py
 Pos               Country   Amount (Bn. $)   GDP
-  1         United States            610.0   3.1
-  2                 China            228.0   1.9
-  3          Saudi Arabia             69.4  10.0
-  4                Russia             66.3   4.3
-  5                 India             63.9   2.5
-  6                France             57.8   2.3
-  7        United Kingdom             47.2   1.8
-  8                 Japan             45.4   0.9
-  9               Germany             44.3   1.2
- 10           South Korea             39.2   2.6
- 11                Brazil             29.3   1.4
- 12           Italy Italy             29.2   1.5
- 13   Australia Australia             27.5   2.0
- 14         Canada Canada             20.6   1.3
- 15         Turkey Turkey             18.2   2.2
+1         United States            610.0   3.1
+2                 China            228.0   1.9
+3          Saudi Arabia             69.4  10.0
+4                Russia             66.3   4.3
+5                 India             63.9   2.5
+6                France             57.8   2.3
+7        United Kingdom             47.2   1.8
+8                 Japan             45.4   0.9
+9               Germany             44.3   1.2
+10           South Korea             39.2   2.6
+11                Brazil             29.3   1.4
+12           Italy Italy             29.2   1.5
+13   Australia Australia             27.5   2.0
+14         Canada Canada             20.6   1.3
+15         Turkey Turkey             18.2   2.2
 </pre>
 
 
@@ -694,7 +694,7 @@ The example prints descriptive statistics from a data frame.
 
 <pre class="compact">
 $ python describe.py
-        Vals 1     Vals 2
+Vals 1     Vals 2
 count  8.00000   8.000000
 mean   4.50000  23.375000
 std    2.44949  16.535136
@@ -789,7 +789,7 @@ Pos         Country   Amount (Bn. $)   GDP
 2    3    Saudi Arabia             69.4  10.0
 3    4          Russia             66.3   4.3
 *******************************************
- Pos               Country   Amount (Bn. $)   GDP
+Pos               Country   Amount (Bn. $)   GDP
 11   12           Italy Italy             29.2   1.5
 12   13   Australia Australia             27.5   2.0
 13   14         Canada Canada             20.6   1.3
@@ -881,7 +881,7 @@ Items       coins
 Quantity       22
 Name: A, dtype: object
 -------------------------------
-    Items
+Items
 A  coins
 B   pens
 </pre>
@@ -910,9 +910,9 @@ The example selects rows by a boolean array.
 
 <pre class="compact">
 $ select_loc2.py
-    Items  Quantity
- A  coins        22
- C  books         3
+Items  Quantity
+A  coins        22
+C  books         3
 </pre>
 
 
@@ -1006,26 +1006,26 @@ The example sorts columns in in ascending or descending order.
 
 <pre class="compact">
 $ python sorting.py
-    Col 1  Col 2
- 1      1     23
- 0      2     12
- 4      3     11
- 2      4     31
- 3      5     14
- 7      6     18
- 6      7     17
- 5      8     61
- ------------------------------------
- Sorted
-    Col 1  Col 2
- 5      8     61
- 2      4     31
- 1      1     23
- 7      6     18
- 6      7     17
- 3      5     14
- 0      2     12
- 4      3     11
+Col 1  Col 2
+1      1     23
+0      2     12
+4      3     11
+2      4     31
+3      5     14
+7      6     18
+6      7     17
+5      8     61
+------------------------------------
+Sorted
+Col 1  Col 2
+5      8     61
+2      4     31
+1      1     23
+7      6     18
+6      7     17
+3      5     14
+0      2     12
+4      3     11
 </pre>
 
 
@@ -1056,15 +1056,15 @@ into account.
 
 <pre class="compact">
 $ python sorting2.py
-    Col 1 Col 2
- 5      1     C
- 2      1     B
- 0      1     A
- 4      2     C
- 6      2     C
- 7      2     B
- 1      2     A
- 3      2     A
+Col 1 Col 2
+5      1     C
+2      1     B
+0      1     A
+4      2     C
+6      2     C
+7      2     B
+1      2     A
+3      2     A
 </pre>
 
 

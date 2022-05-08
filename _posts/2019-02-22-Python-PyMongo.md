@@ -6,7 +6,7 @@ category: Python
 tag: Python
 ---
 
-  
+
 
 <html lang="en">
 <head>
@@ -31,21 +31,21 @@ tag: Python
 
 <p>
 <dfn>MongoDB</dfn> is a NoSQL cross-platform document-oriented database. It is one of the most
-popular databases available. MongoDB is developed by MongoDB Inc. and is published as free 
+popular databases available. MongoDB is developed by MongoDB Inc. and is published as free
 and open-source software.
 </p>
 
 
 <p>
-A <dfn>record</dfn> in MongoDB is a document, which is a data structure composed of field and value 
-pairs. MongoDB <dfn>documents</dfn> are similar to JSON objects. The values of fields may include 
-other documents, arrays, and arrays of documents. MongoDB stores documents in collections. 
+A <dfn>record</dfn> in MongoDB is a document, which is a data structure composed of field and value
+pairs. MongoDB <dfn>documents</dfn> are similar to JSON objects. The values of fields may include
+other documents, arrays, and arrays of documents. MongoDB stores documents in collections.
 <dfn>Collections</dfn> are analogous to tables in relational databases and documents to rows.
 </p>
 
 <p>
-A <dfn>cursor</dfn> is a reference to the result set of a query. Clients 
-can iterate through a cursor to retrieve results. By default, cursors 
+A <dfn>cursor</dfn> is a reference to the result set of a query. Clients
+can iterate through a cursor to retrieve results. By default, cursors
 timeout after ten minutes of inactivity.
 </p>
 
@@ -74,9 +74,9 @@ We install PyMongo with <code>pip</code>.
 <h2>Creating a MongoDB database</h2>
 
 <p>
-The <code>mongo</code> tool is an interactive JavaScript shell interface to 
-MongoDB, which provides an interface for systems administrators as well as 
-a way for developers to test queries and operations directly with the database. 
+The <code>mongo</code> tool is an interactive JavaScript shell interface to
+MongoDB, which provides an interface for systems administrators as well as
+a way for developers to test queries and operations directly with the database.
 </p>
 
 <pre class="compact">
@@ -98,8 +98,8 @@ We create a <code>testdb</code> database.
 <h2>PyMongo create collection</h2>
 
 <p>
-In the first example, we create a new collection. MongoDB stores 
-documents in collections. Collections are analogous to tables in 
+In the first example, we create a new collection. MongoDB stores
+documents in collections. Collections are analogous to tables in
 relational databases.
 </p>
 
@@ -110,21 +110,21 @@ relational databases.
 from pymongo import MongoClient
 
 cars = [ {'name': 'Audi', 'price': 52642},
-    {'name': 'Mercedes', 'price': 57127},
-    {'name': 'Skoda', 'price': 9000},
-    {'name': 'Volvo', 'price': 29000},
-    {'name': 'Bentley', 'price': 350000},
-    {'name': 'Citroen', 'price': 21000},
-    {'name': 'Hummer', 'price': 41400},
-    {'name': 'Volkswagen', 'price': 21600} ]
+{'name': 'Mercedes', 'price': 57127},
+{'name': 'Skoda', 'price': 9000},
+{'name': 'Volvo', 'price': 29000},
+{'name': 'Bentley', 'price': 350000},
+{'name': 'Citroen', 'price': 21000},
+{'name': 'Hummer', 'price': 41400},
+{'name': 'Volkswagen', 'price': 21600} ]
 
 client = MongoClient('mongodb://localhost:27017/')
 
 with client:
 
-    db = client.testdb
-    
-    db.cars.insert_many(cars)
+db = client.testdb
+
+db.cars.insert_many(cars)
 </pre>
 
 <p>
@@ -134,17 +134,17 @@ eight documents.
 
 <pre class="explanation">
 cars = [ {'name': 'Audi', 'price': 52642},
-    {'name': 'Mercedes', 'price': 57127},
-    {'name': 'Skoda', 'price': 9000},
-    {'name': 'Volvo', 'price': 29000},
-    {'name': 'Bentley', 'price': 350000},
-    {'name': 'Citroen', 'price': 21000},
-    {'name': 'Hummer', 'price': 41400},
-    {'name': 'Volkswagen', 'price': 21600} ]
+{'name': 'Mercedes', 'price': 57127},
+{'name': 'Skoda', 'price': 9000},
+{'name': 'Volvo', 'price': 29000},
+{'name': 'Bentley', 'price': 350000},
+{'name': 'Citroen', 'price': 21000},
+{'name': 'Hummer', 'price': 41400},
+{'name': 'Volkswagen', 'price': 21600} ]
 </pre>
 
 <p>
-This Python dictionary stores eight records to be inserted into 
+This Python dictionary stores eight records to be inserted into
 the MongoDB collection.
 </p>
 
@@ -207,9 +207,9 @@ from pymongo import MongoClient
 client = MongoClient('mongodb://localhost:27017/')
 
 with client:
-    
-    db = client.testdb
-    print(db.collection_names())
+
+db = client.testdb
+print(db.collection_names())
 </pre>
 
 <p>
@@ -233,9 +233,9 @@ client = MongoClient('mongodb://localhost:27017/')
 
 with client:
 
-    db = client.testdb
+db = client.testdb
 
-    db.cars.drop()
+db.cars.drop()
 </pre>
 
 <p>
@@ -248,7 +248,7 @@ database.
 
 <p>
 We can issue commnads to MongoDB with <code>command</code>. The
-<code>serverStatus</code> command returns the status of the MongoDB 
+<code>serverStatus</code> command returns the status of the MongoDB
 server.
 </p>
 
@@ -262,11 +262,11 @@ from pprint import pprint
 client = MongoClient('mongodb://localhost:27017/')
 
 with client:
-    
-    db = client.testdb
 
-    status = db.command("serverStatus")
-    pprint(status)
+db = client.testdb
+
+status = db.command("serverStatus")
+pprint(status)
 </pre>
 
 <p>
@@ -274,7 +274,7 @@ The example prints a lengthy servers status.
 </p>
 
 <p>
-The <code>dbstats</code> command returns statistics that reflect the 
+The <code>dbstats</code> command returns statistics that reflect the
 use state of a single database.
 </p>
 
@@ -288,12 +288,12 @@ from pprint import pprint
 client = MongoClient('mongodb://localhost:27017/')
 
 with client:
-    
-    db = client.testdb
-    print(db.collection_names())
 
-    status = db.command("dbstats")
-    pprint(status)
+db = client.testdb
+print(db.collection_names())
+
+status = db.command("dbstats")
+pprint(status)
 </pre>
 
 <p>
@@ -304,7 +304,7 @@ The example prints the database statistics of <code>testdb</code>.
 <h2>PyMongo cursor</h2>
 
 <p>
-The find methods return a PyMongo cursor, which is a reference to the 
+The find methods return a PyMongo cursor, which is a reference to the
 result set of a query.
 </p>
 
@@ -317,22 +317,22 @@ from pymongo import MongoClient
 client = MongoClient('mongodb://localhost:27017/')
 
 with client:
-    
-    db = client.testdb
 
-    cars = db.cars.find()
+db = client.testdb
 
-    print(cars.next())
-    print(cars.next())
-    print(cars.next())
-    
-    cars.rewind()
+cars = db.cars.find()
 
-    print(cars.next())
-    print(cars.next())
-    print(cars.next())    
+print(cars.next())
+print(cars.next())
+print(cars.next())
 
-    print(list(cars))
+cars.rewind()
+
+print(cars.next())
+print(cars.next())
+print(cars.next())
+
+print(list(cars))
 </pre>
 
 <p>
@@ -352,7 +352,7 @@ print(cars.next())
 </pre>
 
 <p>
-With the <code>next</code> method, we get the next document from 
+With the <code>next</code> method, we get the next document from
 the result set.
 </p>
 
@@ -361,7 +361,7 @@ cars.rewind()
 </pre>
 
 <p>
-The <code>rewind</code> method rewinds the cursor to its 
+The <code>rewind</code> method rewinds the cursor to its
 unevaluated state.
 </p>
 
@@ -370,7 +370,7 @@ print(list(cars))
 </pre>
 
 <p>
-With the <code>list</code> method, we can transform the cursor to 
+With the <code>list</code> method, we can transform the cursor to
 a Python list. It loads all data into the memory.
 </p>
 
@@ -378,11 +378,11 @@ a Python list. It loads all data into the memory.
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <!-- square-fixed-2020 -->
 <ins class="adsbygoogle"
-     style="display:inline-block;width:300px;height:250px"
-     data-ad-client="ca-pub-9706709751191532"
-     data-ad-slot="6775384732"></ins>
+style="display:inline-block;width:300px;height:250px"
+data-ad-client="ca-pub-9706709751191532"
+data-ad-slot="6775384732"></ins>
 <script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
+(adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 </div>
 
@@ -404,13 +404,13 @@ client = MongoClient('mongodb://localhost:27017/')
 
 with client:
 
-    db = client.testdb
+db = client.testdb
 
-    cars = db.cars.find()
+cars = db.cars.find()
 
-    for car in cars:
-        print('{0} {1}'.format(car['name'], 
-            car['price']))
+for car in cars:
+print('{0} {1}'.format(car['name'],
+car['price']))
 </pre>
 
 <p>
@@ -422,15 +422,15 @@ cars = db.cars.find()
 </pre>
 
 <p>
-The <code>find</code> method selects documents in a collection or 
+The <code>find</code> method selects documents in a collection or
 view and returns a cursor to the selected documents. A cursor is
-a reference to the result set of a query. 
+a reference to the result set of a query.
 </p>
 
 <pre class="explanation">
 for car in cars:
-    print('{0} {1}'.format(car['name'], 
-        car['price']))
+print('{0} {1}'.format(car['name'],
+car['price']))
 </pre>
 
 <p>
@@ -438,7 +438,7 @@ With the Python for loop, we iterate over the result set.
 </p>
 
 <pre class="compact">
-$ ./all_cars.py 
+$ ./all_cars.py
 Audi 52642
 Mercedes 57127
 Skoda 9000
@@ -467,20 +467,20 @@ client = MongoClient('mongodb://localhost:27017/')
 
 with client:
 
-    db = client.testdb
+db = client.testdb
 
-    n_cars = db.cars.find().count()
+n_cars = db.cars.find().count()
 
-    print("There are {} cars".format(n_cars))
+print("There are {} cars".format(n_cars))
 </pre>
 
 <p>
-The example counts the number of cars in the collection with 
+The example counts the number of cars in the collection with
 <code>count</code>.
 </p>
 
 <pre class="compact">
-$ ./count_cars.py 
+$ ./count_cars.py
 There are 8 cars
 </pre>
 
@@ -505,17 +505,17 @@ from pymongo import MongoClient
 client = MongoClient('mongodb://localhost:27017/')
 
 with client:
-    
-    db = client.testdb
 
-    expensive_cars = db.cars.find({'price': {'$gt': 50000}})
+db = client.testdb
 
-    for ecar in expensive_cars:
-        print(ecar['name'])
+expensive_cars = db.cars.find({'price': {'$gt': 50000}})
+
+for ecar in expensive_cars:
+print(ecar['name'])
 </pre>
 
 <p>
-The example prints the names of cars whose price is greater than 50000. 
+The example prints the names of cars whose price is greater than 50000.
 </p>
 
 <pre class="explanation">
@@ -529,7 +529,7 @@ operator to return only expensive cars.
 </p>
 
 <pre class="compact">
-$ ./filtering.py 
+$ ./filtering.py
 Audi
 Mercedes
 Bentley
@@ -553,18 +553,18 @@ from pymongo import MongoClient
 client = MongoClient('mongodb://localhost:27017/')
 
 with client:
-    
-    db = client.testdb
 
-    cars = db.cars.find({}, {'_id': 1, 'name':1})
+db = client.testdb
 
-    for car in cars:
-        print(car)
+cars = db.cars.find({}, {'_id': 1, 'name':1})
+
+for car in cars:
+print(car)
 </pre>
 
 <p>
-The example prints the <code>_id</code> and <code>name</code> fields of 
-the documents. 
+The example prints the <code>_id</code> and <code>name</code> fields of
+the documents.
 </p>
 
 <pre class="explanation">
@@ -577,7 +577,7 @@ the same time.
 </p>
 
 <pre class="compact">
-$ ./projection.py 
+$ ./projection.py
 {'name': 'Audi', '_id': ObjectId('5b41eb21b9c5d915989d48a8')}
 {'name': 'Mercedes', '_id': ObjectId('5b41eb21b9c5d915989d48a9')}
 {'name': 'Skoda', '_id': ObjectId('5b41eb21b9c5d915989d48aa')}
@@ -606,13 +606,13 @@ client = MongoClient('mongodb://localhost:27017/')
 
 with client:
 
-    db = client.testdb
+db = client.testdb
 
-    cars = db.cars.find().sort("price", DESCENDING)
+cars = db.cars.find().sort("price", DESCENDING)
 
-    for car in cars:
-        print('{0} {1}'.format(car['name'], 
-            car['price']))
+for car in cars:
+print('{0} {1}'.format(car['name'],
+car['price']))
 </pre>
 
 <p>
@@ -620,7 +620,7 @@ The example sorts records by price in descending order.
 </p>
 
 <pre class="compact">
-$ ./sorting.py 
+$ ./sorting.py
 Bentley 350000
 Mercedes 57127
 Audi 52642
@@ -636,7 +636,7 @@ Skoda 9000
 <h2>PyMongo aggregations</h2>
 
 <p>
-Aggregations calculate aggregate values for the data in a collection. 
+Aggregations calculate aggregate values for the data in a collection.
 </p>
 
 <div class="codehead">aggregate_sum.py</div>
@@ -648,14 +648,14 @@ from pymongo import MongoClient
 client = MongoClient('mongodb://localhost:27017/')
 
 with client:
-    
-    db = client.testdb
 
-    agr = [ {'$group': {'_id': 1, 'all': { '$sum': '$price' } } } ]
+db = client.testdb
 
-    val = list(db.cars.aggregate(agr))
+agr = [ {'$group': {'_id': 1, 'all': { '$sum': '$price' } } } ]
 
-    print('The sum of prices is {}'.format(val[0]['all']))
+val = list(db.cars.aggregate(agr))
+
+print('The sum of prices is {}'.format(val[0]['all']))
 </pre>
 
 <p>
@@ -667,10 +667,10 @@ agr = [ {'$group': {'_id': 1, 'all': { '$sum': '$price' } } } ]
 </pre>
 
 <p>
-The <code>$sum</code> operator calculates and returns the sum of 
-numeric values. The <code>$group</code> operator groups input documents 
-by a specified identifier expression and applies the accumulator 
-expression(s), if specified, to each group. 
+The <code>$sum</code> operator calculates and returns the sum of
+numeric values. The <code>$group</code> operator groups input documents
+by a specified identifier expression and applies the accumulator
+expression(s), if specified, to each group.
 </p>
 
 <pre class="explanation">
@@ -678,12 +678,12 @@ val = list(db.cars.aggregate(agr))
 </pre>
 
 <p>
-The <code>aggregate</code> method applies the aggregation operation on 
-the <code>cars</code> collection. 
+The <code>aggregate</code> method applies the aggregation operation on
+the <code>cars</code> collection.
 </p>
 
 <pre class="compact">
-$ ./aggregate_sum.py 
+$ ./aggregate_sum.py
 The sum of prices is 581769
 </pre>
 
@@ -692,8 +692,8 @@ The sum of all values is 581769.
 </p>
 
 <p>
-We can use the <code>$match</code> operator to select specific cars to 
-aggregate. 
+We can use the <code>$match</code> operator to select specific cars to
+aggregate.
 </p>
 
 <div class="codehead">sum_two_cars.py</div>
@@ -705,24 +705,24 @@ from pymongo import MongoClient
 client = MongoClient('mongodb://localhost:27017/')
 
 with client:
-    
-    db = client.testdb
 
-    agr = [{ '$match': {'$or': [ { 'name': "Audi" }, { 'name': "Volvo" }] }}, 
-        { '$group': {'_id': 1, 'sum2cars': { '$sum': "$price" } }}]
+db = client.testdb
 
-    val = list(db.cars.aggregate(agr))
+agr = [{ '$match': {'$or': [ { 'name': "Audi" }, { 'name': "Volvo" }] }},
+{ '$group': {'_id': 1, 'sum2cars': { '$sum': "$price" } }}]
 
-    print('The sum of prices of two cars is {}'.format(val[0]['sum2cars']))
+val = list(db.cars.aggregate(agr))
+
+print('The sum of prices of two cars is {}'.format(val[0]['sum2cars']))
 </pre>
 
 <p>
-The example calculates the sum of prices of Audi and Volvo cars. 
+The example calculates the sum of prices of Audi and Volvo cars.
 </p>
 
 <pre class="explanation">
-agr = [{ '$match': {'$or': [ { 'name': "Audi" }, { 'name': "Volvo" }] }}, 
-    { '$group': {'_id': 1, 'sum2cars': { '$sum': "$price" } }}]
+agr = [{ '$match': {'$or': [ { 'name': "Audi" }, { 'name': "Volvo" }] }},
+{ '$group': {'_id': 1, 'sum2cars': { '$sum': "$price" } }}]
 </pre>
 
 <p>
@@ -731,7 +731,7 @@ and <code>$sum</code> operators to do the task.
 </p>
 
 <pre class="compact">
-$ ./sum_two_cars.py 
+$ ./sum_two_cars.py
 The sum of prices of two cars is 81642
 </pre>
 
@@ -743,7 +743,7 @@ The sum of prices of two cars is 81642.
 <h2>PyMongo limit data output</h2>
 
 <p>
-The <code>limit</code> query option specifies the number of documents 
+The <code>limit</code> query option specifies the number of documents
 to be returned and the <code>skip</code> option some documents.
 </p>
 
@@ -756,17 +756,17 @@ from pymongo import MongoClient
 client = MongoClient('mongodb://localhost:27017/')
 
 with client:
-    
-    db = client.testdb
 
-    cars = db.cars.find().skip(2).limit(3)
+db = client.testdb
 
-    for car in cars:
-        print('{0}: {1}'.format(car['name'], car['price']))
+cars = db.cars.find().skip(2).limit(3)
+
+for car in cars:
+print('{0}: {1}'.format(car['name'], car['price']))
 </pre>
 
 <p>
-The example reads from the <code>cars</code> collection, skips the first 
+The example reads from the <code>cars</code> collection, skips the first
 two documents, and limits the output to three documents.
 </p>
 
@@ -776,11 +776,11 @@ cars = db.cars.find().skip(2).limit(3)
 
 <p>
 The <code>skip</code> method skips the first two documents
-and the <code>limit</code> method limits the output to three documents. 
+and the <code>limit</code> method limits the output to three documents.
 </p>
 
 <pre class="compact">
-$ ./limit_documents.py 
+$ ./limit_documents.py
 Skoda: 9000
 Volvo: 29000
 Bentley: 350000
@@ -790,7 +790,7 @@ Bentley: 350000
 This is the output of the example.
 </p>
 
-<!-- 
+<!--
 TODO modify documents, query operators, projections
 authentication
 -->

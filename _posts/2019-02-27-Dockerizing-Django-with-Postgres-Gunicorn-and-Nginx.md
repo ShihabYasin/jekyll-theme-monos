@@ -7,11 +7,11 @@ tag: Python
 ---
 
 <main>
-  <div class="container blog-container" style="padding-top: 0;">
-    <div class="row">
+<div class="container blog-container" style="padding-top: 0;">
+<div class="row">
 
-  <div class="blog-content long-content" data-local-nav-source>
-    <p>Configure Django to run on Docker with Postgres. For production environments, we'll add on Nginx and Gunicorn. We'll also take a look at how to serve Django static and media files via Nginx.</p>
+<div class="blog-content long-content" data-local-nav-source>
+<p>Configure Django to run on Docker with Postgres. For production environments, we'll add on Nginx and Gunicorn. We'll also take a look at how to serve Django static and media files via Nginx.</p>
 <p><em>Dependencies</em>:</p>
 <ol>
 <li>Django v3.2.6</li>
@@ -44,14 +44,14 @@ $ <span class="nb">source</span> env/bin/activate
 <p>Since we'll be moving to Postgres, go ahead and remove the <em>db.sqlite3</em> file from the "app" directory.</p>
 <p>Your project directory should look like:</p>
 <div class="codehilite"><pre><span></span><code>└── app
-    ├── hello_django
-    │   ├── __init__.py
-    │   ├── asgi.py
-    │   ├── settings.py
-    │   ├── urls.py
-    │   └── wsgi.py
-    ├── manage.py
-    └── requirements.txt
+├── hello_django
+│   ├── __init__.py
+│   ├── asgi.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+├── manage.py
+└── requirements.txt
 </code></pre></div>
 
 <h2 id="docker">Docker</h2>
@@ -175,14 +175,14 @@ SQL_PORT=5432
 
 <p>Update the <code>DATABASES</code> dict in <em>settings.py</em>:</p>
 <div class="codehilite"><pre><span></span><code><span class="n">DATABASES</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;default&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s2">&quot;ENGINE&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;SQL_ENGINE&quot;</span><span class="p">,</span> <span class="s2">&quot;django.db.backends.sqlite3&quot;</span><span class="p">),</span>
-        <span class="s2">&quot;NAME&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;SQL_DATABASE&quot;</span><span class="p">,</span> <span class="n">BASE_DIR</span> <span class="o">/</span> <span class="s2">&quot;db.sqlite3&quot;</span><span class="p">),</span>
-        <span class="s2">&quot;USER&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;SQL_USER&quot;</span><span class="p">,</span> <span class="s2">&quot;user&quot;</span><span class="p">),</span>
-        <span class="s2">&quot;PASSWORD&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;SQL_PASSWORD&quot;</span><span class="p">,</span> <span class="s2">&quot;password&quot;</span><span class="p">),</span>
-        <span class="s2">&quot;HOST&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;SQL_HOST&quot;</span><span class="p">,</span> <span class="s2">&quot;localhost&quot;</span><span class="p">),</span>
-        <span class="s2">&quot;PORT&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;SQL_PORT&quot;</span><span class="p">,</span> <span class="s2">&quot;5432&quot;</span><span class="p">),</span>
-    <span class="p">}</span>
+<span class="s2">&quot;default&quot;</span><span class="p">:</span> <span class="p">{</span>
+<span class="s2">&quot;ENGINE&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;SQL_ENGINE&quot;</span><span class="p">,</span> <span class="s2">&quot;django.db.backends.sqlite3&quot;</span><span class="p">),</span>
+<span class="s2">&quot;NAME&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;SQL_DATABASE&quot;</span><span class="p">,</span> <span class="n">BASE_DIR</span> <span class="o">/</span> <span class="s2">&quot;db.sqlite3&quot;</span><span class="p">),</span>
+<span class="s2">&quot;USER&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;SQL_USER&quot;</span><span class="p">,</span> <span class="s2">&quot;user&quot;</span><span class="p">),</span>
+<span class="s2">&quot;PASSWORD&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;SQL_PASSWORD&quot;</span><span class="p">,</span> <span class="s2">&quot;password&quot;</span><span class="p">),</span>
+<span class="s2">&quot;HOST&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;SQL_HOST&quot;</span><span class="p">,</span> <span class="s2">&quot;localhost&quot;</span><span class="p">),</span>
+<span class="s2">&quot;PORT&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;SQL_PORT&quot;</span><span class="p">,</span> <span class="s2">&quot;5432&quot;</span><span class="p">),</span>
+<span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
 
@@ -200,7 +200,7 @@ SQL_PORT=5432
 
 <span class="c"># install psycopg2 dependencies</span>
 <span class="k">RUN</span><span class="w"> </span>apk update <span class="se">\</span>
-    <span class="o">&amp;&amp;</span> apk add postgresql-dev gcc python3-dev musl-dev
+<span class="o">&amp;&amp;</span> apk add postgresql-dev gcc python3-dev musl-dev
 
 <span class="c"># install dependencies</span>
 <span class="k">RUN</span><span class="w"> </span>pip install --upgrade pip
@@ -234,34 +234,34 @@ psql <span class="o">(</span><span class="m">13</span>.0<span class="o">)</span>
 Type <span class="s2">&quot;help&quot;</span> <span class="k">for</span> help.
 
 <span class="nv">hello_django_dev</span><span class="o">=</span><span class="c1"># \l</span>
-                                          List of databases
-       Name       <span class="p">|</span>    Owner     <span class="p">|</span> Encoding <span class="p">|</span>  Collate   <span class="p">|</span>   Ctype    <span class="p">|</span>       Access privileges
+List of databases
+Name       <span class="p">|</span>    Owner     <span class="p">|</span> Encoding <span class="p">|</span>  Collate   <span class="p">|</span>   Ctype    <span class="p">|</span>       Access privileges
 ------------------+--------------+----------+------------+------------+-------------------------------
- hello_django_dev <span class="p">|</span> hello_django <span class="p">|</span> UTF8     <span class="p">|</span> en_US.utf8 <span class="p">|</span> en_US.utf8 <span class="p">|</span>
- postgres         <span class="p">|</span> hello_django <span class="p">|</span> UTF8     <span class="p">|</span> en_US.utf8 <span class="p">|</span> en_US.utf8 <span class="p">|</span>
- template0        <span class="p">|</span> hello_django <span class="p">|</span> UTF8     <span class="p">|</span> en_US.utf8 <span class="p">|</span> en_US.utf8 <span class="p">|</span> <span class="o">=</span>c/hello_django              +
-                  <span class="p">|</span>              <span class="p">|</span>          <span class="p">|</span>            <span class="p">|</span>            <span class="p">|</span> <span class="nv">hello_django</span><span class="o">=</span>CTc/hello_django
- template1        <span class="p">|</span> hello_django <span class="p">|</span> UTF8     <span class="p">|</span> en_US.utf8 <span class="p">|</span> en_US.utf8 <span class="p">|</span> <span class="o">=</span>c/hello_django              +
-                  <span class="p">|</span>              <span class="p">|</span>          <span class="p">|</span>            <span class="p">|</span>            <span class="p">|</span> <span class="nv">hello_django</span><span class="o">=</span>CTc/hello_django
+hello_django_dev <span class="p">|</span> hello_django <span class="p">|</span> UTF8     <span class="p">|</span> en_US.utf8 <span class="p">|</span> en_US.utf8 <span class="p">|</span>
+postgres         <span class="p">|</span> hello_django <span class="p">|</span> UTF8     <span class="p">|</span> en_US.utf8 <span class="p">|</span> en_US.utf8 <span class="p">|</span>
+template0        <span class="p">|</span> hello_django <span class="p">|</span> UTF8     <span class="p">|</span> en_US.utf8 <span class="p">|</span> en_US.utf8 <span class="p">|</span> <span class="o">=</span>c/hello_django              +
+<span class="p">|</span>              <span class="p">|</span>          <span class="p">|</span>            <span class="p">|</span>            <span class="p">|</span> <span class="nv">hello_django</span><span class="o">=</span>CTc/hello_django
+template1        <span class="p">|</span> hello_django <span class="p">|</span> UTF8     <span class="p">|</span> en_US.utf8 <span class="p">|</span> en_US.utf8 <span class="p">|</span> <span class="o">=</span>c/hello_django              +
+<span class="p">|</span>              <span class="p">|</span>          <span class="p">|</span>            <span class="p">|</span>            <span class="p">|</span> <span class="nv">hello_django</span><span class="o">=</span>CTc/hello_django
 <span class="o">(</span><span class="m">4</span> rows<span class="o">)</span>
 
 <span class="nv">hello_django_dev</span><span class="o">=</span><span class="c1"># \c hello_django_dev</span>
 You are now connected to database <span class="s2">&quot;hello_django_dev&quot;</span> as user <span class="s2">&quot;hello_django&quot;</span>.
 
 <span class="nv">hello_django_dev</span><span class="o">=</span><span class="c1"># \dt</span>
-                     List of relations
- Schema <span class="p">|</span>            Name            <span class="p">|</span> Type  <span class="p">|</span>    Owner
+List of relations
+Schema <span class="p">|</span>            Name            <span class="p">|</span> Type  <span class="p">|</span>    Owner
 --------+----------------------------+-------+--------------
- public <span class="p">|</span> auth_group                 <span class="p">|</span> table <span class="p">|</span> hello_django
- public <span class="p">|</span> auth_group_permissions     <span class="p">|</span> table <span class="p">|</span> hello_django
- public <span class="p">|</span> auth_permission            <span class="p">|</span> table <span class="p">|</span> hello_django
- public <span class="p">|</span> auth_user                  <span class="p">|</span> table <span class="p">|</span> hello_django
- public <span class="p">|</span> auth_user_groups           <span class="p">|</span> table <span class="p">|</span> hello_django
- public <span class="p">|</span> auth_user_user_permissions <span class="p">|</span> table <span class="p">|</span> hello_django
- public <span class="p">|</span> django_admin_log           <span class="p">|</span> table <span class="p">|</span> hello_django
- public <span class="p">|</span> django_content_type        <span class="p">|</span> table <span class="p">|</span> hello_django
- public <span class="p">|</span> django_migrations          <span class="p">|</span> table <span class="p">|</span> hello_django
- public <span class="p">|</span> django_session             <span class="p">|</span> table <span class="p">|</span> hello_django
+public <span class="p">|</span> auth_group                 <span class="p">|</span> table <span class="p">|</span> hello_django
+public <span class="p">|</span> auth_group_permissions     <span class="p">|</span> table <span class="p">|</span> hello_django
+public <span class="p">|</span> auth_permission            <span class="p">|</span> table <span class="p">|</span> hello_django
+public <span class="p">|</span> auth_user                  <span class="p">|</span> table <span class="p">|</span> hello_django
+public <span class="p">|</span> auth_user_groups           <span class="p">|</span> table <span class="p">|</span> hello_django
+public <span class="p">|</span> auth_user_user_permissions <span class="p">|</span> table <span class="p">|</span> hello_django
+public <span class="p">|</span> django_admin_log           <span class="p">|</span> table <span class="p">|</span> hello_django
+public <span class="p">|</span> django_content_type        <span class="p">|</span> table <span class="p">|</span> hello_django
+public <span class="p">|</span> django_migrations          <span class="p">|</span> table <span class="p">|</span> hello_django
+public <span class="p">|</span> django_session             <span class="p">|</span> table <span class="p">|</span> hello_django
 <span class="o">(</span><span class="m">10</span> rows<span class="o">)</span>
 
 <span class="nv">hello_django_dev</span><span class="o">=</span><span class="c1"># \q</span>
@@ -273,19 +273,19 @@ You are now connected to database <span class="s2">&quot;hello_django_dev&quot;<
 
 <p>You should see something similar to:</p>
 <div class="codehilite"><pre><span></span><code><span class="o">[</span>
-    <span class="o">{</span>
-        <span class="s2">&quot;CreatedAt&quot;</span>: <span class="s2">&quot;2021-08-23T15:49:08Z&quot;</span>,
-        <span class="s2">&quot;Driver&quot;</span>: <span class="s2">&quot;local&quot;</span>,
-        <span class="s2">&quot;Labels&quot;</span>: <span class="o">{</span>
-            <span class="s2">&quot;com.docker.compose.project&quot;</span>: <span class="s2">&quot;django-on-docker&quot;</span>,
-            <span class="s2">&quot;com.docker.compose.version&quot;</span>: <span class="s2">&quot;1.29.2&quot;</span>,
-            <span class="s2">&quot;com.docker.compose.volume&quot;</span>: <span class="s2">&quot;postgres_data&quot;</span>
-        <span class="o">}</span>,
-        <span class="s2">&quot;Mountpoint&quot;</span>: <span class="s2">&quot;/var/lib/docker/volumes/django-on-docker_postgres_data/_data&quot;</span>,
-        <span class="s2">&quot;Name&quot;</span>: <span class="s2">&quot;django-on-docker_postgres_data&quot;</span>,
-        <span class="s2">&quot;Options&quot;</span>: null,
-        <span class="s2">&quot;Scope&quot;</span>: <span class="s2">&quot;local&quot;</span>
-    <span class="o">}</span>
+<span class="o">{</span>
+<span class="s2">&quot;CreatedAt&quot;</span>: <span class="s2">&quot;2021-08-23T15:49:08Z&quot;</span>,
+<span class="s2">&quot;Driver&quot;</span>: <span class="s2">&quot;local&quot;</span>,
+<span class="s2">&quot;Labels&quot;</span>: <span class="o">{</span>
+<span class="s2">&quot;com.docker.compose.project&quot;</span>: <span class="s2">&quot;django-on-docker&quot;</span>,
+<span class="s2">&quot;com.docker.compose.version&quot;</span>: <span class="s2">&quot;1.29.2&quot;</span>,
+<span class="s2">&quot;com.docker.compose.volume&quot;</span>: <span class="s2">&quot;postgres_data&quot;</span>
+<span class="o">}</span>,
+<span class="s2">&quot;Mountpoint&quot;</span>: <span class="s2">&quot;/var/lib/docker/volumes/django-on-docker_postgres_data/_data&quot;</span>,
+<span class="s2">&quot;Name&quot;</span>: <span class="s2">&quot;django-on-docker_postgres_data&quot;</span>,
+<span class="s2">&quot;Options&quot;</span>: null,
+<span class="s2">&quot;Scope&quot;</span>: <span class="s2">&quot;local&quot;</span>
+<span class="o">}</span>
 <span class="o">]</span>
 </code></pre></div>
 
@@ -294,11 +294,11 @@ You are now connected to database <span class="s2">&quot;hello_django_dev&quot;<
 
 <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$DATABASE</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="s2">&quot;postgres&quot;</span> <span class="o">]</span>
 <span class="k">then</span>
-    <span class="nb">echo</span> <span class="s2">&quot;Waiting for postgres...&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Waiting for postgres...&quot;</span>
 
 <span class="k">while</span> ! nc -z <span class="nv">$SQL_HOST</span> <span class="nv">$SQL_PORT</span><span class="p">;</span> <span class="k">do</span>
-      sleep <span class="m">0</span>.1
-    <span class="k">done</span>
+sleep <span class="m">0</span>.1
+<span class="k">done</span>
 
 <span class="nb">echo</span> <span class="s2">&quot;PostgreSQL started&quot;</span>
 <span class="k">fi</span>
@@ -326,7 +326,7 @@ python manage.py migrate
 
 <span class="c"># install psycopg2 dependencies</span>
 <span class="k">RUN</span><span class="w"> </span>apk update <span class="se">\</span>
-    <span class="o">&amp;&amp;</span> apk add postgresql-dev gcc python3-dev musl-dev
+<span class="o">&amp;&amp;</span> apk add postgresql-dev gcc python3-dev musl-dev
 
 <span class="c"># install dependencies</span>
 <span class="k">RUN</span><span class="w"> </span>pip install --upgrade pip
@@ -368,9 +368,9 @@ DATABASE=postgres
 <p>First, despite adding Postgres, we can still create an independent Docker image for Django as long as the <code>DATABASE</code> environment variable is not set to <code>postgres</code>. To test, build a new image and then run a new container:</p>
 <div class="codehilite"><pre><span></span><code>$ docker build -f ./app/Dockerfile -t hello_django:latest ./app
 $ docker run -d <span class="se">\</span>
-    -p <span class="m">8006</span>:8000 <span class="se">\</span>
-    -e <span class="s2">&quot;SECRET_KEY=please_change_me&quot;</span> -e <span class="s2">&quot;DEBUG=1&quot;</span> -e <span class="s2">&quot;DJANGO_ALLOWED_HOSTS=*&quot;</span> <span class="se">\</span>
-    hello_django python /usr/src/app/manage.py runserver <span class="m">0</span>.0.0.0:8000
+-p <span class="m">8006</span>:8000 <span class="se">\</span>
+-e <span class="s2">&quot;SECRET_KEY=please_change_me&quot;</span> -e <span class="s2">&quot;DEBUG=1&quot;</span> -e <span class="s2">&quot;DJANGO_ALLOWED_HOSTS=*&quot;</span> <span class="se">\</span>
+hello_django python /usr/src/app/manage.py runserver <span class="m">0</span>.0.0.0:8000
 </code></pre></div>
 
 <p>You should be able to view the welcome page at <a href="http://localhost:8006">http://localhost:8006</a></p>
@@ -379,11 +379,11 @@ $ docker run -d <span class="se">\</span>
 
 <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$DATABASE</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="s2">&quot;postgres&quot;</span> <span class="o">]</span>
 <span class="k">then</span>
-    <span class="nb">echo</span> <span class="s2">&quot;Waiting for postgres...&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Waiting for postgres...&quot;</span>
 
 <span class="k">while</span> ! nc -z <span class="nv">$SQL_HOST</span> <span class="nv">$SQL_PORT</span><span class="p">;</span> <span class="k">do</span>
-      sleep <span class="m">0</span>.1
-    <span class="k">done</span>
+sleep <span class="m">0</span>.1
+<span class="k">done</span>
 
 <span class="nb">echo</span> <span class="s2">&quot;PostgreSQL started&quot;</span>
 <span class="k">fi</span>
@@ -470,11 +470,11 @@ POSTGRES_DB=hello_django_prod
 
 <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$DATABASE</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="s2">&quot;postgres&quot;</span> <span class="o">]</span>
 <span class="k">then</span>
-    <span class="nb">echo</span> <span class="s2">&quot;Waiting for postgres...&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Waiting for postgres...&quot;</span>
 
 <span class="k">while</span> ! nc -z <span class="nv">$SQL_HOST</span> <span class="nv">$SQL_PORT</span><span class="p">;</span> <span class="k">do</span>
-      sleep <span class="m">0</span>.1
-    <span class="k">done</span>
+sleep <span class="m">0</span>.1
+<span class="k">done</span>
 
 <span class="nb">echo</span> <span class="s2">&quot;PostgreSQL started&quot;</span>
 <span class="k">fi</span>
@@ -503,7 +503,7 @@ POSTGRES_DB=hello_django_prod
 
 <span class="c"># install psycopg2 dependencies</span>
 <span class="k">RUN</span><span class="w"> </span>apk update <span class="se">\</span>
-    <span class="o">&amp;&amp;</span> apk add postgresql-dev gcc python3-dev musl-dev
+<span class="o">&amp;&amp;</span> apk add postgresql-dev gcc python3-dev musl-dev
 
 <span class="c"># lint</span>
 <span class="k">RUN</span><span class="w"> </span>pip install --upgrade pip
@@ -595,8 +595,8 @@ $ docker-compose -f docker-compose.prod.yml <span class="nb">exec</span> web pyt
 
 <p>Then, in the local project root, create the following files and folders:</p>
 <div class="codehilite"><pre><span></span><code>└── nginx
-    ├── Dockerfile
-    └── nginx.conf
+├── Dockerfile
+└── nginx.conf
 </code></pre></div>
 
 <p><em>Dockerfile</em>:</p>
@@ -608,7 +608,7 @@ $ docker-compose -f docker-compose.prod.yml <span class="nb">exec</span> web pyt
 
 <p><em>nginx.conf</em>:</p>
 <div class="codehilite"><pre><span></span><code>upstream hello_django <span class="o">{</span>
-    server web:8000<span class="p">;</span>
+server web:8000<span class="p">;</span>
 <span class="o">}</span>
 
 server <span class="o">{</span>
@@ -616,11 +616,11 @@ server <span class="o">{</span>
 listen <span class="m">80</span><span class="p">;</span>
 
 location / <span class="o">{</span>
-        proxy_pass http://hello_django<span class="p">;</span>
-        proxy_set_header X-Forwarded-For <span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
-        proxy_set_header Host <span class="nv">$host</span><span class="p">;</span>
-        proxy_redirect off<span class="p">;</span>
-    <span class="o">}</span>
+proxy_pass http://hello_django<span class="p">;</span>
+proxy_set_header X-Forwarded-For <span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
+proxy_set_header Host <span class="nv">$host</span><span class="p">;</span>
+proxy_redirect off<span class="p">;</span>
+<span class="o">}</span>
 
 <span class="o">}</span>
 </code></pre></div>
@@ -670,8 +670,8 @@ $ docker-compose -f docker-compose.prod.yml <span class="nb">exec</span> web pyt
 ├── docker-compose.prod.yml
 ├── docker-compose.yml
 └── nginx
-    ├── Dockerfile
-    └── nginx.conf
+├── Dockerfile
+└── nginx.conf
 </code></pre></div>
 
 <p>Bring the containers down once done:</p>
@@ -749,7 +749,7 @@ $ docker-compose -f docker-compose.prod.yml <span class="nb">exec</span> web pyt
 <p>We used the former.</p>
 <p>Next, update the Nginx configuration to route static file requests to the "staticfiles" folder:</p>
 <div class="codehilite"><pre><span></span><code>upstream hello_django <span class="o">{</span>
-    server web:8000<span class="p">;</span>
+server web:8000<span class="p">;</span>
 <span class="o">}</span>
 
 server <span class="o">{</span>
@@ -757,15 +757,15 @@ server <span class="o">{</span>
 listen <span class="m">80</span><span class="p">;</span>
 
 location / <span class="o">{</span>
-        proxy_pass http://hello_django<span class="p">;</span>
-        proxy_set_header X-Forwarded-For <span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
-        proxy_set_header Host <span class="nv">$host</span><span class="p">;</span>
-        proxy_redirect off<span class="p">;</span>
-    <span class="o">}</span>
+proxy_pass http://hello_django<span class="p">;</span>
+proxy_set_header X-Forwarded-For <span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
+proxy_set_header Host <span class="nv">$host</span><span class="p">;</span>
+proxy_redirect off<span class="p">;</span>
+<span class="o">}</span>
 
 location /static/ <span class="o">{</span>
-        <span class="nb">alias</span> /home/app/web/staticfiles/<span class="p">;</span>
-    <span class="o">}</span>
+<span class="nb">alias</span> /home/app/web/staticfiles/<span class="p">;</span>
+<span class="o">}</span>
 
 <span class="o">}</span>
 </code></pre></div>
@@ -807,12 +807,12 @@ $ docker-compose <span class="nb">exec</span> web python manage.py startapp uplo
 
 <p>Add the new app to the <code>INSTALLED_APPS</code> list in <em>settings.py</em>:</p>
 <div class="codehilite"><pre><span></span><code><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">&quot;django.contrib.admin&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;django.contrib.auth&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;django.contrib.contenttypes&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;django.contrib.sessions&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;django.contrib.messages&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;django.contrib.staticfiles&quot;</span><span class="p">,</span>
+<span class="s2">&quot;django.contrib.admin&quot;</span><span class="p">,</span>
+<span class="s2">&quot;django.contrib.auth&quot;</span><span class="p">,</span>
+<span class="s2">&quot;django.contrib.contenttypes&quot;</span><span class="p">,</span>
+<span class="s2">&quot;django.contrib.sessions&quot;</span><span class="p">,</span>
+<span class="s2">&quot;django.contrib.messages&quot;</span><span class="p">,</span>
+<span class="s2">&quot;django.contrib.staticfiles&quot;</span><span class="p">,</span>
 
 <span class="s2">&quot;upload&quot;</span><span class="p">,</span>
 <span class="p">]</span>
@@ -824,16 +824,16 @@ $ docker-compose <span class="nb">exec</span> web python manage.py startapp uplo
 
 
 <span class="k">def</span> <span class="nf">image_upload</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;POST&quot;</span> <span class="ow">and</span> <span class="n">request</span><span class="o">.</span><span class="n">FILES</span><span class="p">[</span><span class="s2">&quot;image_file&quot;</span><span class="p">]:</span>
-        <span class="n">image_file</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">FILES</span><span class="p">[</span><span class="s2">&quot;image_file&quot;</span><span class="p">]</span>
-        <span class="n">fs</span> <span class="o">=</span> <span class="n">FileSystemStorage</span><span class="p">()</span>
-        <span class="n">filename</span> <span class="o">=</span> <span class="n">fs</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">image_file</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">image_file</span><span class="p">)</span>
-        <span class="n">image_url</span> <span class="o">=</span> <span class="n">fs</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">image_url</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;upload.html&quot;</span><span class="p">,</span> <span class="p">{</span>
-            <span class="s2">&quot;image_url&quot;</span><span class="p">:</span> <span class="n">image_url</span>
-        <span class="p">})</span>
-    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;upload.html&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;POST&quot;</span> <span class="ow">and</span> <span class="n">request</span><span class="o">.</span><span class="n">FILES</span><span class="p">[</span><span class="s2">&quot;image_file&quot;</span><span class="p">]:</span>
+<span class="n">image_file</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">FILES</span><span class="p">[</span><span class="s2">&quot;image_file&quot;</span><span class="p">]</span>
+<span class="n">fs</span> <span class="o">=</span> <span class="n">FileSystemStorage</span><span class="p">()</span>
+<span class="n">filename</span> <span class="o">=</span> <span class="n">fs</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">image_file</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">image_file</span><span class="p">)</span>
+<span class="n">image_url</span> <span class="o">=</span> <span class="n">fs</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">image_url</span><span class="p">)</span>
+<span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;upload.html&quot;</span><span class="p">,</span> <span class="p">{</span>
+<span class="s2">&quot;image_url&quot;</span><span class="p">:</span> <span class="n">image_url</span>
+<span class="p">})</span>
+<span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;upload.html&quot;</span><span class="p">)</span>
 </code></pre></div>
 
 <p>Add a "templates", directory to the "app/upload" directory, and then add a new template called <em>upload.html</em>:</p>
@@ -845,9 +845,9 @@ $ docker-compose <span class="nb">exec</span> web python manage.py startapp uplo
 <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;submit&quot;</span> <span class="p">/&gt;</span>
 <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
 
-  {% if image_url %}
-    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>File uploaded at: <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{{ image_url }}&quot;</span><span class="p">&gt;</span>{{ image_url }}<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
-  {% endif %}
+{% if image_url %}
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>File uploaded at: <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{{ image_url }}&quot;</span><span class="p">&gt;</span>{{ image_url }}<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+{% endif %}
 
 
 </code></pre></div>
@@ -861,13 +861,13 @@ $ docker-compose <span class="nb">exec</span> web python manage.py startapp uplo
 <span class="kn">from</span> <span class="nn">upload.views</span> <span class="kn">import</span> <span class="n">image_upload</span>
 
 <span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">
-    [</span><span class="n">path</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">image_upload</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;upload&quot;</span><span class="p">),</span>
-    <span class="n">path</span><span class="p">(</span><span class="s2">&quot;admin/&quot;</span><span class="p">,</span> <span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">urls</span><span class="p">),</span>
+[</span><span class="n">path</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">image_upload</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;upload&quot;</span><span class="p">),</span>
+<span class="n">path</span><span class="p">(</span><span class="s2">&quot;admin/&quot;</span><span class="p">,</span> <span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">urls</span><span class="p">),</span>
 <span class="p">]
 </span>
 
 <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">):</span>
-    <span class="n">urlpatterns</span> <span class="o">+=</span> <span class="n">static</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">MEDIA_URL</span><span class="p">,</span> <span class="n">document_root</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">MEDIA_ROOT</span><span class="p">)</span>
+<span class="n">urlpatterns</span> <span class="o">+=</span> <span class="n">static</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">MEDIA_URL</span><span class="p">,</span> <span class="n">document_root</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">MEDIA_ROOT</span><span class="p">)</span>
 </code></pre></div>
 
 <p><em>app/hello_django/settings.py</em>:</p>
@@ -938,7 +938,7 @@ $ docker-compose <span class="nb">exec</span> web python manage.py startapp uplo
 
 <p>Update the Nginx config again:</p>
 <div class="codehilite"><pre><span></span><code>upstream hello_django <span class="o">{</span>
-    server web:8000<span class="p">;</span>
+server web:8000<span class="p">;</span>
 <span class="o">}</span>
 
 server <span class="o">{</span>
@@ -946,18 +946,18 @@ server <span class="o">{</span>
 listen <span class="m">80</span><span class="p">;</span>
 
 location / <span class="o">{</span>
-        proxy_pass http://hello_django<span class="p">;</span>
-        proxy_set_header X-Forwarded-For <span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
-        proxy_set_header Host <span class="nv">$host</span><span class="p">;</span>
-        proxy_redirect off<span class="p">;</span>
-    <span class="o">}</span>
+proxy_pass http://hello_django<span class="p">;</span>
+proxy_set_header X-Forwarded-For <span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
+proxy_set_header Host <span class="nv">$host</span><span class="p">;</span>
+proxy_redirect off<span class="p">;</span>
+<span class="o">}</span>
 
 location /static/ <span class="o">{</span>
-        <span class="nb">alias</span> /home/app/web/staticfiles/<span class="p">;</span>
+<span class="nb">alias</span> /home/app/web/staticfiles/<span class="p">;</span>
 <span class="o">}</span>
 
 location /media/ <span class="o">{</span>
-        <span class="nb">alias</span> /home/app/web/mediafiles/<span class="p">;</span>
+<span class="nb">alias</span> /home/app/web/mediafiles/<span class="p">;</span>
 <span class="o">}</span>
 
 <span class="o">}</span>

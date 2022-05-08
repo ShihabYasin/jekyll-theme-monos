@@ -62,7 +62,7 @@ We can use the <code>pip</code> tool to install the library.
 <h2>Matplotlib scatter chart</h2>
 
 <p>
-A <em>scatter chart</em> is a type of plot or mathematical diagram using Cartesian coordinates 
+A <em>scatter chart</em> is a type of plot or mathematical diagram using Cartesian coordinates
 to display values for typically two variables for a set of data.
 </p>
 
@@ -124,8 +124,8 @@ plt.scatter(x_axis, y_axis, color='darkblue', marker='x', label="item 1")
 </pre>
 
 <p>
-The <code>scatter</code> function draws the scatter chart. It accepts 
-the data for the x and y axes, the color of the marker, the shape of the 
+The <code>scatter</code> function draws the scatter chart. It accepts
+the data for the x and y axes, the color of the marker, the shape of the
 marker, and the label.
 </p>
 
@@ -135,7 +135,7 @@ plt.ylabel("Price (dollars)")
 </pre>
 
 <p>
-We set the labels for the axes. 
+We set the labels for the axes.
 </p>
 
 <pre class="explanation">
@@ -182,7 +182,7 @@ x_axis1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 y_axis1 = [5, 16, 34, 56, 32, 56, 32, 12, 76, 89]
 
 x_axis2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-y_axis2 = [53, 6, 46, 36, 15, 64, 73, 25, 82, 9] 
+y_axis2 = [53, 6, 46, 36, 15, 64, 73, 25, 82, 9]
 
 plt.title("Prices over 10 years")
 
@@ -199,8 +199,8 @@ plt.show()
 </pre>
 
 <p>
-The chart displays two data sets. We distinguish between them by the colour of 
-the marker. 
+The chart displays two data sets. We distinguish between them by the colour of
+the marker.
 </p>
 
 <pre class="explanation">
@@ -208,7 +208,7 @@ x_axis1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 y_axis1 = [5, 16, 34, 56, 32, 56, 32, 12, 76, 89]
 
 x_axis2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-y_axis2 = [53, 6, 46, 36, 15, 64, 73, 25, 82, 9] 
+y_axis2 = [53, 6, 46, 36, 15, 64, 73, 25, 82, 9]
 </pre>
 
 <p>
@@ -244,7 +244,7 @@ import matplotlib.pyplot as plt
 t = np.arange(0.0, 3.0, 0.01)
 s = np.sin(2.5 * np.pi * t)
 plt.plot(t, s)
- 
+
 plt.xlabel('time (s)')
 plt.ylabel('voltage (mV)')
 
@@ -295,7 +295,7 @@ We draw the line chart with the <code>plot</code> function.
 <h2>Matplotlib bar chart</h2>
 
 <p>
-A <em>bar chart</em> presents grouped data with rectangular bars with lengths proportional 
+A <em>bar chart</em> presents grouped data with rectangular bars with lengths proportional
 to the values that they represent. The bars can be plotted vertically or horizontally.
 </p>
 
@@ -320,14 +320,14 @@ ax.set_ylabel('Gold medals')
 ax.set_xlabel('Countries')
 
 ax.set_xticks(x)
-ax.set_xticklabels(("USA", "China", "UK", "Russia", 
-    "South Korea", "Germany"))
+ax.set_xticklabels(("USA", "China", "UK", "Russia",
+"South Korea", "Germany"))
 
 plt.show()
 </pre>
 
 <p>
-The example draws a bar chart. It shows the number of Olympic gold medals 
+The example draws a bar chart. It shows the number of Olympic gold medals
 per country in London 2012.
 </p>
 
@@ -357,8 +357,8 @@ A bar chart is generated with the <code>bar</code> function.
 
 <pre class="explanation">
 ax.set_xticks(x)
-ax.set_xticklabels(("USA", "China", "UK", "Russia", 
-    "South Korea", "Germany"))
+ax.set_xticklabels(("USA", "China", "UK", "Russia",
+"South Korea", "Germany"))
 </pre>
 
 <p>
@@ -369,7 +369,7 @@ We set the country names for the x axis.
 <h2>Matplotlib pie chart</h2>
 
 <p>
-A <em>pie chart</em> is a circular chart which is divided into slices 
+A <em>pie chart</em> is a circular chart which is divided into slices
 to illustrate numerical proportion.
 </p>
 
@@ -378,14 +378,14 @@ to illustrate numerical proportion.
 #!/usr/bin/python3
 
 import matplotlib.pyplot as plt
- 
+
 labels = ['Oranges', 'Pears', 'Plums', 'Blueberries']
 quantity = [38, 45, 24, 10]
 
 colors = ['yellowgreen', 'gold', 'lightskyblue', 'lightcoral']
 
-plt.pie(quantity, labels=labels, colors=colors, autopct='%1.1f%%', 
-    shadow=True, startangle=90)
+plt.pie(quantity, labels=labels, colors=colors, autopct='%1.1f%%',
+shadow=True, startangle=90)
 
 plt.axis('equal')
 
@@ -414,8 +414,8 @@ We define colours for the pie chart's slices.
 </p>
 
 <pre class="explanation">
-plt.pie(quantity, labels=labels, colors=colors, autopct='%1.1f%%', 
-    shadow=True, startangle=90)
+plt.pie(quantity, labels=labels, colors=colors, autopct='%1.1f%%',
+shadow=True, startangle=90)
 </pre>
 
 <p>

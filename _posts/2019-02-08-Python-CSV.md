@@ -34,11 +34,11 @@ tag: Python
 <h2>CSV</h2>
 
 <p>
-<dfn>CSV (Comma Separated Values)</dfn> is a very popular import 
-and export data format used in spreadsheets and databases. Each line in a 
-CSV file is a data record. Each record consists of one or more fields, 
-separated by commas. While CSV is a very simple data format, 
-there can be many differences, such as different delimiters, 
+<dfn>CSV (Comma Separated Values)</dfn> is a very popular import
+and export data format used in spreadsheets and databases. Each line in a
+CSV file is a data record. Each record consists of one or more fields,
+separated by commas. While CSV is a very simple data format,
+there can be many differences, such as different delimiters,
 new lines, or quoting characters.
 </p>
 
@@ -46,7 +46,7 @@ new lines, or quoting characters.
 
 <p>
 The <code>csv</code> module implements classes to read and write tabular data in CSV format.
-The <code>csv</code> module's <code>reader</code> and <code>writer</code> objects read and 
+The <code>csv</code> module's <code>reader</code> and <code>writer</code> objects read and
 write sequences. Programmers can also read and write data in dictionary form using the
 <code>DictReader</code> and <code>DictWriter</code> classes.
 </p>
@@ -95,7 +95,7 @@ over lines in the given CSV file.
 </p>
 
 <pre class="compact">
-$ cat numbers.csv 
+$ cat numbers.csv
 16,6,4,12,81,6,71,6
 </pre>
 
@@ -113,11 +113,11 @@ f = open('numbers.csv', 'r')
 
 with f:
 
-    reader = csv.reader(f)
+reader = csv.reader(f)
 
-    for row in reader:
-        for e in row:
-            print(e)
+for row in reader:
+for e in row:
+print(e)
 
 </pre>
 
@@ -136,8 +136,8 @@ We get the <code>reader</code> object.
 
 <pre class="explanation">
 for row in reader:
-    for e in row:
-        print(e)
+for e in row:
+print(e)
 </pre>
 
 <p>
@@ -145,7 +145,7 @@ With two for loops, we iterate over the data.
 </p>
 
 <pre class="compact">
-$ ./read_csv.py 
+$ ./read_csv.py
 16
 6
 4
@@ -171,7 +171,7 @@ delimiter with its <code>delimiter</code> attribute.
 
 
 <pre class="compact">
-$ cat items.csv 
+$ cat items.csv
 pen|cup|bottle
 chair|book|tablet
 </pre>
@@ -190,12 +190,12 @@ f = open('items.csv', 'r')
 
 with f:
 
-    reader = csv.reader(f, delimiter="|")
-    
-    for row in reader:
-        
-        for e in row:            
-            print(e)
+reader = csv.reader(f, delimiter="|")
+
+for row in reader:
+
+for e in row:
+print(e)
 
 </pre>
 
@@ -205,7 +205,7 @@ uses a '|' delimiter.
 </p>
 
 <pre class="compact">
-$ ./read_csv2.py 
+$ ./read_csv2.py
 pen
 cup
 bottle
@@ -223,13 +223,13 @@ This is the output of the example.
 
 <p>
 The <code>csv.DictReader</code> class operates like a regular reader
-but maps the information read into a dictionary. The keys for the dictionary 
-can be passed in with the <code>fieldnames</code> parameter or inferred from 
+but maps the information read into a dictionary. The keys for the dictionary
+can be passed in with the <code>fieldnames</code> parameter or inferred from
 the first row of the CSV file.
 </p>
 
 <pre class="compact">
-$ cat values.csv 
+$ cat values.csv
 min,avg,max
 1, 5.5, 10
 2, 3.5, 5
@@ -251,12 +251,12 @@ f = open('values.csv', 'r')
 
 with f:
 
-    reader = csv.DictReader(f)
-    
-    for row in reader:
-        print(row['min'], row['avg'], row['max'])
+reader = csv.DictReader(f)
 
-</pre>        
+for row in reader:
+print(row['min'], row['avg'], row['max'])
+
+</pre>
 
 <p>
 The example reads the values from the <code>values.csv</code> file
@@ -265,7 +265,7 @@ using the <code>csv.DictReader</code>.
 
 <pre class="explanation">
 for row in reader:
-    print(row['min'], row['avg'], row['max'] )
+print(row['min'], row['avg'], row['max'] )
 </pre>
 
 <p>
@@ -277,7 +277,7 @@ with the keys.
 <h2>Python CSV writer</h2>
 
 <p>
-The <code>csv.writer</code> method returns a writer object which 
+The <code>csv.writer</code> method returns a writer object which
 converts the user's data into delimited strings on the given file-like object.
 </p>
 
@@ -293,10 +293,10 @@ f = open('numbers2.csv', 'w')
 
 with f:
 
-    writer = csv.writer(f)
-    
-    for row in nms:
-        writer.writerow(row)
+writer = csv.writer(f)
+
+for row in nms:
+writer.writerow(row)
 
 </pre>
 
@@ -307,7 +307,7 @@ specified file.
 </p>
 
 <pre class="compact">
-$ cat numbers2.csv 
+$ cat numbers2.csv
 1,2,3,4,5,6
 7,8,9,10,11,12
 </pre>
@@ -329,8 +329,8 @@ f = open('numbers3.csv', 'w')
 
 with f:
 
-    writer = csv.writer(f)
-    writer.writerows(nms)
+writer = csv.writer(f)
+writer.writerows(nms)
 
 </pre>
 
@@ -344,9 +344,9 @@ using the <code>writerows</code> method.
 
 <p>
 The <code>csv.DictWriter</code> class operates like a regular writer
-but maps Python dictionaries into CSV rows. The <code>fieldnames</code> parameter 
-is a sequence of keys that identify the order in which values in 
-the dictionary passed to the <code>writerow</code> method are written to the CSV 
+but maps Python dictionaries into CSV rows. The <code>fieldnames</code> parameter
+is a sequence of keys that identify the order in which values in
+the dictionary passed to the <code>writerow</code> method are written to the CSV
 file.
 </p>
 
@@ -360,15 +360,15 @@ f = open('names.csv', 'w')
 
 with f:
 
-    fnames = ['first_name', 'last_name']
-    writer = csv.DictWriter(f, fieldnames=fnames)    
+fnames = ['first_name', 'last_name']
+writer = csv.DictWriter(f, fieldnames=fnames)
 
-    writer.writeheader()
-    writer.writerow({'first_name' : 'John', 'last_name': 'Smith'})
-    writer.writerow({'first_name' : 'Robert', 'last_name': 'Brown'})
-    writer.writerow({'first_name' : 'Julia', 'last_name': 'Griffin'})
+writer.writeheader()
+writer.writerow({'first_name' : 'John', 'last_name': 'Smith'})
+writer.writerow({'first_name' : 'Robert', 'last_name': 'Brown'})
+writer.writerow({'first_name' : 'Julia', 'last_name': 'Griffin'})
 
-</pre>        
+</pre>
 
 <p>
 The example writes the values from Python dictionaries into the CSV file
@@ -376,11 +376,11 @@ using the <code>csv.DictWriter</code>.
 </p>
 
 <pre class="explanation">
-writer = csv.DictWriter(f, fieldnames=fnames) 
+writer = csv.DictWriter(f, fieldnames=fnames)
 </pre>
 
 <p>
-New <code>csv.DictWriter</code> is created. The header names are passed 
+New <code>csv.DictWriter</code> is created. The header names are passed
 to the <code>fieldnames</code> parameter.
 </p>
 
@@ -401,7 +401,7 @@ The Python dictionary is written to a row in a CSV file.
 </p>
 
 <pre class="compact">
-$ cat names.csv 
+$ cat names.csv
 first_name,last_name
 John,Smith
 Robert,Brown
@@ -429,22 +429,22 @@ f = open('items3.csv', 'w')
 
 with f:
 
-    writer = csv.writer(f, dialect="hashes")
-    writer.writerow(("pens", 4)) 
-    writer.writerow(("plates", 2))
-    writer.writerow(("bottles", 4))
-    writer.writerow(("cups", 1))
+writer = csv.writer(f, dialect="hashes")
+writer.writerow(("pens", 4))
+writer.writerow(("plates", 2))
+writer.writerow(("bottles", 4))
+writer.writerow(("cups", 1))
 
 </pre>
 
 <p>
 The program uses a (#) character as a delimiter. The dialect
-is specified with the <code>dialect</code> option in 
+is specified with the <code>dialect</code> option in
 the <code>csv.writer</code> method.
 </p>
 
 <pre class="compact">
-$ cat items3.csv 
+$ cat items3.csv
 pens#4
 plates#2
 bottles#4
@@ -463,7 +463,7 @@ cups#1
 </div>
 
 </div>
-</div> 
+</div>
 
 
 </body>

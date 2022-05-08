@@ -5,9 +5,9 @@ date: 2019-02-17 16:20:23 +0900
 category: Python
 tag: Python
 ---
-  
 
- 
+
+
 
 <html lang="en">
 
@@ -121,10 +121,10 @@ derived from their Id.
 
 class User:
 
-    def __init__(self, name, occupation):
+def __init__(self, name, occupation):
 
-        self.name = name
-        self.occupation = occupation
+self.name = name
+self.occupation = occupation
 
 u1 = User('John Doe', 'gardener')
 u2 = User('John Doe', 'gardener')
@@ -136,9 +136,9 @@ print('hash of user 2')
 print(hash(u2))
 
 if (u1 == u2):
-    print('same user')
+print('same user')
 else:
-    print('different users')
+print('different users')
 </pre>
 
 <p>
@@ -191,28 +191,28 @@ In the second example, we implement a custom <code>__eq__</code> method.
 
 class User:
 
-    def __init__(self, name, occupation):
+def __init__(self, name, occupation):
 
-        self.name = name
-        self.occupation = occupation
+self.name = name
+self.occupation = occupation
 
-    def __eq__(self, other):
+def __eq__(self, other):
 
-        return self.name == other.name \
-            and self.occupation == other.occupation
+return self.name == other.name \
+and self.occupation == other.occupation
 
-    def __str__(self):
-        return f'{self.name} {self.occupation}'
+def __str__(self):
+return f'{self.name} {self.occupation}'
 
 
 u1 = User('John Doe', 'gardener')
 u2 = User('John Doe', 'gardener')
 
 if (u1 == u2):
-    print('same user')
-    print(f'{u1} == {u2}')
+print('same user')
+print(f'{u1} == {u2}')
 else:
-    print('different users')
+print('different users')
 
 users = {u1, u2}
 print(len(users))
@@ -238,21 +238,21 @@ the <code>__hash__</code> methods.
 
 class User:
 
-    def __init__(self, name, occupation):
+def __init__(self, name, occupation):
 
-        self.name = name
-        self.occupation = occupation
+self.name = name
+self.occupation = occupation
 
-    def __eq__(self, other):
+def __eq__(self, other):
 
-        return self.name == other.name \
-            and self.occupation == other.occupation
+return self.name == other.name \
+and self.occupation == other.occupation
 
-    def __hash__(self):
-        return hash((self.name, self.occupation))
+def __hash__(self):
+return hash((self.name, self.occupation))
 
-    def __str__(self):
-        return f'{self.name} {self.occupation}'
+def __str__(self):
+return f'{self.name} {self.occupation}'
 
 
 u1 = User('John Doe', 'gardener')
@@ -263,10 +263,10 @@ users = {u1, u2}
 print(len(users))
 
 if (u1 == u2):
-    print('same user')
-    print(f'{u1} == {u2}')
+print('same user')
+print(f'{u1} == {u2}')
 else:
-    print('different users')
+print('different users')
 
 print('------------------------------------')
 
@@ -277,10 +277,10 @@ users = {u1, u2}
 print(len(users))
 
 if (u1 == u2):
-    print('same user')
-    print(f'{u1} == {u2}')
+print('same user')
+print(f'{u1} == {u2}')
 else:
-    print('different users')
+print('different users')
 </pre>
 
 <p>
@@ -292,11 +292,11 @@ changed, we get the expected output.
 
 <pre class="explanation">
 def __hash__(self):
-    return hash((self.name, self.occupation))
+return hash((self.name, self.occupation))
 </pre>
 
 <p>
-The implementation of the <code>__hash__</code> function returns a hash 
+The implementation of the <code>__hash__</code> function returns a hash
 value computed with the <code>hash</code> function from a tuple of attributes.
 </p>
 
@@ -334,22 +334,22 @@ immutable.
 
 class User:
 
-    def __init__(self, name, occupation, colours):
+def __init__(self, name, occupation, colours):
 
-        self.name = name
-        self.occupation = occupation
-        self.colours = colours
+self.name = name
+self.occupation = occupation
+self.colours = colours
 
-    def __eq__(self, other):
+def __eq__(self, other):
 
-        return self.name == other.name \
-            and self.occupation == other.occupation
+return self.name == other.name \
+and self.occupation == other.occupation
 
-    def __hash__(self):
-        return hash((self.name, self.occupation))
+def __hash__(self):
+return hash((self.name, self.occupation))
 
-    def __str__(self):
-        return f'{self.name} {self.occupation} {self.colours}'
+def __str__(self):
+return f'{self.name} {self.occupation} {self.colours}'
 
 
 u1 = User('John Doe', 'gardener', ['steelblue', 'green', 'red'])
@@ -359,10 +359,10 @@ s1 = {u1, u2}
 print(len(s1))
 
 if (u1 == u2):
-    print('same user')
-    print(f'{u1} == {u2}')
+print('same user')
+print(f'{u1} == {u2}')
 else:
-    print('different users')
+print('different users')
 
 print('-----------------------')
 
@@ -372,10 +372,10 @@ s2 = {u1, u2}
 print(len(s2))
 
 if (u1 == u2):
-    print('same user')
-    print(f'{u1} == {u2}')
+print('same user')
+print(f'{u1} == {u2}')
 else:
-    print('different users')
+print('different users')
 </pre>
 
 <p>
@@ -431,18 +431,18 @@ from dataclasses import dataclass
 @dataclass(frozen=True)
 class User:
 
-    name: str
-    occupation: str
+name: str
+occupation: str
 
 
 u1 = User('John Doe', 'gardener')
 u2 = User('John Doe', 'gardener')
 
 if (u1 == u2):
-    print('same user')
-    print(f'{u1} == {u2}')
+print('same user')
+print(f'{u1} == {u2}')
 else:
-    print('different users')
+print('different users')
 
 users = {u1, u2}
 print(len(users))

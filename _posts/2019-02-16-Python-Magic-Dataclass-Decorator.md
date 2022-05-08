@@ -90,11 +90,11 @@ and other methods such as <code>__repr__</code> manually.
 {% raw %}
 #!/usr/bin/env python
 class Person:
-    def __init__(self, name, age):
-        self.name = name
-        self.age = age
-    def __repr__(self):
-        return f'Person{{name: {self.name}, age: {self.age}}}'
+def __init__(self, name, age):
+self.name = name
+self.age = age
+def __repr__(self):
+return f'Person{{name: {self.name}, age: {self.age}}}'
 p = Person('John Doe', 34)
 print(p)
 {% endraw %}
@@ -128,8 +128,8 @@ from dataclasses import dataclass
 
 @dataclass
 class Person:
-    name: str
-    age: int
+name: str
+age: int
 
 p = Person('John Doe', 34)
 print(p)
@@ -151,8 +151,8 @@ module.
 <pre class="explanation">
 @dataclass
 class Person:
-    name: str
-    age: int
+name: str
+age: int
 </pre>
 
 <p>
@@ -193,8 +193,8 @@ from dataclasses import dataclass
 
 @dataclass
 class Person:
-    name: str = 'unknown'
-    age: int = 0
+name: str = 'unknown'
+age: int = 0
 
 p = Person('John Doe', 34)
 print(p)
@@ -211,8 +211,8 @@ fields have some default values.
 <pre class="explanation">
 @dataclass
 class Person:
-    name: str = 'unknown'
-    age: int = 0
+name: str = 'unknown'
+age: int = 0
 </pre>
 
 <p>
@@ -252,8 +252,8 @@ from dataclasses import dataclass
 
 @dataclass(frozen=True)
 class Person:
-    name: str
-    age: int
+name: str
+age: int
 
 p = Person('John Doe', 34)
 p.occupation = 'gardener'
@@ -284,9 +284,9 @@ from dataclasses import dataclass, asdict
 
 @dataclass
 class Person:
-    name: str
-    occupation: str
-    age: int
+name: str
+occupation: str
+age: int
 
 p = Person('John Doe', 'gardener', 34)
 print(p)
@@ -326,9 +326,9 @@ from dataclasses import dataclass, field
 
 @dataclass
 class Person:
-    name: str
-    age: int
-    occupation: str = field(init=False, repr=False)
+name: str
+age: int
+occupation: str = field(init=False, repr=False)
 
 p = Person('John Doe', 34)
 print(p)

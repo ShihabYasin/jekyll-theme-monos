@@ -5,7 +5,7 @@ date: 2019-02-19 16:20:23 +0900
 category: Python
 tag: Python
 ---
-   
+
 
 
 
@@ -182,10 +182,10 @@ sections.append('sqlite')
 
 for section in sections:
 
-    if config.has_section(section):
-      print(f'Config file has section {section}')
-    else:
-      print(f'Config file does not have section {section}')
+if config.has_section(section):
+print(f'Config file has section {section}')
+else:
+print(f'Config file does not have section {section}')
 </pre>
 
 <p>
@@ -256,8 +256,8 @@ the <code>read_dict</code> method.
 import configparser
 
 cfg_data = {
-    'mysql': {'host': 'localhost', 'user': 'user7',
-              'passwd': 's$cret', 'db': 'ydb'}
+'mysql': {'host': 'localhost', 'user': 'user7',
+'passwd': 's$cret', 'db': 'ydb'}
 }
 
 config = configparser.ConfigParser()
@@ -280,8 +280,8 @@ The example reads configuration from a Python dictionary.
 
 <pre class="explanation">
 cfg_data = {
-    'mysql': {'host': 'localhost', 'user': 'user7',
-                'passwd': 's$cret', 'db': 'ydb'}
+'mysql': {'host': 'localhost', 'user': 'user7',
+'passwd': 's$cret', 'db': 'ydb'}
 }
 </pre>
 
@@ -312,7 +312,7 @@ config['mysql']['passwd'] = 's$cret'
 config['mysql']['db'] = 'ydb'
 
 with open('db3.ini', 'w') as configfile:
-    config.write(configfile)
+config.write(configfile)
 </pre>
 
 <p>
@@ -340,7 +340,7 @@ Then we set the options.
 
 <pre class="explanation">
 with open('db3.ini', 'w') as configfile:
-    config.write(configfile)
+config.write(configfile)
 </pre>
 
 <p>

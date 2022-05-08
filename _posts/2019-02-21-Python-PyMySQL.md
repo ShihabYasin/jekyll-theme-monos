@@ -6,7 +6,7 @@ category: Python
 tag: Python
 ---
 
-   
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -86,21 +86,21 @@ In the following example, we get the version of MySQL.
 import pymysql
 
 con = pymysql.connect('localhost', 'user7',
-    's$cret', 'testdb')
+'s$cret', 'testdb')
 
 try:
 
-    with con.cursor() as cur:
+with con.cursor() as cur:
 
-        cur.execute('SELECT VERSION()')
+cur.execute('SELECT VERSION()')
 
-        version = cur.fetchone()
+version = cur.fetchone()
 
-        print(f'Database version: {version[0]}')
+print(f'Database version: {version[0]}')
 
 finally:
 
-    con.close()
+con.close()
 </pre>
 
 <p>
@@ -117,7 +117,7 @@ We import the <code>pymysql</code> module.
 
 <pre class="explanation">
 con = pymysql.connect('localhost', 'user7',
-    's$cret', 'testdb')
+'s$cret', 'testdb')
 </pre>
 
 <p>
@@ -165,7 +165,7 @@ We print the version of the database.
 <pre class="explanation">
 finally:
 
-    con.close()
+con.close()
 </pre>
 
 <p>
@@ -194,22 +194,22 @@ result, returning them as a sequence of sequences.
 import pymysql
 
 con = pymysql.connect('localhost', 'user7',
-    's$cret', 'testdb')
+'s$cret', 'testdb')
 
 try:
 
-    with con.cursor() as cur:
+with con.cursor() as cur:
 
-        cur.execute('SELECT * FROM cities')
+cur.execute('SELECT * FROM cities')
 
-        rows = cur.fetchall()
+rows = cur.fetchall()
 
-        for row in rows:
-            print(f'{row[0]} {row[1]} {row[2]}')
+for row in rows:
+print(f'{row[0]} {row[1]} {row[2]}')
 
 finally:
 
-    con.close()
+con.close()
 </pre>
 
 <p>
@@ -236,7 +236,7 @@ in the table.
 
 <pre class="explanation">
 for row in rows:
-    print(f'{row[0]} {row[1]} {row[2]}')
+print(f'{row[0]} {row[1]} {row[2]}')
 </pre>
 
 <p>
@@ -275,26 +275,26 @@ import pymysql
 import pymysql.cursors
 
 con = pymysql.connect(host='localhost',
-        user='user7',
-        password='s$cret',
-        db='testdb',
-        charset='utf8mb4',
-        cursorclass=pymysql.cursors.DictCursor)
+user='user7',
+password='s$cret',
+db='testdb',
+charset='utf8mb4',
+cursorclass=pymysql.cursors.DictCursor)
 
 try:
 
-    with con.cursor() as cur:
+with con.cursor() as cur:
 
-        cur.execute('SELECT * FROM cities')
+cur.execute('SELECT * FROM cities')
 
-        rows = cur.fetchall()
+rows = cur.fetchall()
 
-        for row in rows:
-            print(row['id'], row['name'])
+for row in rows:
+print(row['id'], row['name'])
 
 finally:
 
-    con.close()
+con.close()
 </pre>
 
 <p>
@@ -304,11 +304,11 @@ cursor.
 
 <pre class="explanation">
 con = pymysql.connect(host='localhost',
-    user='user7',
-    password='s$cret',
-    db='testdb',
-    charset='utf8mb4',
-    cursorclass=pymysql.cursors.DictCursor)
+user='user7',
+password='s$cret',
+db='testdb',
+charset='utf8mb4',
+cursorclass=pymysql.cursors.DictCursor)
 </pre>
 
 <p>
@@ -319,7 +319,7 @@ parameter.
 
 <pre class="explanation">
 for row in rows:
-    print(row['id'], row['name'])
+print(row['id'], row['name'])
 </pre>
 
 <p>
@@ -341,26 +341,26 @@ table.
 import pymysql
 
 con = pymysql.connect('localhost', 'user7',
-    's$cret', 'testdb')
+'s$cret', 'testdb')
 
 try:
 
-    with con.cursor() as cur:
+with con.cursor() as cur:
 
-        cur.execute('SELECT * FROM cities')
+cur.execute('SELECT * FROM cities')
 
-        rows = cur.fetchall()
+rows = cur.fetchall()
 
-        desc = cur.description
+desc = cur.description
 
-        print(f'{desc[0][0]:&lt;8} {desc[1][0]:&lt;15} {desc[2][0]:&gt;10}')
+print(f'{desc[0][0]:&lt;8} {desc[1][0]:&lt;15} {desc[2][0]:&gt;10}')
 
-        for row in rows:
-            print(f'{row[0]:&lt;8} {row[1]:&lt;15} {row[2]:&gt;10}')
+for row in rows:
+print(f'{row[0]:&lt;8} {row[1]:&lt;15} {row[2]:&gt;10}')
 
 finally:
 
-    con.close()
+con.close()
 </pre>
 
 <p>
@@ -387,7 +387,7 @@ Here we print and format the table column names.
 
 <pre class="explanation">
 for row in rows:
-    print(f'{row[0]:&lt;8} {row[1]:&lt;15} {row[2]:&gt;10}')
+print(f'{row[0]:&lt;8} {row[1]:&lt;15} {row[2]:&gt;10}')
 </pre>
 
 <p>
@@ -395,7 +395,7 @@ We traverse and print the data.
 </p>
 
 <pre class="compact">
-$ ./column_headers.py 
+$ ./column_headers.py
 id       name            population
 1        Bratislava          432000
 2        Budapest           1759000
@@ -411,7 +411,7 @@ id       name            population
 <h2>PyMySQL escaping parameters</h2>
 
 <p>
-The parameters passed to the <code>execute</code> method are escaped for 
+The parameters passed to the <code>execute</code> method are escaped for
 security reasons; this is to prevent SQL injection attacks.
 </p>
 
@@ -421,25 +421,25 @@ security reasons; this is to prevent SQL injection attacks.
 
 import pymysql
 
-con = pymysql.connect('localhost', 'user7', 
-    's$cret', 'testdb')
+con = pymysql.connect('localhost', 'user7',
+'s$cret', 'testdb')
 
 # user input
 myid = 4
 
-try: 
+try:
 
-    with con.cursor() as cur:
+with con.cursor() as cur:
 
-            
-        cur.execute('SELECT * FROM cities WHERE id=%s', myid) 
-        
-        cid, name, population  = cur.fetchone()
-        print(cid, name, population)
+
+cur.execute('SELECT * FROM cities WHERE id=%s', myid)
+
+cid, name, population  = cur.fetchone()
+print(cid, name, population)
 
 finally:
 
-    con.close()
+con.close()
 </pre>
 
 <p>
@@ -447,7 +447,7 @@ In the example, we get the row with the specified Id.
 </p>
 
 <pre class="explanation">
-cur.execute('SELECT * FROM cities WHERE id=%s', myid) 
+cur.execute('SELECT * FROM cities WHERE id=%s', myid)
 </pre>
 
 <p>
@@ -457,7 +457,7 @@ placeholders.
 </p>
 
 <pre class="compact">
-$ ./escaped.py 
+$ ./escaped.py
 4 Warsaw 1748000
 </pre>
 
@@ -478,19 +478,19 @@ INSERT statement.
 import pymysql
 
 con = pymysql.connect('localhost', 'user7',
-   's$cret', 'testdb')
+'s$cret', 'testdb')
 
 try:
 
-    with con.cursor() as cur:
+with con.cursor() as cur:
 
-        cur.execute('SELECT * FROM cities WHERE id IN (1, 2, 3)')
+cur.execute('SELECT * FROM cities WHERE id IN (1, 2, 3)')
 
-        print(f'The query affected {cur.rowcount} rows')
+print(f'The query affected {cur.rowcount} rows')
 
 finally:
 
-    con.close()
+con.close()
 </pre>
 
 <p>
@@ -523,24 +523,24 @@ A new row is inserted with the <code>INSERT INTO</code> SQL statement.
 
 import pymysql
 
-con = pymysql.connect('localhost', 'user7', 
-    's$cret', 'testdb')
+con = pymysql.connect('localhost', 'user7',
+'s$cret', 'testdb')
 
 city = (9, 'Kiev', 2887000)
 
-try: 
+try:
 
-    with con.cursor() as cur:
+with con.cursor() as cur:
 
-        cur.execute('INSERT INTO cities VALUES(%s, %s, %s)', 
-            (city[0], city[1], city[2])) 
-        con.commit()
+cur.execute('INSERT INTO cities VALUES(%s, %s, %s)',
+(city[0], city[1], city[2]))
+con.commit()
 
-        print('new city inserted')
+print('new city inserted')
 
 finally:
 
-    con.close()
+con.close()
 </pre>
 
 <p>
@@ -548,13 +548,13 @@ In the example, we insert a new city into the table.
 </p>
 
 <pre class="explanation">
-cur.execute('INSERT INTO cities VALUES(%s, %s, %s)', 
-    (city[0], city[1], city[2])) 
+cur.execute('INSERT INTO cities VALUES(%s, %s, %s)',
+(city[0], city[1], city[2]))
 con.commit()
 </pre>
 
 <p>
-In <code>pymysql</code>, the autocommit is off by default. We need to call 
+In <code>pymysql</code>, the autocommit is off by default. We need to call
 <code>commit</code> to execute the changes.
 </p>
 
@@ -564,7 +564,7 @@ In <code>pymysql</code>, the autocommit is off by default. We need to call
 
 <div class="rtow">
 
- <!-- container -->
+<!-- container -->
 
 
 

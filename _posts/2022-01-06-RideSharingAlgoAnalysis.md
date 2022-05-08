@@ -1,7 +1,7 @@
 ---
-layout: post 
-title: Ride-Sharing-Algorithm-Analysis 
-date: 2022-01-06 16:20:23 +0900 
+layout: post
+title: Ride-Sharing-Algorithm-Analysis
+date: 2022-01-06 16:20:23 +0900
 category: Algorithm
 tag: Algorithm
 ---
@@ -21,7 +21,7 @@ tag: Algorithm
 * While pathfinding using A* consider at most 2r geo-distance to search for drivers/vehicles.
 
 
-### **Pre-Calculate & Parallel Compute:** 
+### **Pre-Calculate & Parallel Compute:**
 
 * Introduce pre-calculated pick-up hotspot points to riders (on app) to start riding from, against all available drivers within a certain geo-fenced region pR, to reduce pick-up time and to dispatch appropriate drivers to the rider based on minimal costing.
 * Calculate supply and demand forecasting using data science based on app usage history of riders and active vehicle/driver movement data (direction, speed, position, time, costing etc.) on a particular hour of a day/week/year.

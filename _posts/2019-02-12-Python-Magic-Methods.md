@@ -65,10 +65,10 @@ expression is equivalent to <code>num.__add__(4)</code>.
 
 class MyDict(dict):
 
-    def __add__(self, other):
+def __add__(self, other):
 
-        self.update(other)
-        return MyDict(self)
+self.update(other)
+return MyDict(self)
 
 
 a = MyDict({'de': 'Germany'})
@@ -88,8 +88,8 @@ class MyDict(dict):
 
 def __add__(self, other):
 
-    self.update(other)
-    return MyDict(self)
+self.update(other)
+return MyDict(self)
 </pre>
 
 <p>
@@ -136,14 +136,14 @@ used to implement the constructor of the object. The
 
 class Person:
 
-    def __init__(self, name, occupation):
+def __init__(self, name, occupation):
 
-        self.name = name
-        self.occupation = occupation
+self.name = name
+self.occupation = occupation
 
-    def __str__(self):
+def __str__(self):
 
-        return f'{self.name} is a {self.occupation}'
+return f'{self.name} is a {self.occupation}'
 
 
 p = Person('John Doe', 'gardener')
@@ -158,8 +158,8 @@ and <code>occupation</code>.
 <pre class="explanation">
 def __init__(self, name, occupation):
 
-    self.name = name
-    self.occupation = occupation
+self.name = name
+self.occupation = occupation
 </pre>
 
 <p>
@@ -170,7 +170,7 @@ that are passed to the constructor.
 <pre class="explanation">
 def __str__(self):
 
-    return f'{self.name} is a {self.occupation}'
+return f'{self.name} is a {self.occupation}'
 </pre>
 
 <p>
@@ -205,12 +205,12 @@ If  <code>__str__</code> implementation is missing then the
 
 <pre class="compact">
 def __repr__(self):
-    return '&lt;{0}.{1} object at {2}&gt;'.format(
-      self.__module__, type(self).__name__, hex(id(self)))
+return '&lt;{0}.{1} object at {2}&gt;'.format(
+self.__module__, type(self).__name__, hex(id(self)))
 </pre>
 
 <p>
-The default implementation of the <code>__repr__</code> method 
+The default implementation of the <code>__repr__</code> method
 for an object looks like the above code.
 </p>
 
@@ -222,18 +222,18 @@ for an object looks like the above code.
 
 class Person:
 
-    def __init__(self, name, occupation):
-        
-        self.name = name
-        self.occupation = occupation
+def __init__(self, name, occupation):
 
-    def __str__(self):
+self.name = name
+self.occupation = occupation
 
-        return f'{self.name} is a {self.occupation}'
+def __str__(self):
 
-    def __repr__(self):
+return f'{self.name} is a {self.occupation}'
 
-        return f'Person{{name: {self.name}, occupation: {self.occupation}}}'
+def __repr__(self):
+
+return f'Person{{name: {self.name}, occupation: {self.occupation}}}'
 
 
 p = Person('John Doe', 'gardener')
@@ -244,8 +244,8 @@ print(repr(p))
 </pre>
 
 <p>
-The example implements both the <code>__str__</code> and the 
-<code>__repr__</code> methods. 
+The example implements both the <code>__str__</code> and the
+<code>__repr__</code> methods.
 </p>
 
 <pre class="compact">
@@ -278,18 +278,18 @@ Card = collections.namedtuple('Card', ['suit', 'rank'])
 
 class FrenchDeck:
 
-    ranks = [str(i) for i in range(2, 11)] + list('JQKA')
-    suits = ["heart", "clubs", "spades", "diamond"]
+ranks = [str(i) for i in range(2, 11)] + list('JQKA')
+suits = ["heart", "clubs", "spades", "diamond"]
 
-    def __init__(self):
-        self.total = [Card(suit, rank)
-                           for suit in self.suits for rank in self.ranks]
+def __init__(self):
+self.total = [Card(suit, rank)
+for suit in self.suits for rank in self.ranks]
 
-    def __len__(self):
-        return len(self.total)
+def __len__(self):
+return len(self.total)
 
-    def __getitem__(self, index):
-        return self.total[index]
+def __getitem__(self, index):
+return self.total[index]
 
 
 deck = FrenchDeck()
@@ -315,7 +315,7 @@ is a factory function for making a tuple class. Each card has a suit and a rank.
 
 <pre class="explanation">
 def __len__(self):
-    return len(self.total)
+return len(self.total)
 </pre>
 
 <p>
@@ -324,7 +324,7 @@ The <code>__len__</code> method returns the number of cards in the deck (52).
 
 <pre class="explanation">
 def __getitem__(self, index):
-    return self.total[index]
+return self.total[index]
 </pre>
 
 <p>
@@ -374,14 +374,14 @@ functions.
 
 class Char:
 
-    def __init__(self, val):
-        self.val = val
+def __init__(self, val):
+self.val = val
 
-    def __int__(self):
-        return ord(self.val)
+def __int__(self):
+return ord(self.val)
 
-    def __index__(self):
-        return ord(self.val)
+def __index__(self):
+return ord(self.val)
 
 
 c1 = Char('a')
@@ -416,7 +416,7 @@ functions.
 
 <p>
 The <code>__eq__</code> implements the <code>==</code> operator.
-The <code>__lt__</code> implements the <code>&lt;</code> operator and the 
+The <code>__lt__</code> implements the <code>&lt;</code> operator and the
 <code>__gt__</code> implements the <code>&gt;</code> operator.
 </p>
 
@@ -434,72 +434,72 @@ Coin = collections.namedtuple('coin', ['rank'])
 
 class Pouch:
 
-    def __init__(self):
-        self.bag = []
+def __init__(self):
+self.bag = []
 
-    def add(self, coin):
+def add(self, coin):
 
-        self.bag.append(coin)
+self.bag.append(coin)
 
-    def __eq__(self, other):
+def __eq__(self, other):
 
-        val1, val2 = self.__evaluate(other)
+val1, val2 = self.__evaluate(other)
 
-        if val1 == val2:
-            return True
-        else:
-            return False
+if val1 == val2:
+return True
+else:
+return False
 
-    def __lt__(self, other):
+def __lt__(self, other):
 
-        val1, val2 = self.__evaluate(other)
+val1, val2 = self.__evaluate(other)
 
-        if val1 &lt; val2:
-            return True
-        else:
-            return False
+if val1 &lt; val2:
+return True
+else:
+return False
 
-    def __gt__(self, other):
+def __gt__(self, other):
 
-        val1, val2 = self.__evaluate(other)
+val1, val2 = self.__evaluate(other)
 
-        if val1 &gt; val2:
-            return True
-        else:
-            return False
+if val1 &gt; val2:
+return True
+else:
+return False
 
-    def __str__(self):
+def __str__(self):
 
-        return str(self.bag)
+return str(self.bag)
 
-    def __evaluate(self, other):
+def __evaluate(self, other):
 
-        val1 = 0
-        val2 = 0
+val1 = 0
+val2 = 0
 
-        for coin in self.bag:
+for coin in self.bag:
 
-            if coin.rank == 'g':
-                val1 += 6
+if coin.rank == 'g':
+val1 += 6
 
-            if coin.rank == 's':
-                val1 += 3
+if coin.rank == 's':
+val1 += 3
 
-            if coin.rank == 'b':
-                val1 += 1
+if coin.rank == 'b':
+val1 += 1
 
-        for coin in other.bag:
+for coin in other.bag:
 
-            if coin.rank == 'g':
-                val2 += 6
+if coin.rank == 'g':
+val2 += 6
 
-            if coin.rank == 's':
-                val2 += 3
+if coin.rank == 's':
+val2 += 3
 
-            if coin.rank == 'b':
-                val2 += 1
+if coin.rank == 'b':
+val2 += 1
 
-        return val1, val2
+return val1, val2
 
 
 pouch1 = Pouch()
@@ -521,17 +521,17 @@ print(pouch1)
 print(pouch2)
 
 if pouch1 == pouch2:
-    print('Pouches have equal value')
+print('Pouches have equal value')
 
 elif pouch1 &gt; pouch2:
-    print('Pouch 1 is more valueable than Pouch 2')
+print('Pouch 1 is more valueable than Pouch 2')
 else:
-    print('Pouch 2 is more valueable than Pouch 1')
+print('Pouch 2 is more valueable than Pouch 1')
 {% endraw %}
 </pre>
 
 <p>
-We have a pouch that can contain gold, silver, and bronze 
+We have a pouch that can contain gold, silver, and bronze
 coins. A gold coin equals to two silver and six bronze coins.
 In the example, we implement the three comparison operators
 for the pouch object using the Python magic methods.
@@ -540,53 +540,53 @@ for the pouch object using the Python magic methods.
 <pre class="explanation">
 def __eq__(self, other):
 
-    val1, val2 = self.__evaluate(other)
+val1, val2 = self.__evaluate(other)
 
-    if val1 == val2:
-        return True
-    else:
-        return False
+if val1 == val2:
+return True
+else:
+return False
 </pre>
 
 <p>
-In the <code>__eq__</code> method, we first evaluate the values of 
+In the <code>__eq__</code> method, we first evaluate the values of
 the two pouches. Then we compare them and return a boolean result.
 </p>
 
 <pre class="explanation">
 def __evaluate(self, other):
 
-    val1 = 0
-    val2 = 0
+val1 = 0
+val2 = 0
 
-    for coin in self.bag:
+for coin in self.bag:
 
-        if coin.rank == 'g':
-            val1 += 6
+if coin.rank == 'g':
+val1 += 6
 
-        if coin.rank == 's':
-            val1 += 3
+if coin.rank == 's':
+val1 += 3
 
-        if coin.rank == 'b':
-            val1 += 1
+if coin.rank == 'b':
+val1 += 1
 
-    for coin in other.bag:
+for coin in other.bag:
 
-        if coin.rank == 'g':
-            val2 += 6
+if coin.rank == 'g':
+val2 += 6
 
-        if coin.rank == 's':
-            val2 += 3
+if coin.rank == 's':
+val2 += 3
 
-        if coin.rank == 'b':
-            val2 += 1
+if coin.rank == 'b':
+val2 += 1
 
-    return val1, val2
+return val1, val2
 </pre>
 
 <p>
-The <code>__evaluate</code> method calculates the values 
-of the two pouches. It goes through the coins of the pouch 
+The <code>__evaluate</code> method calculates the values
+of the two pouches. It goes through the coins of the pouch
 and adds a value according to the rank of the coin.
 </p>
 
@@ -604,12 +604,12 @@ We create the first pouch and add three coins to it.
 
 <pre class="explanation">
 if pouch1 == pouch2:
-    print('Pouches have equal value')
+print('Pouches have equal value')
 
 elif pouch1 &gt; pouch2:
-    print('Pouch 1 is more valueable than Pouch 2')
+print('Pouch 1 is more valueable than Pouch 2')
 else:
-    print('Pouch 2 is more valueable than Pouch 1')
+print('Pouch 2 is more valueable than Pouch 1')
 </pre>
 
 <p>
@@ -621,7 +621,7 @@ We compare the pouches with the comparison operators.
 
 <p>
 In the following example, we introduce a couple of other magic methods,
-including <code>__sub__</code>, <code>__mul__</code>, 
+including <code>__sub__</code>, <code>__mul__</code>,
 and <code>__abs__</code>.
 </p>
 
@@ -635,31 +635,31 @@ import math
 
 class Vec2D:
 
-    def __init__(self, x, y):
+def __init__(self, x, y):
 
-        self.x = x
-        self.y = y
+self.x = x
+self.y = y
 
-    def __add__(self, other):
-        return Vec2D(self.x + other.x, self.y + other.y)
+def __add__(self, other):
+return Vec2D(self.x + other.x, self.y + other.y)
 
-    def __sub__(self, other):
-        return Vec2D(self.x - other.x, self.y - other.y)
+def __sub__(self, other):
+return Vec2D(self.x - other.x, self.y - other.y)
 
-    def __mul__(self, other):
-        return self.x * other.x + self.y * other.y
+def __mul__(self, other):
+return self.x * other.x + self.y * other.y
 
-    def __abs__(self):
-        return math.sqrt(self.x ** 2 + self.y ** 2)
+def __abs__(self):
+return math.sqrt(self.x ** 2 + self.y ** 2)
 
-    def __eq__(self, other):
-        return self.x == other.x and self.y == other.y
+def __eq__(self, other):
+return self.x == other.x and self.y == other.y
 
-    def __str__(self):
-        return f'({self.x}, {self.y})'
+def __str__(self):
+return f'({self.x}, {self.y})'
 
-    def __ne__(self, other):
-        return not self.__eq__(other)  
+def __ne__(self, other):
+return not self.__eq__(other)
 
 
 u = Vec2D(0, 1)
@@ -685,7 +685,7 @@ print(u != v)
 
 <p>
 In the example, we have a <code>Vec2D</code> class. We can compare, add,
-subtract, and multiply vectors. We can also calculate the lenght of a 
+subtract, and multiply vectors. We can also calculate the lenght of a
 vector.
 </p>
 
@@ -696,7 +696,7 @@ False
 (-2, -2)
 3
 1.0
-False 
+False
 True
 </pre>
 

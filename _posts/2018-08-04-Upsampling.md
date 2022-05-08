@@ -1,8 +1,8 @@
 ---
-layout: post 
-title: Data Upsampling Notes 
-date: 2018-08-04 16:20:23 +0900 
-category: ML 
+layout: post
+title: Data Upsampling Notes
+date: 2018-08-04 16:20:23 +0900
+category: ML
 tag: deeplearning
 ---
 
@@ -13,7 +13,7 @@ tag: deeplearning
 * Available other methods: Random Over Sampling, Smote(Synthetic Minority Oversampling Technique), BorderLine Smote, KMeans Smote, SVM Smote, ADASYN(Adaptive Synthetic Sampling), Smote-NC((Nominal and Continuous, for a dataset with categorical features)).
 * Random oversampling is the simplest oversampling technique to balance the imbalanced nature of the dataset. It balances the data by replicating the minority class samples. This does not cause any loss of information, but the dataset is prone to overfitting as the same information is copied.
 * In the case of random oversampling, it was prone to overfitting as the minority class samples are replicated, here SMOTE comes into the picture. SMOTE stands for Synthetic Minority Oversampling Technique. It creates new synthetic samples to balance the dataset.
-SMOTE works by utilizing a k-nearest neighbor algorithm to create synthetic data. 
+SMOTE works by utilizing a k-nearest neighbor algorithm to create synthetic data.
 * Due to the presence of some minority points or outliers within the region of majority class points, bridges of minority class points are created. This is a problem in the case of Smote and is solved using Borderline Smote.
 * K-Means SMOTE is an oversampling method for class-imbalanced data. It aids classification by generating minority class samples in safe and crucial areas of the input space. The method avoids the generation of noise and effectively overcomes imbalances between and within classes.
 * Another variation of Borderline-SMOTE is Borderline-SMOTE SVM, or we could just call it SVM-SMOTE. This technique incorporates the SVM algorithm to identify the misclassification points.

@@ -30,9 +30,9 @@ tag: Python
 <h1>pyDAL</h1>
 
 <p>
-<em>pyDAL</em> is a pure Python Database Abstraction Layer. The pyDAL 
-module dynamically generates the SQL in the specified dialect for the 
-database back end. The resulting code will be portable among 
+<em>pyDAL</em> is a pure Python Database Abstraction Layer. The pyDAL
+module dynamically generates the SQL in the specified dialect for the
+database back end. The resulting code will be portable among
 different types of databases.
 </p>
 
@@ -64,19 +64,19 @@ from pydal import DAL, Field
 db = DAL('sqlite://test.db', folder='dbs')
 
 try:
-    db.define_table('cars', Field('name'), Field('price', type='integer'))
-    db.cars.insert(name='Audi', price=52642)
-    db.cars.insert(name='Skoda', price=9000)
-    db.cars.insert(name='Volvo', price=29000)
-    db.cars.insert(name='Bentley', price=350000)
-    db.cars.insert(name='Citroen', price=21000)
-    db.cars.insert(name='Hummer', price=41400)
-    db.cars.insert(name='Volkswagen', price=21600)
+db.define_table('cars', Field('name'), Field('price', type='integer'))
+db.cars.insert(name='Audi', price=52642)
+db.cars.insert(name='Skoda', price=9000)
+db.cars.insert(name='Volvo', price=29000)
+db.cars.insert(name='Bentley', price=350000)
+db.cars.insert(name='Citroen', price=21000)
+db.cars.insert(name='Hummer', price=41400)
+db.cars.insert(name='Volkswagen', price=21600)
 
 finally:
 
-    if db:
-        db.close()
+if db:
+db.close()
 </pre>
 
 <p>
@@ -98,8 +98,8 @@ db.define_table('cars', Field('name'), Field('price', type='integer'))
 </pre>
 
 <p>
-A database table is defined with <code>define_table</code>. It is 
-created if it does not exist. It has two fields: name and price. An id 
+A database table is defined with <code>define_table</code>. It is
+created if it does not exist. It has two fields: name and price. An id
 field is automatically generated.
 </p>
 
@@ -119,7 +119,7 @@ c95cf9bab36fcb04c2424cdf9be0f6e3_cars.table  sql.log  test.db
 
 <p>
 In addition to the <code>test.db</code> database, we have a migration
-file with the <code>.table</code> extension and a log file. 
+file with the <code>.table</code> extension and a log file.
 </p>
 
 
@@ -137,15 +137,15 @@ from pydal import DAL, Field
 
 try:
 
-    db = DAL('sqlite://test.db', folder='dbs')
-    cars = db.define_table('cars', Field('name'), Field('price', 'integer'))
+db = DAL('sqlite://test.db', folder='dbs')
+cars = db.define_table('cars', Field('name'), Field('price', 'integer'))
 
-    cars.drop()
+cars.drop()
 
 finally:
 
-    if db:
-        db.close() 
+if db:
+db.close()
 </pre>
 
 <p>
@@ -168,18 +168,18 @@ from pydal import DAL, Field
 
 try:
 
-    db = DAL('sqlite://test.db', folder='dbs')
-    db.define_table('cars', Field('name'), Field('price'))
+db = DAL('sqlite://test.db', folder='dbs')
+db.define_table('cars', Field('name'), Field('price'))
 
-    rows = db().select(db.cars.ALL)
+rows = db().select(db.cars.ALL)
 
-    for row in rows:
-        print("{} {} {}".format(row['id'], row['name'], row['price']))
+for row in rows:
+print("{} {} {}".format(row['id'], row['name'], row['price']))
 
 finally:
 
-    if db:
-        db.close()      
+if db:
+db.close()
 </pre>
 
 <p>
@@ -191,13 +191,13 @@ rows = db().select(db.cars.ALL)
 </pre>
 
 <p>
-We fetch all rows with the <code>select</code> method. 
+We fetch all rows with the <code>select</code> method.
 The <code>db.cars.ALL</code> tells to select all columns from the table.
 </p>
 
 <pre class="explanation">
 for row in rows:
-    print("{} {} {}".format(row['id'], row['name'], row['price']))
+print("{} {} {}".format(row['id'], row['name'], row['price']))
 </pre>
 
 <p>
@@ -205,7 +205,7 @@ We go throught each of the rows and print its fields.
 </p>
 
 <pre class="compact">
-$ ./select_all_cars.py 
+$ ./select_all_cars.py
 1 Audi 52642
 2 Skoda 9000
 3 Volvo 29000
@@ -231,25 +231,25 @@ from pydal import DAL, Field
 
 try:
 
-    db = DAL('sqlite://test.db')
-    db.define_table('cars', Field('name'), Field('price', 'integer'))
+db = DAL('sqlite://test.db')
+db.define_table('cars', Field('name'), Field('price', 'integer'))
 
-    rows = db(db.cars).select(orderby=db.cars.price)
+rows = db(db.cars).select(orderby=db.cars.price)
 
-    for row in rows:
-        print("{} {} {}".format(row['id'], row['name'], row['price']))
+for row in rows:
+print("{} {} {}".format(row['id'], row['name'], row['price']))
 
-    print("**************************************")        
+print("**************************************")
 
-    rows = db(db.cars).select(orderby=~db.cars.price)
+rows = db(db.cars).select(orderby=~db.cars.price)
 
-    for row in rows:
-        print("{} {} {}".format(row['id'], row['name'], row['price']))
+for row in rows:
+print("{} {} {}".format(row['id'], row['name'], row['price']))
 
 finally:
 
-    if db:
-        db.close()         
+if db:
+db.close()
 </pre>
 
 <p>
@@ -262,7 +262,7 @@ rows = db(db.cars).select(orderby=db.cars.price)
 </pre>
 
 <p>
-Ordering is done with the <code>orderby</code> parameter of the 
+Ordering is done with the <code>orderby</code> parameter of the
 <code>select</code> method.
 </p>
 
@@ -275,7 +275,7 @@ To order by descending order, we use the tilda character.
 </p>
 
 <pre class="compact">
-$ ./order_by.py 
+$ ./order_by.py
 5 Citroen 21000
 7 Volkswagen 21600
 3 Volvo 29000
@@ -314,19 +314,19 @@ from pydal import DAL, Field
 
 try:
 
-    db = DAL('sqlite://test.db', folder='dbs')
-    db.define_table('cars', Field('name'), Field('price', 'integer'))
+db = DAL('sqlite://test.db', folder='dbs')
+db.define_table('cars', Field('name'), Field('price', 'integer'))
 
-    rows = db(db.cars).select(limitby=(2, 5))
+rows = db(db.cars).select(limitby=(2, 5))
 
-    for row in rows:
-        print("{} {} {}".format(row['id'], row['name'], row['price']))
+for row in rows:
+print("{} {} {}".format(row['id'], row['name'], row['price']))
 
 
 finally:
 
-    if db:
-        db.close() 
+if db:
+db.close()
 </pre>
 
 <p>
@@ -334,7 +334,7 @@ In the code example, we limit the output to three rows with offset 2.
 </p>
 
 <pre class="compact">
-$ ./limit_by.py 
+$ ./limit_by.py
 3 Volvo 29000
 4 Bentley 350000
 5 Citroen 21000
@@ -357,17 +357,17 @@ from pydal import DAL, Field
 
 try:
 
-    db = DAL('sqlite://test.db', folder='dbs')
-    db.define_table('cars', Field('name'), Field('price', 'integer'))
+db = DAL('sqlite://test.db', folder='dbs')
+db.define_table('cars', Field('name'), Field('price', 'integer'))
 
-    n = db(db.cars.id).count()
+n = db(db.cars.id).count()
 
-    print("There are {} rows in the table".format(n))
+print("There are {} rows in the table".format(n))
 
 finally:
 
-    if db:
-        db.close()     
+if db:
+db.close()
 </pre>
 
 <p>
@@ -376,7 +376,7 @@ table.
 </p>
 
 <pre class="compact">
-$ ./count_rows.py 
+$ ./count_rows.py
 There are 7 rows in the table
 </pre>
 
@@ -399,16 +399,16 @@ from pydal import DAL, Field
 
 try:
 
-    db = DAL('sqlite://test.db', folder='dbs')
-    db.define_table('cars', Field('name'), Field('price', 'integer'))
+db = DAL('sqlite://test.db', folder='dbs')
+db.define_table('cars', Field('name'), Field('price', 'integer'))
 
-    rows = db(db.cars).select()
-    print(rows.as_json())
+rows = db(db.cars).select()
+print(rows.as_json())
 
 finally:
 
-    if db:
-        db.close()        
+if db:
+db.close()
 </pre>
 
 <p>
@@ -416,13 +416,13 @@ The example shows all rows in JSON format.
 </p>
 
 <pre class="compact">
-$ ./json_output.py 
-[{"id": 1, "price": 52642, "name": "Audi"}, 
-{"id": 2, "price": 9000, "name": "Skoda"}, 
-{"id": 3, "price": 29000, "name": "Volvo"}, 
-{"id": 4, "price": 350000, "name": "Bentley"}, 
-{"id": 5, "price": 21000, "name": "Citroen"}, 
-{"id": 6, "price": 41400, "name": "Hummer"}, 
+$ ./json_output.py
+[{"id": 1, "price": 52642, "name": "Audi"},
+{"id": 2, "price": 9000, "name": "Skoda"},
+{"id": 3, "price": 29000, "name": "Volvo"},
+{"id": 4, "price": 350000, "name": "Bentley"},
+{"id": 5, "price": 21000, "name": "Citroen"},
+{"id": 6, "price": 41400, "name": "Hummer"},
 {"id": 7, "price": 21600, "name": "Volkswagen"}]
 </pre>
 
@@ -431,7 +431,7 @@ $ ./json_output.py
 <h2>pyDAL last SQL</h2>
 
 <p>
-The SQL that was last executed by pyDAL can be found with 
+The SQL that was last executed by pyDAL can be found with
 <code>_lastsql</code>.
 </p>
 
@@ -443,18 +443,18 @@ from pydal import DAL, Field
 
 try:
 
-    db = DAL('sqlite://test.db', folder='dbs')
-    db.define_table('cars', Field('name'), Field('price', 'integer'))
+db = DAL('sqlite://test.db', folder='dbs')
+db.define_table('cars', Field('name'), Field('price', 'integer'))
 
-    # we ignore the result
-    db(db.cars.id).select(db.cars.name, db.cars.price)
+# we ignore the result
+db(db.cars.id).select(db.cars.name, db.cars.price)
 
-    print(db._lastsql)
+print(db._lastsql)
 
 finally:
 
-    if db:
-        db.close()      
+if db:
+db.close()
 </pre>
 
 <p>
@@ -463,7 +463,7 @@ statement.
 </p>
 
 <pre class="compact">
-$ ./lastsql.py 
+$ ./lastsql.py
 ('SELECT "cars"."name", "cars"."price" FROM "cars" WHERE ("cars"."id" IS NOT NULL);', 0.0005686283111572266)
 </pre>
 
@@ -486,17 +486,17 @@ from pydal import DAL, Field
 
 try:
 
-    db = DAL('sqlite://test.db', folder='dbs')
-    db.define_table('cars', Field('name'), Field('price', 'integer'))
+db = DAL('sqlite://test.db', folder='dbs')
+db.define_table('cars', Field('name'), Field('price', 'integer'))
 
-    data = db.executesql('SELECT * FROM cars WHERE id=6')[0]
+data = db.executesql('SELECT * FROM cars WHERE id=6')[0]
 
-    print(data)
+print(data)
 
 finally:
 
-    if db:
-        db.close() 
+if db:
+db.close()
 </pre>
 
 <p>
@@ -504,7 +504,7 @@ In the example, we execute an SQL SELECT statement with <code>executesql</code>.
 </p>
 
 <pre class="compact">
-$ ./raw_sql.py 
+$ ./raw_sql.py
 (6, 'Hummer', '41400')
 </pre>
 

@@ -130,12 +130,12 @@ logging levels:
 </p>
 
 <ul>
-    <li>CRITICAL</li>
-    <li>ERROR</li>
-    <li>WARNING</li>
-    <li>INFO</li>
-    <li>DEBUG</li>
-    <li>NOTSET</li>
+<li>CRITICAL</li>
+<li>ERROR</li>
+<li>WARNING</li>
+<li>INFO</li>
+<li>DEBUG</li>
+<li>NOTSET</li>
 </ul>
 
 <p>
@@ -460,7 +460,7 @@ formatter. The <code>debug</code>, <code>info</code>,
 import logging
 
 logging.basicConfig(filename='test.log', format='%(filename)s: %(message)s',
-                    level=logging.DEBUG)
+level=logging.DEBUG)
 
 logging.debug('This is a debug message')
 logging.info('This is an info message')
@@ -475,7 +475,7 @@ The example configures the root logger with <code>basicConfig</code>.
 
 <pre class="explanation">
 logging.basicConfig(filename='test.log', format='%(filename)s: %(message)s',
-    level=logging.DEBUG)
+level=logging.DEBUG)
 </pre>
 
 <p>
@@ -624,7 +624,7 @@ logger.setLevel(logging.DEBUG)
 
 log_format = '%(asctime)s %(filename)s: %(message)s'
 logging.basicConfig(filename="test.log", format=log_format,
-                    datefmt='%Y-%m-%d %H:%M:%S')
+datefmt='%Y-%m-%d %H:%M:%S')
 
 logger.info("information message")
 </pre>
@@ -643,7 +643,7 @@ We include the datetime string into the log with <code>asctime</code>.
 
 <pre class="explanation">
 logging.basicConfig(filename="test.log", format=log_format,
-                    datefmt='%Y-%m-%d %H:%M:%S')
+datefmt='%Y-%m-%d %H:%M:%S')
 </pre>
 
 <p>
@@ -679,10 +679,10 @@ logging.basicConfig(filename="test.log", format=log_format)
 vals = [1, 2]
 
 try:
-    print(vals[4])
+print(vals[4])
 
 except Exception as e:
-    logging.error("exception occurred", exc_info=True)
+logging.error("exception occurred", exc_info=True)
 </pre>
 
 <p>
@@ -702,8 +702,8 @@ to <code>True</code>.
 <pre class="compact">
 2019-03-21 14:56:21,313 stack_trace.py: exception occurred
 Traceback (most recent call last):
-  File "C:\Users\Jano\Documents\pyprogs\pylog\stack_trace.py", line 11, in &lt;module&gt;
-    print(vals[4])
+File "C:\Users\Jano\Documents\pyprogs\pylog\stack_trace.py", line 11, in &lt;module&gt;
+print(vals[4])
 IndexError: list index out of range
 </pre>
 
@@ -738,7 +738,7 @@ main.setLevel(logging.DEBUG)
 handler = logging.FileHandler('my.log')
 
 format = logging.Formatter('%(asctime)s  %(name)s
-    %(levelname)s: %(message)s')
+%(levelname)s: %(message)s')
 handler.setFormatter(format)
 
 main.addHandler(handler)
@@ -776,7 +776,7 @@ A file handler is created. The messages will be written to the
 
 <pre class="explanation">
 format = logging.Formatter('%(asctime)s  %(name)s
-    %(levelname)s: %(message)s')
+%(levelname)s: %(message)s')
 handler.setFormatter(format)
 </pre>
 
@@ -828,31 +828,31 @@ We need to install <code>pyyaml</code> module.
 version: 1
 
 formatters:
-  simple:
-    format: "%(asctime)s %(name)s: %(message)s"
-  extended:
-    format: "%(asctime)s %(name)s %(levelname)s: %(message)s"
+simple:
+format: "%(asctime)s %(name)s: %(message)s"
+extended:
+format: "%(asctime)s %(name)s %(levelname)s: %(message)s"
 
 handlers:
-  console:
-    class: logging.StreamHandler
-    level: INFO
-    formatter: simple
+console:
+class: logging.StreamHandler
+level: INFO
+formatter: simple
 
-  file_handler:
-    class: logging.FileHandler
-    level: INFO
-    filename: test.log
-    formatter: extended
-    propagate: false
+file_handler:
+class: logging.FileHandler
+level: INFO
+filename: test.log
+formatter: extended
+propagate: false
 
 loggers:
-  dev:
-    handlers: [console, file_handler]
-  test:
-    handlers: [file_handler]
+dev:
+handlers: [console, file_handler]
+test:
+handlers: [file_handler]
 root:
-  handlers: [file_handler]
+handlers: [file_handler]
 </pre>
 
 <p>
@@ -872,7 +872,7 @@ import yaml
 
 with open('config.yaml', 'r') as f:
 
-    log_cfg = yaml.safe_load(f.read())
+log_cfg = yaml.safe_load(f.read())
 
 logging.config.dictConfig(log_cfg)
 

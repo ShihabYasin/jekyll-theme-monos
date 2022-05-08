@@ -1,14 +1,14 @@
 ---
-layout: post 
+layout: post
 title: Microservices
-date: 2020-12-05 16:20:23 +0900 
+date: 2020-12-05 16:20:23 +0900
 category: DevOps
 tag: Jenkins
 ---
 
 # Microservices Design
 
-### Introduction: 
+### Introduction:
 
 1. All services are configured programmatically by an API.
 1. Events are the driving force ([event-driven](https://martinfowler.com/articles/201701-event-driven.html), [pub/sub model](https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern), trigger/action)
@@ -25,7 +25,7 @@ tag: Jenkins
 1. Platform
 
 <p align="center">
-  <img title="microservices-overview" width="600" height="350" src="https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/microservices-overview.png?raw=true" alt="microservices-overview">
+<img title="microservices-overview" width="600" height="350" src="https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/microservices-overview.png?raw=true" alt="microservices-overview">
 </p>
 
 
@@ -41,7 +41,7 @@ Contains live services.
 
 ### APIs
 
-1. Powered by web frameworks (Java/Spring Boot, Python/Flask, Node/Express etc.) 
+1. Powered by web frameworks (Java/Spring Boot, Python/Flask, Node/Express etc.)
 1. Languages and frameworks don't matter as much as solid API contracts.
 1. Single Responsibility.
 1. [12 Factor](https://12factor.net/)
@@ -121,6 +121,6 @@ Triggers:
 
 
 <p align="center">
-  <img title="microservices-overview-ci-cd" width="600" height="350" src="https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/microservices-overview-ci-cd.png?raw=true" alt="microservices-overview-ci-cd">
+<img title="microservices-overview-ci-cd" width="600" height="350" src="https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/microservices-overview-ci-cd.png?raw=true" alt="microservices-overview-ci-cd">
 </p>
 

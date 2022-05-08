@@ -40,10 +40,10 @@ of the iterable is true. If the iterable is empty, it returns
 
 <pre class="compact">
 def any(it):
-  for el in it:
-      if el:
-          return True
-  return False
+for el in it:
+if el:
+return True
+return False
 </pre>
 
 <p>
@@ -55,9 +55,9 @@ The <code>any</code> is equivalent to the above code.
 vals = [False, False, True, False, False]
 
 if any(vals):
-    print('There is a truthy value in the list')
+print('There is a truthy value in the list')
 else:
-    print('There is no truthy value in the list')
+print('There is no truthy value in the list')
 </pre>
 
 <p>
@@ -82,11 +82,11 @@ from dateutil.relativedelta import relativedelta
 
 
 users = [
-  {'name': 'John Doe', 'date_of_birth': '1987-11-08', 'active': True},
-  {'name': 'Jane Doe', 'date_of_birth': '1996-02-03', 'active': True},
-  {'name': 'Robert Brown', 'date_of_birth': '1977-12-12', 'active': True},
-  {'name': 'Lucia Smith', 'date_of_birth': '2002-11-17', 'active': False},
-  {'name': 'Patrick Dempsey', 'date_of_birth': '1994-01-04', 'active': True}
+{'name': 'John Doe', 'date_of_birth': '1987-11-08', 'active': True},
+{'name': 'Jane Doe', 'date_of_birth': '1996-02-03', 'active': True},
+{'name': 'Robert Brown', 'date_of_birth': '1977-12-12', 'active': True},
+{'name': 'Lucia Smith', 'date_of_birth': '2002-11-17', 'active': False},
+{'name': 'Patrick Dempsey', 'date_of_birth': '1994-01-04', 'active': True}
 ]
 
 user_dts = [datetime.strptime(user['date_of_birth'], "%Y-%m-%d") for user in users]
@@ -96,9 +96,9 @@ today = datetime.now()
 data = [relativedelta(today, dt).years &gt; val for dt in user_dts]
 
 if any(data):
-    print(f'There are users older than {val}')
+print(f'There are users older than {val}')
 else:
-    print(f'There are no users older than {val}')
+print(f'There are no users older than {val}')
 </pre>
 
 <p>
@@ -145,9 +145,9 @@ than the given value (40), the expression returns True; False otherwise.
 
 <pre class="explanation">
 if any(data):
-    print(f'There are users older than {val}')
+print(f'There are users older than {val}')
 else:
-    print(f'There are no users older than {val}')
+print(f'There are no users older than {val}')
 </pre>
 
 <p>
@@ -173,10 +173,10 @@ if all elements of the iterable are true (or if the iterable is empty).
 
 <pre class="compact">
 def all(it):
-    for el in it:
-        if not el:
-            return False
-    return True
+for el in it:
+if not el:
+return False
+return True
 </pre>
 
 <p>
@@ -188,9 +188,9 @@ The <code>all</code> is equivalent to the above code.
 vals = [True, False, True, True, True]
 
 if all(vals):
-    print('All values are truthy')
+print('All values are truthy')
 else:
-    print('All values are not thruthy')
+print('All values are not thruthy')
 </pre>
 
 <p>
@@ -210,18 +210,18 @@ We want to find out if all users are active.
 
 
 users = [
-  {'name': 'John Doe', 'occupation': 'gardener', 'active': True},
-  {'name': 'Jane Doe', 'occupation': 'teacher', 'active': True},
-  {'name': 'Robert Brown', 'occupation': 'driver', 'active': True},
-  {'name': 'Lucia Smith', 'occupation': 'hair dresser', 'active': False},
-  {'name': 'Patrick Dempsey', 'occupation': 'programmer', 'active': True}
+{'name': 'John Doe', 'occupation': 'gardener', 'active': True},
+{'name': 'Jane Doe', 'occupation': 'teacher', 'active': True},
+{'name': 'Robert Brown', 'occupation': 'driver', 'active': True},
+{'name': 'Lucia Smith', 'occupation': 'hair dresser', 'active': False},
+{'name': 'Patrick Dempsey', 'occupation': 'programmer', 'active': True}
 ]
 
 
 if all([user['active'] for user in users]):
-    print('All users are active')
+print('All users are active')
 else:
-    print('There are inactive users')
+print('There are inactive users')
 </pre>
 
 <p>
@@ -230,9 +230,9 @@ We have a list of users. The users have the <code>active</code> property.
 
 <pre class="explanation">
 if all([user['active'] for user in users]):
-    print('All users are active')
+print('All users are active')
 else:
-    print('There are inactive users')
+print('There are inactive users')
 </pre>
 
 <p>
