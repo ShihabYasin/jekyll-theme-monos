@@ -6,7 +6,8 @@ category: Python
 tag: Python
 ---
 
-
+<div class="container blog-container" style="padding-top: 0;">
+<div class="row">
 
 
 <h2 id="project-setup">Project Setup ( Simple Blog App ) </h2>
@@ -816,3 +817,4 @@ Indexing <span class="m">4</span> <span class="s1">&#39;Category&#39;</span> obj
 </tr>
 </tbody>
 </table>
+
