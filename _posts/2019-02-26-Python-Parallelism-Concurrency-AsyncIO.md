@@ -8,362 +8,1896 @@ tag: Python
 
 ## Parallelism, Concurrency and AsyncIO in Python
 
-<header class="hero blog-hero blog-detail-hero">
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 
+    <title>Django REST Framework and Elasticsearch | TestDriven.io</title>
+
+    <meta property="og:url" content="https://testdriven.io/blog/django-drf-elasticsearch/" />
+
+    
+
+<meta property="og:title" content="Django REST Framework and Elasticsearch" />
+<meta name="description" property="og:description" content="This tutorial looks at how to integrate Django REST Framework with Elasticsearch.">
+<meta name="keywords" content="django, elasticsearch dsl django, elasticsearch dsl drf, django rest framework elasticsearch">
+<meta property="og:image" content="https://testdriven.io/static/images/blog/django/django-drf-elasticsearch/django_drf_elasticsearch_social_card.png" />
+<meta property="og:image:alt" content="A white rectangle displaying the article title, &quot;Django REST Framework and Elasticsearch&quot;, and a byline featuring Nik Tomazic." />
+<meta name="twitter:image" content="https://testdriven.io/static/images/blog/django/django-drf-elasticsearch/django_drf_elasticsearch_social_card.png">
+<meta property="twitter:image:alt" content="A white rectangle displaying the article title, &quot;Django REST Framework and Elasticsearch&quot;, and a byline featuring Nik Tomazic." />
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+
+  "headline": "Django REST Framework and Elasticsearch",
+  "proficiencyLevel": "Expert",
+
+  "url": "https://testdriven.io/blog/django-drf-elasticsearch/",
+  "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://testdriven.io/blog/django-drf-elasticsearch/"
+    },
+
+  "datePublished": "2021-08-31T22:28:15+00:00",
+  "dateModified": "2021-08-31T22:28:15+00:00",
+
+  "image": [
+      "https://testdriven.io/static/images/structured-data/1x1.de738cd68eed.png",
+      "https://testdriven.io/static/images/structured-data/4x3.7babd5c1a5d2.png",
+      "https://testdriven.io/static/images/structured-data/16x9.722e0a50d594.png"
+  ],
+
+  "keywords": "django, elasticsearch dsl django, elasticsearch dsl drf, django rest framework elasticsearch",
+  "publisher": {
+    "@type": "Organization",
+    "name:": "TestDriven.io",
+    "legalName": "TestDriven Labs, LLC",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://testdriven.io/static/images/structured-data/publisher-logo.26c339391c89.png",
+      "caption": "TestDriven.io"
+    }
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Nik Tomazic"
+  },
+  "editor": {
+    "@type": "Person",
+    "name": "Michael Herman"
+  },
+
+  "description": "This tutorial looks at how to integrate Django REST Framework with Elasticsearch."
+
+  
+  }
+</script>
+
+
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@testdrivenio" />
+    <meta name="facebook-domain-verification" content="6de2le6kpmclafnruk9qr58mpil5rl" />
+    
+    
+
+    <link
+      rel="shortcut icon"
+      type="image/png"
+      href="/static/images/favicon.419dfe6cb3f6.png">
+
+    
+      <!-- Google Tag Manager -->
+      <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-57PX49D');</script>
+      <!-- End Google Tag Manager -->
+
+      <!-- Google and Facebook/Meta Ads -->
+      <!-- Global site tag (gtag.js) - Google Ads: 360133586 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-360133586"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-360133586');
+</script>
+<!-- Meta Pixel Code -->
+<script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '516228106408212');
+  fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=516228106408212&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+
+    
+
+    <!-- CSS Styles -->
+    <link href="https://use.fontawesome.com/releases/v5.12.0/css/all.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="/static/css/main.500bbb62d3f4.css">
+    <link rel="stylesheet" href="/static/css/pygments.7262fcc7e9ed.css">
+
+    
+      <link rel="stylesheet" href="/static/css/pygments_error.bbadc7ab2566.css">
+    
+
+    
+
+    
+  </head>
+  <body class=" page-blog page-blog-detail">
+
+    
+      <!-- Google Tag Manager (noscript) -->
+      <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-57PX49D"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+      <!-- End Google Tag Manager (noscript) -->
+    
+
+    <!-- Nav -->
+    
+      
+        
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+  <a class="navbar-brand" href="/">
+    <img class="nav-logo" src=/static/images/test_driven_io_full_logo_white_text.4a6302a91a54.svg alt="testdriven.io" />
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+    aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+    <!-- left -->
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item dropdown">
+        <a class="nav-link" href="/courses/">Courses</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/bundles/">Bundles</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/blog/">Blog</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          Guides
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/guides/complete-python/">Complete Python</a>
+          <a class="dropdown-item" href="/guides/django-celery/">Django and Celery</a>
+          <a class="dropdown-item" href="/guides/flask-deep-dive/">Deep Dive Into Flask</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          More
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/support/">Support and Consulting</a>
+          <a class="dropdown-item" href="/test-driven-development/">What is Test-Driven Development?</a>
+          <a class="dropdown-item" href="/testimonials/">Testimonials</a>
+          <a class="dropdown-item" href="/opensource/">Open Source Donations</a>
+          <a class="dropdown-item" href="/about/">About Us</a>
+          <a class="dropdown-item" href="/authors/">Meet the Authors</a>
+          <a class="dropdown-item" href="/tips/">Tips and Tricks</a>
+        </div>
+      </li>
+    </ul>
+    <!-- right - NOT included in hamburger menu -->
+    <ul class="navbar-nav flex-row ml-lg-auto d-none d-lg-flex">
+      <span class="ml-lg-auto d-none d-lg-flex">
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            href="https://twitter.com/testdrivenio"
+            data-a-social-outbound="Twitter"><i class="fab fa-twitter"></i></a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            href="https://github.com/testdrivenio"
+            data-a-social-outbound="GitHub"><i class="fab fa-github"></i></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/feeds/"><i class="fas fa-rss"></i></a>
+        </li>
+      </span>
+      
+      <li class="nav-item nav-right-btn">
+        <a
+          class="btn btn-primary"
+          href="/accounts/login/?next=/blog/django-drf-elasticsearch/"
+          data-a-nav-signin>Sign In</a>
+        <a
+          class="btn btn-brand1"
+          href="/accounts/signup/?next=/blog/django-drf-elasticsearch/"
+          data-a-nav-signup>Sign Up</a>
+      </li>
+      
+    </ul>
+    <!-- right - included in hamburger menu -->
+    <ul class="navbar-nav d-lg-none">
+      
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          href="/accounts/login/"
+          data-a-nav-signin>Sign In</a>
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          href="/accounts/signup/"
+          data-a-nav-signup>Sign Up</a>
+      </li>
+      
+    </ul>
+  </div>
+</nav>
+
+      
+    
+
+    <!-- Main Content -->
+    
+      
+
+<header class="hero blog-hero blog-detail-hero">
+  <div class="container">
+    <div class="row">
+      <div class="col blog-detail-header">
+        <h1>Django REST Framework and Elasticsearch</h1>
+
+        <span class="blog-detail-byline">
+          <span class="sr-only">Posted by</span>
+          
+            <a
+              href="/authors/tomazic/"
+              class="author-line big">
+              <img
+                src="/static/images/authors/tomazic.png"
+                alt="Nik Tomazic"
+                class="author-line-photo rounded-circle">
+              Nik Tomazic
+            </a>
+          
+        </span>
+
+        <span class="blog-detail-date">
+          Last updated
+          August 31st, 2021
+        </span>
+      </div>
+    </div>
+  </div>
 </header>
 
 
+<main>
+  <div class="container blog-container" style="padding-top: 0;">
+    <div class="row">
+      <div class="col col-12 col-lg-8">
+        
+  
 
-<div class="container blog-container" style="padding-top: 0;">
-<div class="row">
-<div class="col col-12 col-lg-8">
+  
+  
+  
+    <section class="social-share">
+  <h2 class="social-share-heading sr-only">Share this tutorial</h2>
+  <ul>
+    <li>
+      
+        <a
+        class="btn social-share-link twitter"
+        href="https://twitter.com/intent/tweet/?text=Django%20REST%20Framework%20and%20Elasticsearch%20from%20%40TestDrivenio&amp;url=https%3A//testdriven.io/blog/django-drf-elasticsearch/"
+        target="_blank"
+        rel="noopener"
+        aria-label="Twitter"
+        data-a-social-share="Twitter">
+        <span aria-hidden="true">
+          <i class="fab fa-twitter"></i>
+          <span class="label">Twitter</span>
+        </span>
+      </a>
+      
+    </li>
 
+    <li>
+      <a class="btn social-share-link reddit"
+      href="https://reddit.com/submit/?url=https%3A//testdriven.io/blog/django-drf-elasticsearch/&amp;resubmit=true&amp;title=Django%20REST%20Framework%20and%20Elasticsearch"
+      target="_blank"
+      rel="noopener"
+      aria-label="Reddit"
+      data-a-social-share="Reddit">
+        <span aria-hidden="true">
+          <i class="fab fa-reddit-alien"></i>
+          <span class="label">Reddit</span>
+        </span>
+      </a>
+    </li>
+
+    <li>
+      <a class="btn social-share-link hackernews"
+      href="https://news.ycombinator.com/submitlink?u=https%3A//testdriven.io/blog/django-drf-elasticsearch/&amp;t=Django%20REST%20Framework%20and%20Elasticsearch"
+      target="_blank"
+      rel="noopener"
+      aria-label="Hacker News"
+      data-a-social-share="HackerNews">
+        <span aria-hidden="true">
+          <i class="fab fa-hacker-news"></i>
+          <span class="label">Hacker News</span>
+        </span>
+      </a>
+    </li>
+
+    <li>
+      <a
+        class="btn social-share-link facebook"
+        href="https://facebook.com/sharer/sharer.php?u=https%3A//testdriven.io/blog/django-drf-elasticsearch/"
+        target="_blank"
+        rel="noopener"
+        aria-label="Facebook"
+        data-a-social-share="Facebook">
+          <span aria-hidden="true">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+          <span class="label">Facebook</span>
+          </span>
+      </a>
+    </li>
+  </ul>
+</section>
+
+  
+  
+  
+
+  <div class="blog-content long-content" data-local-nav-source>
+    <p>In this tutorial, we'll look at how to integrate <a href="https://www.django-rest-framework.org/">Django REST Framework</a> (DRF) with <a href="https://www.elastic.co/elasticsearch/">Elasticsearch</a>. We'll use Django to model our data and DRF to serialize and serve it. Finally, we'll index the data with Elasticsearch and make it searchable.</p>
+<h2 class="toc-header">Contents</h2>
+
+<div class="toc">
+<ul>
+<li><a href="#what-is-elasticsearch">What is Elasticsearch?</a></li>
+<li><a href="#elasticsearch-structure-and-concepts">Elasticsearch Structure and Concepts</a></li>
+<li><a href="#elasticsearch-vs-postgresql-full-text-search">Elasticsearch vs PostgreSQL Full-text Search</a></li>
+<li><a href="#project-setup">Project Setup</a></li>
+<li><a href="#database-models">Database Models</a></li>
+<li><a href="#django-rest-framework">Django REST Framework</a></li>
+<li><a href="#elasticsearch-setup">Elasticsearch Setup</a></li>
+<li><a href="#creating-documents">Creating Documents</a></li>
+<li><a href="#elasticsearch-queries">Elasticsearch Queries</a></li>
+<li><a href="#search-views">Search Views</a></li>
+<li><a href="#alternative-libraries">Alternative Libraries</a></li>
+<li><a href="#conclusion">Conclusion</a></li>
+</ul>
 </div>
-<h2 id="concurrency-vs-parallelism">Concurrency vs Parallelism</h2>
-<p> Concurrency and parallelism are similar terms, but they are not the same thing.</p>
-<p>Concurrency is the ability to run multiple tasks on the CPU at the same time. Tasks can start, run, and complete in overlapping time periods. In the case of a single CPU, multiple tasks are run with the help of <a href="https://en.wikipedia.org/wiki/Context_switch">context switching</a>, where the state of a process is stored so that it can be called and executed later.</p>
-<p>Parallelism, meanwhile, is the ability to run multiple tasks at the same time across multiple CPU cores.</p>
-<p>Though they can increase the speed of your application, concurrency and parallelism should not be used everywhere. The use case depends on whether the task is CPU-bound or IO-bound.</p>
-<p>Tasks that are limited by the CPU are CPU-bound. For example, mathematical computations are CPU-bound since computational power increases as the number of computer processors increases. Parallelism is for CPU-bound tasks. In theory, If a task is divided into n-subtasks, each of these n-tasks can run in parallel to effectively reduce the time to 1/n of the original non-parallel task. Concurrency is preferred for IO-bound tasks, as you can do something else while the IO resources are being fetched.</p>
-<p>The best example of CPU-bound tasks is in data science. Data Scientists deal with huge chunks of data. For data preprocessing, they can split the data into multiple batches and run them in parallel, effectively decreasing the total time to process. Increasing the number of cores results in faster processing.</p>
-<p>Web scraping is IO-bound. Because the task has little effect on the CPU since most of the time is spent on reading from and writing to the network. Other common IO-bound tasks include database calls and reading and writing files to disk. Web applications, like Django and Flask, are IO-bound applications.</p>
-<h2 id="scenario">Scenario</h2>
-<p>With that, let's take a look at how to speed up the following tasks:</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># tasks.py</span>
-
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">current_process</span>
-<span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">current_thread</span>
-
-<span class="kn">import</span> <span class="nn">requests</span>
-
-<span class="k">def</span> <span class="nf">make_request</span><span class="p">(</span><span class="n">num</span><span class="p">):</span>
-<span class="c1"># io-bound</span>
-
-<span class="n">pid</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">()</span>
-<span class="n">thread_name</span> <span class="o">=</span> <span class="n">current_thread</span><span class="p">()</span><span class="o">.</span><span class="n">name</span>
-<span class="n">process_name</span> <span class="o">=</span> <span class="n">current_process</span><span class="p">()</span><span class="o">.</span><span class="n">name</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">pid</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">process_name</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">thread_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-<span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://httpbin.org/ip&quot;</span><span class="p">)</span>
-
-<span class="k">async</span> <span class="k">def</span> <span class="nf">make_request_async</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">client</span><span class="p">):</span>
-<span class="c1"># io-bound</span>
-
-<span class="n">pid</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">()</span>
-<span class="n">thread_name</span> <span class="o">=</span> <span class="n">current_thread</span><span class="p">()</span><span class="o">.</span><span class="n">name</span>
-<span class="n">process_name</span> <span class="o">=</span> <span class="n">current_process</span><span class="p">()</span><span class="o">.</span><span class="n">name</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">pid</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">process_name</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">thread_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-<span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://httpbin.org/ip&quot;</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">get_prime_numbers</span><span class="p">(</span><span class="n">num</span><span class="p">):</span>
-<span class="c1"># cpu-bound</span>
-
-<span class="n">pid</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">()</span>
-<span class="n">thread_name</span> <span class="o">=</span> <span class="n">current_thread</span><span class="p">()</span><span class="o">.</span><span class="n">name</span>
-<span class="n">process_name</span> <span class="o">=</span> <span class="n">current_process</span><span class="p">()</span><span class="o">.</span><span class="n">name</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">pid</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">process_name</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">thread_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-<span class="n">numbers</span> <span class="o">=</span> <span class="p">[]</span>
-
-<span class="n">prime</span> <span class="o">=</span> <span class="p">[</span><span class="kc">True</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
-<span class="n">p</span> <span class="o">=</span> <span class="mi">2</span>
-
-<span class="k">while</span> <span class="n">p</span> <span class="o">*</span> <span class="n">p</span> <span class="o">&lt;=</span> <span class="n">num</span><span class="p">:</span>
-<span class="k">if</span> <span class="n">prime</span><span class="p">[</span><span class="n">p</span><span class="p">]:</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="n">num</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
-<span class="n">prime</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
-<span class="n">p</span> <span class="o">+=</span> <span class="mi">1</span>
-
-<span class="n">prime</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
-<span class="n">prime</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
-
-<span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
-<span class="k">if</span> <span class="n">prime</span><span class="p"> [ </span> <span class="n">p</span><span class="p">]:</span>
-<span class="n">numbers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
-
-<span class="k">return</span> <span class="n">numbers</span>
-
-</code>
-</pre>
-
-
-<p>Notes:</p>
-<ul>
-<li><code>make_request</code> makes an HTTP request to <a href="https://httpbin.org/ip">https://httpbin.org/ip</a> X number of times.</li>
-<li><code>make_request_async</code> makes the same HTTP request asynchronously with <a href="https://www.python-httpx.org/">HTTPX</a>.</li>
-<li><code>get_prime_numbers</code> calculates the prime numbers, via the <a href="https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes">Sieve of Eratosthenes</a> method, from two to the provided limit.</li>
-</ul>
-<p>We'll be using the following libraries from the standard library to speed up the above tasks:</p>
-<ul>
-<li><a href="https://docs.python.org/3/library/threading.html">threading</a> for running tasks concurrently</li>
-<li><a href="https://docs.python.org/3/library/multiprocessing.html">multiprocessing</a> for running tasks in parallel</li>
-<li><a href="https://docs.python.org/3/library/concurrent.futures.html">concurrent.futures</a> for running tasks concurrently and in parallel from a single interface</li>
-<li><a href="https://docs.python.org/3/library/asyncio.html">asyncio</a> for running tasks concurrency with <a href="https://en.wikipedia.org/wiki/Coroutine">coroutines</a> managed by the Python interpreter</li>
-</ul>
+<h2 id="what-is-elasticsearch">What is Elasticsearch?</h2>
+<p>Elasticsearch is a distributed, free and open search and analytics engine for all types of data, including textual, numerical, geospatial, structured, and unstructured. It's known for its simple RESTful APIs, distributed nature, speed, and scalability. Elasticsearch is the central component of the <a href="https://www.elastic.co/elastic-stack/">Elastic Stack</a> (also known as the <a href="https://www.elastic.co/what-is/elk-stack">ELK Stack</a>), a set of free and open tools for data ingestion, enrichment, storage, analysis, and visualization.</p>
+<p>Its use cases include:</p>
+<ol>
+<li>Site search and application search</li>
+<li>Monitoring and visualizing your system metrics</li>
+<li>Security and business analytics</li>
+<li>Logging and log analysis</li>
+</ol>
+<blockquote>
+<p>To learn more about Elasticsearch check out <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/elasticsearch-intro.html">What is Elasticsearch?</a> from the <a href="https://www.elastic.co/guide/index.html">official documentation</a>.</p>
+</blockquote>
+<h2 id="elasticsearch-structure-and-concepts">Elasticsearch Structure and Concepts</h2>
+<p>Before working with Elasticsearch, we should get familiar with the basic Elasticsearch concepts. These are listed from biggest to smallest:</p>
+<ol>
+<li><strong>Cluster</strong> is a collection of one or more nodes.</li>
+<li><strong>Node</strong> is a single server instance that runs Elasticsearch. While communicating with the cluster, it:<ol>
+<li>Stores and indexes your data</li>
+<li>Provides search</li>
+</ol>
+</li>
+<li><strong>Index</strong> is used to store the documents in dedicated data structures corresponding to the data type of fields (akin to a SQL database). Each index has one or more shards and replicas.</li>
+<li><strong>Type</strong> is a collection of documents, which have something in common (akin to a SQL table).</li>
+<li><strong>Shard</strong> is an <a href="https://lucene.apache.org/">Apache Lucene</a> index. It's used to split indices and keep large amounts of data manageable.</li>
+<li><strong>Replica</strong> is a fail-safe mechanism and basically a copy of your index's shard.</li>
+<li><strong>Document</strong> is a basic unit of information that can be indexed (akin to a SQL row). It's expressed in <a href="https://en.wikipedia.org/wiki/JSON">JSON</a>, which is a ubiquitous internet data interchange format.</li>
+<li><strong>Field</strong> is the smallest individual unit of data in Elasticsearch (akin to a SQL column).</li>
+</ol>
+<p>The Elasticsearch cluster has the following structure:</p>
+<p><img data-src="/static/images/blog/django/django-drf-elasticsearch/elasticsearch_cluster.png" loading="lazy" class="lazyload" style="max-width:100%;" alt="Elasticsearch cluster structure"></p>
+<p>Curious how relational database concepts relate to Elasticsearch concepts?</p>
 <table>
 <thead>
 <tr>
-<th>Library</th>
-<th>Class/Method</th>
-<th>Processing Type</th>
+<th>Relational Database</th>
+<th>Elasticsearch</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>threading</td>
-<td><a href="https://docs.python.org/3/library/threading.html#threading.Thread">Thread</a></td>
-<td>concurrent</td>
+<td>Cluster</td>
+<td>Cluster</td>
 </tr>
 <tr>
-<td>concurrent.futures</td>
-<td><a href="https://docs.python.org/3/library/concurrent.futures.html#concurrent.futures.ThreadPoolExecutor">ThreadPoolExecutor</a></td>
-<td>concurrent</td>
+<td>RDBMS Instance</td>
+<td>Node</td>
 </tr>
 <tr>
-<td>asyncio</td>
-<td><a href="https://docs.python.org/3/library/asyncio-task.html#asyncio.gather">gather</a></td>
-<td>concurrent (via coroutines)</td>
+<td>Table</td>
+<td>Index</td>
 </tr>
 <tr>
-<td>multiprocessing</td>
-<td><a href="https://docs.python.org/3/library/multiprocessing.html#multiprocessing.pool.Pool">Pool</a></td>
-<td>parallel</td>
+<td>Row</td>
+<td>Document</td>
 </tr>
 <tr>
-<td>concurrent.futures</td>
-<td><a href="https://docs.python.org/3/library/concurrent.futures.html#concurrent.futures.ProcessPoolExecutor">ProcessPoolExecutor</a></td>
-<td>parallel</td>
+<td>Column</td>
+<td>Field</td>
 </tr>
 </tbody>
 </table>
-<h2 id="io-bound-operation">IO-bound Operation</h2>
-<p>Again, IO-bound tasks spend more time on IO than on the CPU.</p>
-<p>Since web scraping is IO bound, we should use threading to speed up the processing as the retrieving of the HTML (IO) is slower than parsing it (CPU).</p>
-<p>Scenario: <em>How to speed up a Python-based web scraping and crawling script?</em></p>
-<h3 id="sync-example">Sync Example</h3>
-<p>Let's start with a benchmark.</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># io-bound_sync.py</span>
-
-<span class="kn">import</span> <span class="nn">time</span>
-
-<span class="kn">from</span> <span class="nn">tasks</span> <span class="kn">import</span> <span class="n">make_request</span>
-
-<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-<span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">101</span><span class="p">):</span>
-<span class="n">make_request</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>
-
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
-
-<span class="n">main</span><span class="p">()</span>
-
-<span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Elapsed run time: </span><span class="si">{</span><span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span><span class="si">}</span><span class="s2"> seconds.&quot;</span><span class="p">)</span>
-
-</code></pre></div>
-
-<p>Here, we made 100 HTTP requests using the <code>make_request</code> function. Since requests happen synchronously, each task is executed sequentially.</p>
-<div class="codehilite"><pre><span></span><code>Elapsed run time: 15.710984757 seconds.
-</code></pre></div>
-
-<p>So, that's roughly 0.16 seconds per request.</p>
-<h3 id="threading-example">Threading Example</h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># io-bound_concurrent_1.py</span>
-
-<span class="kn">import</span> <span class="nn">threading</span>
-<span class="kn">import</span> <span class="nn">time</span>
-
-<span class="kn">from</span> <span class="nn">tasks</span> <span class="kn">import</span> <span class="n">make_request</span>
-
-<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-<span class="n">tasks</span> <span class="o">=</span> <span class="p">[]</span>
-
-<span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">101</span><span class="p">):</span>
-<span class="n">tasks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">make_request</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">num</span><span class="p">,)))</span>
-<span class="n">tasks</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-
-<span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">tasks</span><span class="p">:</span>
-<span class="n">task</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
-
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
-
-<span class="n">main</span><span class="p">()</span>
-
-<span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Elapsed run time: </span><span class="si">{</span><span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span><span class="si">}</span><span class="s2"> seconds.&quot;</span><span class="p">)</span>
-
-</code></pre></div>
-
-<p>Here, the same <code>make_request</code> function is called 100 times. This time the <code>threading</code> library is used to create a thread for each request.</p>
-<div class="codehilite"><pre><span></span><code>Elapsed run time: 1.020112515 seconds.
-</code></pre></div>
-
-<p>The total time decreases from ~16s to ~1s.</p>
-<p>Since we're using separate threads for each request, you might be wondering why the whole thing didn't take ~0.16s to finish. This extra time is the overhead for managing threads. The <a href="https://wiki.python.org/moin/GlobalInterpreterLock">Global Interpreter Lock</a> (GIL) in Python makes sure that only one thread uses the Python bytecode at a time.</p>
-<h3 id="concurrentfutures-example">concurrent.futures Example</h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># io-bound_concurrent_2.py</span>
-
-<span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">from</span> <span class="nn">concurrent.futures</span> <span class="kn">import</span> <span class="n">ThreadPoolExecutor</span><span class="p">,</span> <span class="n">wait</span>
-
-<span class="kn">from</span> <span class="nn">tasks</span> <span class="kn">import</span> <span class="n">make_request</span>
-
-<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-<span class="n">futures</span> <span class="o">=</span> <span class="p">[]</span>
-
-<span class="k">with</span> <span class="n">ThreadPoolExecutor</span><span class="p">()</span> <span class="k">as</span> <span class="n">executor</span><span class="p">:</span>
-<span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">101</span><span class="p">):</span>
-<span class="n">futures</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">executor</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">make_request</span><span class="p">,</span> <span class="n">num</span><span class="p">))</span>
-
-<span class="n">wait</span><span class="p">(</span><span class="n">futures</span><span class="p">)</span>
-
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
-
-<span class="n">main</span><span class="p">()</span>
-
-<span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Elapsed run time: </span><span class="si">{</span><span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span><span class="si">}</span><span class="s2"> seconds.&quot;</span><span class="p">)</span>
-
-</code></pre></div>
-
-<p>Here we used <code>concurrent.futures.ThreadPoolExecutor</code> to achieve multithreading. After all the futures/promises are created, we used <code>wait</code> to wait for all of them to complete.</p>
-<div class="codehilite"><pre><span></span><code>Elapsed run time: 1.340592231 seconds
-</code></pre></div>
-
-<p><code>concurrent.futures.ThreadPoolExecutor</code> is actually an abstraction around the <code>multithreading</code> library, which makes it easier to use. In the previous example, we assigned each request to a thread and in total 100 threads were used. But <code>ThreadPoolExecutor</code> defaults the number of worker threads to <code>min(32, os.cpu_count() + 4)</code>. ThreadPoolExecutor exists to ease the process of achieving multithreading. If you want more control over multithreading, use the <code>multithreading</code> library instead.</p>
-<h3 id="asyncio-example">AsyncIO Example</h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># io-bound_concurrent_3.py</span>
-
-<span class="kn">import</span> <span class="nn">asyncio</span>
-<span class="kn">import</span> <span class="nn">time</span>
-
-<span class="kn">import</span> <span class="nn">httpx</span>
-
-<span class="kn">from</span> <span class="nn">tasks</span> <span class="kn">import</span> <span class="n">make_request_async</span>
-
-<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-<span class="k">async</span> <span class="k">with</span> <span class="n">httpx</span><span class="o">.</span><span class="n">AsyncClient</span><span class="p">()</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
-<span class="k">return</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span>
-<span class="o">*</span><span class="p">[</span><span class="n">make_request_async</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">client</span><span class="p">)</span> <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">101</span><span class="p">)]</span>
-<span class="p">)</span>
-
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
-
-<span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_event_loop</span><span class="p">()</span>
-<span class="n">loop</span><span class="o">.</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
-
-<span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
-<span class="n">elapsed_time</span> <span class="o">=</span> <span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Elapsed run time: </span><span class="si">{</span><span class="n">elapsed_time</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>
-
-</code></pre></div>
-
-<p>Here, we used <code>asyncio</code> to achieve concurrency.</p>
-<div class="codehilite"><pre><span></span><code>Elapsed run time: 0.553961068 seconds
-</code></pre></div>
-
-<p><code>asyncio</code> is faster than the other methods, because <code>threading</code> makes use of OS (Operating System) threads. So the threads are managed by the OS, where thread switching is preempted by the OS. <code>asyncio</code> uses coroutines, which are defined by the Python interpreter. With coroutines, the program decides when to switch tasks in an optimal way. This is handled by the <code>even_loop</code> in asyncio.</p>
-<h2 id="cpu-bound-operation">CPU-bound Operation</h2>
-<p>Scenario: <em>How to speed up a simple data processing script?</em></p>
-<h3 id="sync-example_1">Sync Example</h3>
-<p>Again, let's start with a benchmark.</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># cpu-bound_sync.py</span>
-
-<span class="kn">import</span> <span class="nn">time</span>
-
-<span class="kn">from</span> <span class="nn">tasks</span> <span class="kn">import</span> <span class="n">get_prime_numbers</span>
-
-<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-<span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">16000</span><span class="p">):</span>
-<span class="n">get_prime_numbers</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>
-
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
-
-<span class="n">main</span><span class="p">()</span>
-
-<span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Elapsed run time: </span><span class="si">{</span><span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span><span class="si">}</span><span class="s2"> seconds.&quot;</span><span class="p">)</span>
-
-</code></pre></div>
-
-<p>Here, we executed the <code>get_prime_numbers</code> function for numbers from 1000 to 16000.</p>
-<div class="codehilite"><pre><span></span><code>Elapsed run time: 17.863046316 seconds.
-</code></pre></div>
-
-<h3 id="multiprocessing-example">Multiprocessing Example</h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># cpu-bound_parallel_1.py</span>
-
-<span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">Pool</span><span class="p">,</span> <span class="n">cpu_count</span>
-
-<span class="kn">from</span> <span class="nn">tasks</span> <span class="kn">import</span> <span class="n">get_prime_numbers</span>
-
-<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-<span class="k">with</span> <span class="n">Pool</span><span class="p">(</span><span class="n">cpu_count</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="k">as</span> <span class="n">p</span><span class="p">:</span>
-<span class="n">p</span><span class="o">.</span><span class="n">starmap</span><span class="p">(</span><span class="n">get_prime_numbers</span><span class="p">,</span> <span class="nb">zip</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">16000</span><span class="p">)))</span>
-<span class="n">p</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-<span class="n">p</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
-
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
-
-<span class="n">main</span><span class="p">()</span>
-
-<span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Elapsed run time: </span><span class="si">{</span><span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span><span class="si">}</span><span class="s2"> seconds.&quot;</span><span class="p">)</span>
-
-</code></pre></div>
-
-<p>Here, we used <code>multiprocessing</code> to calculate the prime numbers.</p>
-<div class="codehilite"><pre><span></span><code>Elapsed run time: 2.9848740599999997 seconds.
-</code></pre></div>
-
-<h3 id="concurrentfutures-example_1">concurrent.futures Example</h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># cpu-bound_parallel_2.py</span>
-
-<span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">from</span> <span class="nn">concurrent.futures</span> <span class="kn">import</span> <span class="n">ProcessPoolExecutor</span><span class="p">,</span> <span class="n">wait</span>
-<span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">cpu_count</span>
-
-<span class="kn">from</span> <span class="nn">tasks</span> <span class="kn">import</span> <span class="n">get_prime_numbers</span>
-
-<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-<span class="n">futures</span> <span class="o">=</span> <span class="p">[]</span>
-
-<span class="k">with</span> <span class="n">ProcessPoolExecutor</span><span class="p">(</span><span class="n">cpu_count</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="k">as</span> <span class="n">executor</span><span class="p">:</span>
-<span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">16000</span><span class="p">):</span>
-<span class="n">futures</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">executor</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">get_prime_numbers</span><span class="p">,</span> <span class="n">num</span><span class="p">))</span>
-
-<span class="n">wait</span><span class="p">(</span><span class="n">futures</span><span class="p">)</span>
-
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
-
-<span class="n">main</span><span class="p">()</span>
-
-<span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Elapsed run time: </span><span class="si">{</span><span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span><span class="si">}</span><span class="s2"> seconds.&quot;</span><span class="p">)</span>
-
-</code></pre></div>
-
-<p>Here, we achieved multiprocessing using <code>concurrent.futures.ProcessPoolExecutor</code>. Once the jobs are added to futures, <code>wait(futures)</code> waits for them to finish.</p>
-<div class="codehilite"><pre><span></span><code>Elapsed run time: 4.452427557 seconds.
-</code></pre></div>
-
-<p><code>concurrent.futures.ProcessPoolExecutor</code> is a wrapper around <code>multiprocessing.Pool</code>. It has the same limitations as the <code>ThreadPoolExecutor</code>. If you want more control over multiprocessing, use <code>multiprocessing.Pool</code>. <code>concurrent.futures</code> provides an abstraction over both multiprocessing and threading, making it easy to switch between the two.</p>
-<h2 id="conclusion">Conclusion</h2>
-<p>It's worth noting that using multiprocessing to execute the <code>make_request</code> function will be much slower than the threading flavor since the processes will be need to wait for the IO. The multiprocessing approach will be faster then the sync approach, though.</p>
-<p>Similarly, using concurrency for CPU-bound tasks is not worth the effort when compared to parallelism.</p>
-<p>That being said, using concurrency or parallelism to execute your scripts adds complexity. Your code will generally be harder to read, test, and debug, so only use them when absolutely necessary for long-running scripts.</p>
-<p><code>concurrent.futures</code> is where I generally start since-</p>
+<blockquote>
+<p>Review <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/_mapping_concepts_across_sql_and_elasticsearch.html">Mapping concepts across SQL and Elasticsearch</a> for more on how concepts in SQL and Elasticsearch relate to one another.</p>
+</blockquote>
+<h2 id="elasticsearch-vs-postgresql-full-text-search">Elasticsearch vs PostgreSQL Full-text Search</h2>
+<p>With regards to full-text search, Elasticsearch and <a href="https://www.postgresql.org/">PostgreSQL</a> both have their advantages and disadvantages. When choosing between them you should consider speed, query complexity, and budget.</p>
+<p>PostgreSQL advantages:</p>
 <ol>
-<li>It's easy to switch back and forth between concurrency and parallelism</li>
-<li>The dependent libraries don't need to support asyncio (<code>requests</code> vs <code>httpx</code>)</li>
-<li>It's cleaner and easier to read over the other approaches</li>
+<li>Django support</li>
+<li>Faster and easier to setup</li>
+<li>Doesn't require maintenance</li>
 </ol>
+<p>Elasticsearch advantages:</p>
+<ol>
+<li>Optimized just for searching</li>
+<li>Elasicsearch is faster (especially as the number of records increases)</li>
+<li>Supports different query types (Leaf, Compound, Fuzzy, Regexp, to name a few)</li>
+</ol>
+<p>If you're working on a simple project where speed isn't important you should opt for PostgreSQL. If performance is important and you want to write complex lookups opt for Elasticsearch.</p>
+<blockquote>
+<p>For more on full-text search with Django and Postgres, check out the <a href="/blog/django-search/">Basic and Full-text Search with Django and Postgres</a> article.</p>
+</blockquote>
+<h2 id="project-setup">Project Setup</h2>
+<p>We'll be building a simple blog application. Our project will consist of multiple models, which will be serialized and served via <a href="https://www.django-rest-framework.org/">Django REST Framework</a>. After integrating Elasticsearch, we'll create an endpoint that will allow us to look up different authors, categories, and articles.</p>
+<p>To keep our code clean and modular, we'll split our project into the following two apps:</p>
+<ol>
+<li><code>blog</code> - for our Django models, serializers, and ViewSets</li>
+<li><code>search</code> - for Elasticsearch documents, indexes, and queries</li>
+</ol>
+<p>Start by creating a new directory and setting up a new Django project:</p>
+<div class="codehilite"><pre><span></span><code>$ mkdir django-drf-elasticsearch <span class="o">&amp;&amp;</span> <span class="nb">cd</span> django-drf-elasticsearch
+$ python3.9 -m venv env
+$ <span class="nb">source</span> env/bin/activate
+
+<span class="o">(</span>env<span class="o">)</span>$ pip install <span class="nv">django</span><span class="o">==</span><span class="m">3</span>.2.6
+<span class="o">(</span>env<span class="o">)</span>$ django-admin.py startproject core .
+</code></pre></div>
+
+<p>After that, create a new app called <code>blog</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="o">(</span>env<span class="o">)</span>$ python manage.py startapp blog
+</code></pre></div>
+
+<p>Register the app in <em>core/settings.py</em> under <code>INSTALLED_APPS</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># core/settings.py</span>
+
+<span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;django.contrib.admin&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.contrib.auth&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.contrib.contenttypes&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.contrib.sessions&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.contrib.messages&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.contrib.staticfiles&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;blog.apps.BlogConfig&#39;</span><span class="p">,</span> <span class="c1"># new</span>
+<span class="p">]</span>
+</code></pre></div>
+
+<h2 id="database-models">Database Models</h2>
+<p>Next, create <code>Category</code> and <code>Article</code> models in <em>blog/models.py</em>:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># blog/models.py</span>
+
+<span class="kn">from</span> <span class="nn">django.contrib.auth.models</span> <span class="kn">import</span> <span class="n">User</span>
+<span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+
+
+<span class="k">class</span> <span class="nc">Category</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">verbose_name_plural</span> <span class="o">=</span> <span class="s1">&#39;categories&#39;</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span>
+
+
+<span class="n">ARTICLE_TYPES</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s1">&#39;UN&#39;</span><span class="p">,</span> <span class="s1">&#39;Unspecified&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;TU&#39;</span><span class="p">,</span> <span class="s1">&#39;Tutorial&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;RS&#39;</span><span class="p">,</span> <span class="s1">&#39;Research&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;RW&#39;</span><span class="p">,</span> <span class="s1">&#39;Review&#39;</span><span class="p">),</span>
+<span class="p">]</span>
+
+
+<span class="k">class</span> <span class="nc">Article</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">256</span><span class="p">)</span>
+    <span class="n">author</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="n">User</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">)</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="n">ARTICLE_TYPES</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;UN&#39;</span><span class="p">)</span>
+    <span class="n">categories</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ManyToManyField</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="n">Category</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;categories&#39;</span><span class="p">)</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">()</span>
+    <span class="n">created_datetime</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now_add</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">updated_datetime</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">author</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="si">}</span><span class="s1"> (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">created_datetime</span><span class="o">.</span><span class="n">date</span><span class="p">()</span><span class="si">}</span><span class="s1">)&#39;</span>
+</code></pre></div>
+
+<p>Notes:</p>
+<ol>
+<li><code>Category</code> represents an article category -- i.e, programming, Linux, testing.</li>
+<li><code>Article</code> represents an individual article. Each article can have multiple categories. Articles have a specific type -- <code>Tutorial</code>, <code>Research</code>, <code>Review</code>, or <code>Unspecified</code>.</li>
+<li>Authors are represented by the default Django user model.</li>
+</ol>
+<h3 id="run-migrations">Run Migrations</h3>
+<p>Make migrations and then apply them:</p>
+<div class="codehilite"><pre><span></span><code><span class="o">(</span>env<span class="o">)</span>$ python manage.py makemigrations
+<span class="o">(</span>env<span class="o">)</span>$ python manage.py migrate
+</code></pre></div>
+
+<p>Register the models in <em>blog/admin.py</em>:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># blog/admin.py</span>
+
+<span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+
+<span class="kn">from</span> <span class="nn">blog.models</span> <span class="kn">import</span> <span class="n">Category</span><span class="p">,</span> <span class="n">Article</span>
+
+
+<span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">Category</span><span class="p">)</span>
+<span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">Article</span><span class="p">)</span>
+</code></pre></div>
+
+<h3 id="populate-the-database">Populate the Database</h3>
+<p>Before moving to the next step, we need some data to work with. I've created a simple command we can use to populate the database.</p>
+<p>Create a new folder in "blog" called "management", and then inside that folder create another folder called "commands". Inside of the "commands" folder, create a new file called <em>populate_db.py</em>.</p>
+<div class="codehilite"><pre><span></span><code>management
+└── commands
+    └── populate_db.py
+</code></pre></div>
+
+<p>Copy the file contents from <a href="https://github.com/testdrivenio/django-drf-elasticsearch/blob/main/blog/management/commands/populate_db.py">populate_db.py</a> and paste it inside your <em>populate_db.py</em>.</p>
+<p>Run the following command to populate the DB:</p>
+<div class="codehilite"><pre><span></span><code><span class="o">(</span>env<span class="o">)</span>$ python manage.py populate_db
+</code></pre></div>
+
+<p>If everything went well you should see a <code>Successfully populated the database.</code> message in the console and there should be a few articles in your database.</p>
+<h2 id="django-rest-framework">Django REST Framework</h2>
+<p>Now let's install <code>djangorestframework</code> using pip:</p>
+<div class="codehilite"><pre><span></span><code><span class="o">(</span>env<span class="o">)</span>$ pip install <span class="nv">djangorestframework</span><span class="o">==</span><span class="m">3</span>.12.4
+</code></pre></div>
+
+<p>Register it in our <em>settings.py</em> like so:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># core/settings.py</span>
+
+<span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;django.contrib.admin&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.contrib.auth&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.contrib.contenttypes&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.contrib.sessions&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.contrib.messages&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.contrib.staticfiles&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;blog.apps.BlogConfig&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;rest_framework&#39;</span><span class="p">,</span> <span class="c1"># new</span>
+<span class="p">]</span>
+</code></pre></div>
+
+<p>Add the following settings:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># core/settings.py</span>
+
+<span class="n">REST_FRAMEWORK</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;DEFAULT_PAGINATION_CLASS&#39;</span><span class="p">:</span> <span class="s1">&#39;rest_framework.pagination.LimitOffsetPagination&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;PAGE_SIZE&#39;</span><span class="p">:</span> <span class="mi">25</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>We'll need these settings to implement pagination.</p>
+<h3 id="create-serializers">Create Serializers</h3>
+<p>To serialize our Django models, we need to create a serializer for each of them. The easiest way to create serializers that depend on Django models is by using the <code>ModelSerializer</code> class.</p>
+<p><em>blog/serializers.py</em>:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># blog/serializers.py</span>
+
+<span class="kn">from</span> <span class="nn">django.contrib.auth.models</span> <span class="kn">import</span> <span class="n">User</span>
+<span class="kn">from</span> <span class="nn">rest_framework</span> <span class="kn">import</span> <span class="n">serializers</span>
+
+<span class="kn">from</span> <span class="nn">blog.models</span> <span class="kn">import</span> <span class="n">Article</span><span class="p">,</span> <span class="n">Category</span>
+
+
+<span class="k">class</span> <span class="nc">UserSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">ModelSerializer</span><span class="p">):</span>
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">User</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;username&#39;</span><span class="p">,</span> <span class="s1">&#39;first_name&#39;</span><span class="p">,</span> <span class="s1">&#39;last_name&#39;</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">CategorySerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">ModelSerializer</span><span class="p">):</span>
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Category</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="s1">&#39;__all__&#39;</span>
+
+
+<span class="k">class</span> <span class="nc">ArticleSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">ModelSerializer</span><span class="p">):</span>
+    <span class="n">author</span> <span class="o">=</span> <span class="n">UserSerializer</span><span class="p">()</span>
+    <span class="n">categories</span> <span class="o">=</span> <span class="n">CategorySerializer</span><span class="p">(</span><span class="n">many</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Article</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="s1">&#39;__all__&#39;</span>
+</code></pre></div>
+
+<p>Notes:</p>
+<ol>
+<li><code>UserSerializer</code> and <code>CategorySerializer</code> are fairly simple: We just provided the fields we want serialized.</li>
+<li>In the <code>ArticleSerializer</code>, we needed to take care of the relationships to make sure they also get serialized. This is why we provided <code>UserSerializer</code> and <code>CategorySerializer</code>.</li>
+</ol>
+<blockquote>
+<p>Want to learn more about DRF serializers? Check out <a href="/blog/drf-serializers/">Effectively Using Django REST Framework Serializers</a>.</p>
+</blockquote>
+<h3 id="create-viewsets">Create ViewSets</h3>
+<p>Let's create a ViewSet for each of our models in <em>blog/views.py</em>:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># blog/views.py</span>
+
+<span class="kn">from</span> <span class="nn">django.contrib.auth.models</span> <span class="kn">import</span> <span class="n">User</span>
+<span class="kn">from</span> <span class="nn">rest_framework</span> <span class="kn">import</span> <span class="n">viewsets</span>
+
+<span class="kn">from</span> <span class="nn">blog.models</span> <span class="kn">import</span> <span class="n">Category</span><span class="p">,</span> <span class="n">Article</span>
+<span class="kn">from</span> <span class="nn">blog.serializers</span> <span class="kn">import</span> <span class="n">CategorySerializer</span><span class="p">,</span> <span class="n">ArticleSerializer</span><span class="p">,</span> <span class="n">UserSerializer</span>
+
+
+<span class="k">class</span> <span class="nc">UserViewSet</span><span class="p">(</span><span class="n">viewsets</span><span class="o">.</span><span class="n">ModelViewSet</span><span class="p">):</span>
+    <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">UserSerializer</span>
+    <span class="n">queryset</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+
+
+<span class="k">class</span> <span class="nc">CategoryViewSet</span><span class="p">(</span><span class="n">viewsets</span><span class="o">.</span><span class="n">ModelViewSet</span><span class="p">):</span>
+    <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">CategorySerializer</span>
+    <span class="n">queryset</span> <span class="o">=</span> <span class="n">Category</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+
+
+<span class="k">class</span> <span class="nc">ArticleViewSet</span><span class="p">(</span><span class="n">viewsets</span><span class="o">.</span><span class="n">ModelViewSet</span><span class="p">):</span>
+    <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">ArticleSerializer</span>
+    <span class="n">queryset</span> <span class="o">=</span> <span class="n">Article</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+</code></pre></div>
+
+<p>In this block of code, we created the ViewSets by providing the <code>serializer_class</code> and <code>queryset</code> for each ViewSet.</p>
+<h3 id="define-urls">Define URLs</h3>
+<p>Create the app-level URLs for the ViewSets:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># blog/urls.py</span>
+
+<span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">path</span><span class="p">,</span> <span class="n">include</span>
+<span class="kn">from</span> <span class="nn">rest_framework</span> <span class="kn">import</span> <span class="n">routers</span>
+
+<span class="kn">from</span> <span class="nn">blog.views</span> <span class="kn">import</span> <span class="n">UserViewSet</span><span class="p">,</span> <span class="n">CategoryViewSet</span><span class="p">,</span> <span class="n">ArticleViewSet</span>
+
+<span class="n">router</span> <span class="o">=</span> <span class="n">routers</span><span class="o">.</span><span class="n">DefaultRouter</span><span class="p">()</span>
+<span class="n">router</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;user&#39;</span><span class="p">,</span> <span class="n">UserViewSet</span><span class="p">)</span>
+<span class="n">router</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;category&#39;</span><span class="p">,</span> <span class="n">CategoryViewSet</span><span class="p">)</span>
+<span class="n">router</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;article&#39;</span><span class="p">,</span> <span class="n">ArticleViewSet</span><span class="p">)</span>
+
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="n">router</span><span class="o">.</span><span class="n">urls</span><span class="p">)),</span>
+<span class="p">]</span>
+</code></pre></div>
+
+<p>Then, wire up the app URLs to the project URLs:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># core/urls.py</span>
+
+<span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+<span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">path</span><span class="p">,</span> <span class="n">include</span>
+
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;blog/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s1">&#39;blog.urls&#39;</span><span class="p">)),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;admin/&#39;</span><span class="p">,</span> <span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">urls</span><span class="p">),</span>
+<span class="p">]</span>
+</code></pre></div>
+
+<p>Our app now has the following URLs:</p>
+<ol>
+<li><code>/blog/user/</code> lists all users</li>
+<li><code>/blog/user/&lt;USER_ID&gt;/</code> fetches a specific user</li>
+<li><code>/blog/category/</code> lists all categories</li>
+<li><code>/blog/category/&lt;CATEGORY_ID&gt;/</code> fetches a specific category</li>
+<li><code>/blog/article/</code> lists all articles</li>
+<li><code>/blog/article/&lt;ARTICLE_ID&gt;/</code> fetches a specific article</li>
+</ol>
+<h3 id="testing">Testing</h3>
+<p>Now that we've registered the URLs, we can test the endpoints to see if everything works correctly.</p>
+<p>Run the development server:</p>
+<div class="codehilite"><pre><span></span><code><span class="o">(</span>env<span class="o">)</span>$ python manage.py runserver
+</code></pre></div>
+
+<p>Then, in your browser of choice, navigate to <a href="http://127.0.0.1:8000/blog/article/">http://127.0.0.1:8000/blog/article/</a>. The response should look something like this:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;next&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;previous&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;results&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">        </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;author&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;jess_&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;first_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Jess&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;last_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Brown&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="p">},</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;categories&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">                </span><span class="p">{</span><span class="w"></span>
+<span class="w">                    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"></span>
+<span class="w">                    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SEO optimization&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                    </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w"></span>
+<span class="w">                </span><span class="p">}</span><span class="w"></span>
+<span class="w">            </span><span class="p">],</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;How to improve your Google rating?&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TU&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Firstly, add the correct SEO tags...&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;created_datetime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2021-08-12T17:34:31.271610Z&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;updated_datetime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2021-08-12T17:34:31.322165Z&quot;</span><span class="w"></span>
+<span class="w">        </span><span class="p">},</span><span class="w"></span>
+<span class="w">        </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;author&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;johnny&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;first_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Johnny&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;last_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Davis&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="p">},</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;categories&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">                </span><span class="p">{</span><span class="w"></span>
+<span class="w">                    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"></span>
+<span class="w">                    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Programming&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                    </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w"></span>
+<span class="w">                </span><span class="p">}</span><span class="w"></span>
+<span class="w">            </span><span class="p">],</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Installing latest version of Ubuntu&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TU&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;In this tutorial, we&#39;ll take a look at how to setup the latest version of Ubuntu. Ubuntu (/ʊˈbʊntuː/ is a Linux distribution based on Debian and composed mostly of free and open-source software. Ubuntu is officially released in three editions: Desktop, Server, and Core for Internet of things devices and robots.&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;created_datetime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2021-08-12T17:34:31.540628Z&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;updated_datetime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2021-08-12T17:34:31.592555Z&quot;</span><span class="w"></span>
+<span class="w">        </span><span class="p">},</span><span class="w"></span>
+<span class="w">        </span><span class="err">...</span><span class="w"></span>
+<span class="w">    </span><span class="p">]</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+
+<p>Manually test the other endpoints as well.</p>
+<h2 id="elasticsearch-setup">Elasticsearch Setup</h2>
+<p>Start by installing and running Elasticsearch in the background.</p>
+<blockquote>
+<p>Need help getting Elasticsearch up and running? Check out the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/install-elasticsearch.html">Installing Elasticsearch</a> guide.
+If you're familiar with Docker, you can simply run the following command to pull the <a href="https://www.docker.elastic.co/r/elasticsearch">official image</a> and spin up a container with Elasticsearch running:</p><div class="codehilite"><pre><span></span><code>$ docker run -p <span class="m">9200</span>:9200 -p <span class="m">9300</span>:9300 -e <span class="s2">"discovery.type=single-node"</span> docker.elastic.co/elasticsearch/elasticsearch:7.14.0
+</code></pre></div>
+</blockquote>
+
+<p>To integrate Elasticsearch with Django, we need to install the following packages:</p>
+<ol>
+<li><a href="https://elasticsearch-py.readthedocs.io/en/7.x/">elasticsearch</a> - official low-level Python client for Elasticsearch</li>
+<li><a href="https://elasticsearch-dsl.readthedocs.io/en/latest/">elasticsearch-dsl-py</a> - high-level library for writing and running queries against Elasticsearch</li>
+<li><a href="https://django-elasticsearch-dsl.readthedocs.io/en/latest/">django-elasticsearch-dsl</a> - wrapper around elasticsearch-dsl-py that allows indexing Django models in Elasticsearch</li>
+</ol>
+<p>Install:</p>
+<div class="codehilite"><pre><span></span><code><span class="o">(</span>env<span class="o">)</span>$ pip install <span class="nv">elasticsearch</span><span class="o">==</span><span class="m">7</span>.14.0
+<span class="o">(</span>env<span class="o">)</span>$ pip install elasticsearch-dsl<span class="o">==</span><span class="m">7</span>.4.0
+<span class="o">(</span>env<span class="o">)</span>$ pip install django-elasticsearch-dsl<span class="o">==</span><span class="m">7</span>.2.0
+</code></pre></div>
+
+<p>Start a new app called <code>search</code>, which will hold our Elasticsearch documents, indexes, and queries:</p>
+<div class="codehilite"><pre><span></span><code><span class="o">(</span>env<span class="o">)</span>$ python manage.py startapp search
+</code></pre></div>
+
+<p>Register the <code>search</code> and <code>django_elasticsearch_dsl</code> in <em>core/settings.py</em> under <code>INSTALLED_APPS</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># core/settings.py</span>
+
+<span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;django.contrib.admin&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.contrib.auth&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.contrib.contenttypes&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.contrib.sessions&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.contrib.messages&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django.contrib.staticfiles&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django_elasticsearch_dsl&#39;</span><span class="p">,</span> <span class="c1"># new</span>
+    <span class="s1">&#39;blog.apps.BlogConfig&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;search.apps.SearchConfig&#39;</span><span class="p">,</span> <span class="c1"># new</span>
+    <span class="s1">&#39;rest_framework&#39;</span><span class="p">,</span>
+<span class="p">]</span>
+</code></pre></div>
+
+<p>Now we need to let Django know where Elasticsearch is running. We do that by adding the following to our <em>core/settings.py</em> file:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># core/settings.py</span>
+
+<span class="c1"># Elasticsearch</span>
+<span class="c1"># https://django-elasticsearch-dsl.readthedocs.io/en/latest/settings.html</span>
+
+<span class="n">ELASTICSEARCH_DSL</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;hosts&#39;</span><span class="p">:</span> <span class="s1">&#39;localhost:9200&#39;</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<blockquote>
+<p>If your Elasticsearch is running on a different port, make sure to change the above settings accordingly.</p>
+</blockquote>
+<p>We can test if Django can connect to the Elasticsearch by starting our server:</p>
+<div class="codehilite"><pre><span></span><code><span class="o">(</span>env<span class="o">)</span>$ python manage.py runserver
+</code></pre></div>
+
+<p>If your Django server fails, Elasticsearch is probably not working correctly.</p>
+<h2 id="creating-documents">Creating Documents</h2>
+<p>Before creating the documents, we need to make sure all the data is going to get saved in the proper format. We're using <code>CharField(max_length=2)</code> for our article <code>type</code>, which by itself doesn't make much sense. This is why we'll transform it to human-readable text.</p>
+<p>We'll achieve this by adding a <code>type_to_string()</code> method inside our model like so:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># blog/models.py</span>
+
+<span class="k">class</span> <span class="nc">Article</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">256</span><span class="p">)</span>
+    <span class="n">author</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="n">User</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">)</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="n">ARTICLE_TYPES</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;UN&#39;</span><span class="p">)</span>
+    <span class="n">categories</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ManyToManyField</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="n">Category</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;categories&#39;</span><span class="p">)</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">()</span>
+    <span class="n">created_datetime</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now_add</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">updated_datetime</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># new</span>
+    <span class="k">def</span> <span class="nf">type_to_string</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;UN&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;Unspecified&#39;</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;TU&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;Tutorial&#39;</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;RS&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;Research&#39;</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;RW&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;Review&#39;</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">author</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="si">}</span><span class="s1"> (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">created_datetime</span><span class="o">.</span><span class="n">date</span><span class="p">()</span><span class="si">}</span><span class="s1">)&#39;</span>
+</code></pre></div>
+
+<p>Without <code>type_to_string()</code> our model would be serialized like this:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;This is my article.&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TU&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="err">...</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+
+<p>After implementing <code>type_to_string()</code> our model is serialized like this:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;This is my article.&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Tutorial&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="err">...</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+
+<p>Now let's create the documents. Each document needs to have an <code>Index</code> and <code>Django</code> class. In the <code>Index</code> class, we need to provide the index name and <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-update-settings.html">Elasticsearch index settings</a>. In the <code>Django</code> class, we tell the document which Django model to associate it to and provide the fields we want to be indexed.</p>
+<p><em>blog/documents.py</em>:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># blog/documents.py</span>
+
+<span class="kn">from</span> <span class="nn">django.contrib.auth.models</span> <span class="kn">import</span> <span class="n">User</span>
+<span class="kn">from</span> <span class="nn">django_elasticsearch_dsl</span> <span class="kn">import</span> <span class="n">Document</span><span class="p">,</span> <span class="n">fields</span>
+<span class="kn">from</span> <span class="nn">django_elasticsearch_dsl.registries</span> <span class="kn">import</span> <span class="n">registry</span>
+
+<span class="kn">from</span> <span class="nn">blog.models</span> <span class="kn">import</span> <span class="n">Category</span><span class="p">,</span> <span class="n">Article</span>
+
+
+<span class="nd">@registry</span><span class="o">.</span><span class="n">register_document</span>
+<span class="k">class</span> <span class="nc">UserDocument</span><span class="p">(</span><span class="n">Document</span><span class="p">):</span>
+    <span class="k">class</span> <span class="nc">Index</span><span class="p">:</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;users&#39;</span>
+        <span class="n">settings</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;number_of_shards&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s1">&#39;number_of_replicas&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="p">}</span>
+
+    <span class="k">class</span> <span class="nc">Django</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">User</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s1">&#39;id&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;first_name&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;last_name&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;username&#39;</span><span class="p">,</span>
+        <span class="p">]</span>
+
+
+<span class="nd">@registry</span><span class="o">.</span><span class="n">register_document</span>
+<span class="k">class</span> <span class="nc">CategoryDocument</span><span class="p">(</span><span class="n">Document</span><span class="p">):</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">()</span>
+
+    <span class="k">class</span> <span class="nc">Index</span><span class="p">:</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;categories&#39;</span>
+        <span class="n">settings</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;number_of_shards&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s1">&#39;number_of_replicas&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="p">}</span>
+
+    <span class="k">class</span> <span class="nc">Django</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Category</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s1">&#39;name&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;description&#39;</span><span class="p">,</span>
+        <span class="p">]</span>
+
+
+<span class="nd">@registry</span><span class="o">.</span><span class="n">register_document</span>
+<span class="k">class</span> <span class="nc">ArticleDocument</span><span class="p">(</span><span class="n">Document</span><span class="p">):</span>
+    <span class="n">author</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">ObjectField</span><span class="p">(</span><span class="n">properties</span><span class="o">=</span><span class="p">{</span>
+        <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">fields</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(),</span>
+        <span class="s1">&#39;first_name&#39;</span><span class="p">:</span> <span class="n">fields</span><span class="o">.</span><span class="n">TextField</span><span class="p">(),</span>
+        <span class="s1">&#39;last_name&#39;</span><span class="p">:</span> <span class="n">fields</span><span class="o">.</span><span class="n">TextField</span><span class="p">(),</span>
+        <span class="s1">&#39;username&#39;</span><span class="p">:</span> <span class="n">fields</span><span class="o">.</span><span class="n">TextField</span><span class="p">(),</span>
+    <span class="p">})</span>
+    <span class="n">categories</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">ObjectField</span><span class="p">(</span><span class="n">properties</span><span class="o">=</span><span class="p">{</span>
+        <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">fields</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(),</span>
+        <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">fields</span><span class="o">.</span><span class="n">TextField</span><span class="p">(),</span>
+        <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="n">fields</span><span class="o">.</span><span class="n">TextField</span><span class="p">(),</span>
+    <span class="p">})</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="n">attr</span><span class="o">=</span><span class="s1">&#39;type_to_string&#39;</span><span class="p">)</span>
+
+    <span class="k">class</span> <span class="nc">Index</span><span class="p">:</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;articles&#39;</span>
+        <span class="n">settings</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;number_of_shards&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s1">&#39;number_of_replicas&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="p">}</span>
+
+    <span class="k">class</span> <span class="nc">Django</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Article</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s1">&#39;title&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;content&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;created_datetime&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;updated_datetime&#39;</span><span class="p">,</span>
+        <span class="p">]</span>
+</code></pre></div>
+
+<p>Notes:</p>
+<ol>
+<li>In order to transform the article type, we added the <code>type</code> attribute to the <code>ArticleDocument</code>.</li>
+<li>Because our <code>Article</code> model is in a many-to-many (M:N) relationship with <code>Category</code> and a many-to-one (N:1) relationship with <code>User</code> we needed to take care of the relationships. We did that by adding <code>ObjectField</code> attributes.</li>
+</ol>
+<h3 id="populate-elasticsearch">Populate Elasticsearch</h3>
+<p>To create and populate the Elasticsearch index and mapping, use the <code>search_index</code> command:</p>
+<div class="codehilite"><pre><span></span><code><span class="o">(</span>env<span class="o">)</span>$ python manage.py search_index --rebuild
+
+Deleting index <span class="s1">&#39;users&#39;</span>
+Deleting index <span class="s1">&#39;categories&#39;</span>
+Deleting index <span class="s1">&#39;articles&#39;</span>
+Creating index <span class="s1">&#39;users&#39;</span>
+Creating index <span class="s1">&#39;categories&#39;</span>
+Creating index <span class="s1">&#39;articles&#39;</span>
+Indexing <span class="m">3</span> <span class="s1">&#39;User&#39;</span> objects
+Indexing <span class="m">4</span> <span class="s1">&#39;Article&#39;</span> objects
+Indexing <span class="m">4</span> <span class="s1">&#39;Category&#39;</span> objects
+</code></pre></div>
+
+<blockquote>
+<p>You need to run this command every time you change your index settings.</p>
+</blockquote>
+<p>django-elasticsearch-dsl created the appropriate database signals so that your Elasticsearch storage gets updated every time an instance of a model is created, deleted, or edited.</p>
+<h2 id="elasticsearch-queries">Elasticsearch Queries</h2>
+<p>Before creating the appropriate views, let's look at how Elasticsearch queries work.</p>
+<p>We first have to obtain the <code>Search</code> instance. We do that by calling <code>search()</code> on our Document like so:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">blog.documents</span> <span class="kn">import</span> <span class="n">ArticleDocument</span>
+
+<span class="n">search</span> <span class="o">=</span> <span class="n">ArticleDocument</span><span class="o">.</span><span class="n">search</span><span class="p">()</span>
+</code></pre></div>
+
+<blockquote>
+<p>Feel free to run these queries within the Django shell.</p>
+</blockquote>
+<p>Once we have the <code>Search</code> instance we can pass queries to the <code>query()</code> method and fetch the response:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">elasticsearch_dsl</span> <span class="kn">import</span> <span class="n">Q</span>
+<span class="kn">from</span> <span class="nn">blog.documents</span> <span class="kn">import</span> <span class="n">ArticleDocument</span>
+
+
+<span class="c1"># Looks up all the articles that contain `How to` in the title.</span>
+<span class="n">query</span> <span class="o">=</span> <span class="s1">&#39;How to&#39;</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">Q</span><span class="p">(</span>
+     <span class="s1">&#39;multi_match&#39;</span><span class="p">,</span>
+     <span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">,</span>
+     <span class="n">fields</span><span class="o">=</span><span class="p">[</span>
+         <span class="s1">&#39;title&#39;</span>
+     <span class="p">])</span>
+<span class="n">search</span> <span class="o">=</span> <span class="n">ArticleDocument</span><span class="o">.</span><span class="n">search</span><span class="p">()</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">search</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+
+<span class="c1"># print all the hits</span>
+<span class="k">for</span> <span class="n">hit</span> <span class="ow">in</span> <span class="n">search</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">hit</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
+</code></pre></div>
+
+<p>We can also combine multiple Q statements like so:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">elasticsearch_dsl</span> <span class="kn">import</span> <span class="n">Q</span>
+<span class="kn">from</span> <span class="nn">blog.documents</span> <span class="kn">import</span> <span class="n">ArticleDocument</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Looks up all the articles that:</span>
+<span class="sd">1) Contain &#39;language&#39; in the &#39;title&#39;</span>
+<span class="sd">2) Don&#39;t contain &#39;ruby&#39; or &#39;javascript&#39; in the &#39;title&#39;</span>
+<span class="sd">3) And contain the query either in the &#39;title&#39; or &#39;description&#39;</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">query</span> <span class="o">=</span> <span class="s1">&#39;programming&#39;</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">Q</span><span class="p">(</span>
+     <span class="s1">&#39;bool&#39;</span><span class="p">,</span>
+     <span class="n">must</span><span class="o">=</span><span class="p">[</span>
+         <span class="n">Q</span><span class="p">(</span><span class="s1">&#39;match&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;language&#39;</span><span class="p">),</span>
+     <span class="p">],</span>
+     <span class="n">must_not</span><span class="o">=</span><span class="p">[</span>
+         <span class="n">Q</span><span class="p">(</span><span class="s1">&#39;match&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;ruby&#39;</span><span class="p">),</span>
+         <span class="n">Q</span><span class="p">(</span><span class="s1">&#39;match&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;javascript&#39;</span><span class="p">),</span>
+     <span class="p">],</span>
+     <span class="n">should</span><span class="o">=</span><span class="p">[</span>
+         <span class="n">Q</span><span class="p">(</span><span class="s1">&#39;match&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">query</span><span class="p">),</span>
+         <span class="n">Q</span><span class="p">(</span><span class="s1">&#39;match&#39;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="n">query</span><span class="p">),</span>
+     <span class="p">],</span>
+     <span class="n">minimum_should_match</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">search</span> <span class="o">=</span> <span class="n">ArticleDocument</span><span class="o">.</span><span class="n">search</span><span class="p">()</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">search</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+
+<span class="c1"># print all the hits</span>
+<span class="k">for</span> <span class="n">hit</span> <span class="ow">in</span> <span class="n">search</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">hit</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Another important thing when working with Elasticsearch queries is fuzziness. Fuzzy queries are queries that allow us to handle typos. They use the <a href="https://en.wikipedia.org/wiki/Levenshtein_distance">Levenshtein Distance Algorithm</a> which calculates the distance between the result in our database and the query.</p>
+<p>Let's look at an example.</p>
+<p>By running the following query we won't get any results, because the user misspelled 'django'.</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">elasticsearch_dsl</span> <span class="kn">import</span> <span class="n">Q</span>
+<span class="kn">from</span> <span class="nn">blog.documents</span> <span class="kn">import</span> <span class="n">ArticleDocument</span>
+
+<span class="n">query</span> <span class="o">=</span> <span class="s1">&#39;djengo&#39;</span>  <span class="c1"># notice the typo</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">Q</span><span class="p">(</span>
+     <span class="s1">&#39;multi_match&#39;</span><span class="p">,</span>
+     <span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">,</span>
+     <span class="n">fields</span><span class="o">=</span><span class="p">[</span>
+         <span class="s1">&#39;title&#39;</span>
+     <span class="p">])</span>
+<span class="n">search</span> <span class="o">=</span> <span class="n">ArticleDocument</span><span class="o">.</span><span class="n">search</span><span class="p">()</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">search</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+
+<span class="c1"># print all the hits</span>
+<span class="k">for</span> <span class="n">hit</span> <span class="ow">in</span> <span class="n">search</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">hit</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
+</code></pre></div>
+
+<p>If we enable fuzziness like so:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">elasticsearch_dsl</span> <span class="kn">import</span> <span class="n">Q</span>
+<span class="kn">from</span> <span class="nn">blog.documents</span> <span class="kn">import</span> <span class="n">ArticleDocument</span>
+
+<span class="n">query</span> <span class="o">=</span> <span class="s1">&#39;djengo&#39;</span>  <span class="c1"># notice the typo</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">Q</span><span class="p">(</span>
+     <span class="s1">&#39;multi_match&#39;</span><span class="p">,</span>
+     <span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">,</span>
+     <span class="n">fields</span><span class="o">=</span><span class="p">[</span>
+         <span class="s1">&#39;title&#39;</span>
+     <span class="p">],</span>
+     <span class="n">fuzziness</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>
+<span class="n">search</span> <span class="o">=</span> <span class="n">ArticleDocument</span><span class="o">.</span><span class="n">search</span><span class="p">()</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">search</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+
+<span class="c1"># print all the hits</span>
+<span class="k">for</span> <span class="n">hit</span> <span class="ow">in</span> <span class="n">search</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">hit</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
+</code></pre></div>
+
+<p>The user will get the correct result.</p>
+<blockquote>
+<p>The difference between a <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/full-text-queries.html">full-text search</a> and <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-term-query.html">exact match</a> is that full-text search runs an analyzer on the text before it gets indexed to Elasticsearch. The text gets broken down into different tokens, which are transformed to their root form (e.g., reading -&gt; read). These tokens then get saved into the <a href="https://www.elastic.co/blog/found-elasticsearch-from-the-bottom-up#inverted-indexes-and-index-terms">Inverted Index</a>. Because of that, full-text search yields more results, but takes longer to process.</p>
+</blockquote>
+<p>Elasticsearch has a number of additional features. To get familiar with the API, try implementing:</p>
+<ol>
+<li>Your own <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-custom-analyzer.html">analyzer</a>.</li>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/6.8/search-suggesters-completion.html">Completion suggester</a> - when a user queries 'j' your app should suggest 'johhny' or 'jess_'.</li>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/highlighting.html">Highlighting</a> - when user makes a typo, highlight it (e.g., Linuks -&gt; <em>Linux</em>).</li>
+</ol>
+<p>You can see all the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search.html">Elasticsearch Search APIs</a> here.</p>
+<h2 id="search-views">Search Views</h2>
+<p>With that, let's create sime views. To make our code more DRY we can use the following abstract class in <em>search/views.py</em>:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># search/views.py</span>
+
+<span class="kn">import</span> <span class="nn">abc</span>
+
+<span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span>
+<span class="kn">from</span> <span class="nn">elasticsearch_dsl</span> <span class="kn">import</span> <span class="n">Q</span>
+<span class="kn">from</span> <span class="nn">rest_framework.pagination</span> <span class="kn">import</span> <span class="n">LimitOffsetPagination</span>
+<span class="kn">from</span> <span class="nn">rest_framework.views</span> <span class="kn">import</span> <span class="n">APIView</span>
+
+
+<span class="k">class</span> <span class="nc">PaginatedElasticSearchAPIView</span><span class="p">(</span><span class="n">APIView</span><span class="p">,</span> <span class="n">LimitOffsetPagination</span><span class="p">):</span>
+    <span class="n">serializer_class</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">document_class</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">generate_q_expression</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;This method should be overridden</span>
+<span class="sd">        and return a Q() expression.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">query</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">q</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate_q_expression</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+            <span class="n">search</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">document_class</span><span class="o">.</span><span class="n">search</span><span class="p">()</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">search</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Found </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">hits</span><span class="o">.</span><span class="n">total</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s1"> hit(s) for query: &quot;</span><span class="si">{</span><span class="n">query</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
+
+            <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">paginate_queryset</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">view</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+            <span class="n">serializer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">serializer_class</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">many</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_paginated_response</span><span class="p">(</span><span class="n">serializer</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Notes:</p>
+<ol>
+<li>To use the class, we have to provide our <code>serializer_class</code> and <code>document_class</code> and override <code>generate_q_expression()</code>.</li>
+<li>The class does nothing else than run the <code>generate_q_expression()</code> query, fetch the response, paginate it, and return serialized data.</li>
+</ol>
+<p>All the views should now inherit from <code>PaginatedElasticSearchAPIView</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># search/views.py</span>
+
+<span class="kn">import</span> <span class="nn">abc</span>
+
+<span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span>
+<span class="kn">from</span> <span class="nn">elasticsearch_dsl</span> <span class="kn">import</span> <span class="n">Q</span>
+<span class="kn">from</span> <span class="nn">rest_framework.pagination</span> <span class="kn">import</span> <span class="n">LimitOffsetPagination</span>
+<span class="kn">from</span> <span class="nn">rest_framework.views</span> <span class="kn">import</span> <span class="n">APIView</span>
+
+<span class="kn">from</span> <span class="nn">blog.documents</span> <span class="kn">import</span> <span class="n">ArticleDocument</span><span class="p">,</span> <span class="n">UserDocument</span><span class="p">,</span> <span class="n">CategoryDocument</span>
+<span class="kn">from</span> <span class="nn">blog.serializers</span> <span class="kn">import</span> <span class="n">ArticleSerializer</span><span class="p">,</span> <span class="n">UserSerializer</span><span class="p">,</span> <span class="n">CategorySerializer</span>
+
+
+<span class="k">class</span> <span class="nc">PaginatedElasticSearchAPIView</span><span class="p">(</span><span class="n">APIView</span><span class="p">,</span> <span class="n">LimitOffsetPagination</span><span class="p">):</span>
+    <span class="n">serializer_class</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">document_class</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+    <span class="k">def</span> <span class="nf">generate_q_expression</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;This method should be overridden</span>
+<span class="sd">        and return a Q() expression.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">query</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">q</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate_q_expression</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+            <span class="n">search</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">document_class</span><span class="o">.</span><span class="n">search</span><span class="p">()</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">search</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Found </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">hits</span><span class="o">.</span><span class="n">total</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s1"> hit(s) for query: &quot;</span><span class="si">{</span><span class="n">query</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
+
+            <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">paginate_queryset</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">view</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+            <span class="n">serializer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">serializer_class</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">many</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_paginated_response</span><span class="p">(</span><span class="n">serializer</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+
+
+<span class="c1"># views</span>
+
+
+<span class="k">class</span> <span class="nc">SearchUsers</span><span class="p">(</span><span class="n">PaginatedElasticSearchAPIView</span><span class="p">):</span>
+    <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">UserSerializer</span>
+    <span class="n">document_class</span> <span class="o">=</span> <span class="n">UserDocument</span>
+
+    <span class="k">def</span> <span class="nf">generate_q_expression</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Q</span><span class="p">(</span><span class="s1">&#39;bool&#39;</span><span class="p">,</span>
+                 <span class="n">should</span><span class="o">=</span><span class="p">[</span>
+                     <span class="n">Q</span><span class="p">(</span><span class="s1">&#39;match&#39;</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="n">query</span><span class="p">),</span>
+                     <span class="n">Q</span><span class="p">(</span><span class="s1">&#39;match&#39;</span><span class="p">,</span> <span class="n">first_name</span><span class="o">=</span><span class="n">query</span><span class="p">),</span>
+                     <span class="n">Q</span><span class="p">(</span><span class="s1">&#39;match&#39;</span><span class="p">,</span> <span class="n">last_name</span><span class="o">=</span><span class="n">query</span><span class="p">),</span>
+                 <span class="p">],</span> <span class="n">minimum_should_match</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">SearchCategories</span><span class="p">(</span><span class="n">PaginatedElasticSearchAPIView</span><span class="p">):</span>
+    <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">CategorySerializer</span>
+    <span class="n">document_class</span> <span class="o">=</span> <span class="n">CategoryDocument</span>
+
+    <span class="k">def</span> <span class="nf">generate_q_expression</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Q</span><span class="p">(</span>
+                <span class="s1">&#39;multi_match&#39;</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">,</span>
+                <span class="n">fields</span><span class="o">=</span><span class="p">[</span>
+                    <span class="s1">&#39;name&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;description&#39;</span><span class="p">,</span>
+                <span class="p">],</span> <span class="n">fuzziness</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">SearchArticles</span><span class="p">(</span><span class="n">PaginatedElasticSearchAPIView</span><span class="p">):</span>
+    <span class="n">serializer_class</span> <span class="o">=</span> <span class="n">ArticleSerializer</span>
+    <span class="n">document_class</span> <span class="o">=</span> <span class="n">ArticleDocument</span>
+
+    <span class="k">def</span> <span class="nf">generate_q_expression</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Q</span><span class="p">(</span>
+                <span class="s1">&#39;multi_match&#39;</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">,</span>
+                <span class="n">fields</span><span class="o">=</span><span class="p">[</span>
+                    <span class="s1">&#39;title&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;author&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;type&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;content&#39;</span>
+                <span class="p">],</span> <span class="n">fuzziness</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<h3 id="define-urls_1">Define URLs</h3>
+<p>Lastly, let's create the URLs for our views:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># search.urls.py</span>
+
+<span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">path</span>
+
+<span class="kn">from</span> <span class="nn">search.views</span> <span class="kn">import</span> <span class="n">SearchArticles</span><span class="p">,</span> <span class="n">SearchCategories</span><span class="p">,</span> <span class="n">SearchUsers</span>
+
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;user/&lt;str:query&gt;/&#39;</span><span class="p">,</span> <span class="n">SearchUsers</span><span class="o">.</span><span class="n">as_view</span><span class="p">()),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;category/&lt;str:query&gt;/&#39;</span><span class="p">,</span> <span class="n">SearchCategories</span><span class="o">.</span><span class="n">as_view</span><span class="p">()),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;article/&lt;str:query&gt;/&#39;</span><span class="p">,</span> <span class="n">SearchArticles</span><span class="o">.</span><span class="n">as_view</span><span class="p">()),</span>
+<span class="p">]</span>
+</code></pre></div>
+
+<p>Then, wire up the app URLs to the project URLs:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># core/urls.py</span>
+
+<span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+<span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">path</span><span class="p">,</span> <span class="n">include</span>
+
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;blog/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s1">&#39;blog.urls&#39;</span><span class="p">)),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;search/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s1">&#39;search.urls&#39;</span><span class="p">)),</span> <span class="c1"># new</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;admin/&#39;</span><span class="p">,</span> <span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">urls</span><span class="p">),</span>
+<span class="p">]</span>
+</code></pre></div>
+
+<h3 id="testing_1">Testing</h3>
+<p>Our web application is done. We can test our search endpoints by visiting the following URLs:</p>
+<table>
+<thead>
+<tr>
+<th>URL</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="http://127.0.0.1:8000/search/user/mike/">http://127.0.0.1:8000/search/user/mike/</a></td>
+<td>Returns user 'mike13'</td>
+</tr>
+<tr>
+<td><a href="http://127.0.0.1:8000/search/user/jess_/">http://127.0.0.1:8000/search/user/jess_/</a></td>
+<td>Returns user 'jess_'</td>
+</tr>
+<tr>
+<td><a href="http://127.0.0.1:8000/search/category/seo/">http://127.0.0.1:8000/search/category/seo/</a></td>
+<td>Returns category 'SEO optimization'</td>
+</tr>
+<tr>
+<td><a href="http://127.0.0.1:8000/search/category/progreming/">http://127.0.0.1:8000/search/category/progreming/</a></td>
+<td>Returns category 'Programming'</td>
+</tr>
+<tr>
+<td><a href="http://127.0.0.1:8000/search/article/linux/">http://127.0.0.1:8000/search/article/linux/</a></td>
+<td>Returns article 'Installing the latest version of Ubuntu'</td>
+</tr>
+<tr>
+<td><a href="http://127.0.0.1:8000/search/article/java/">http://127.0.0.1:8000/search/article/java/</a></td>
+<td>Returns article 'Which programming language is the best?'</td>
+</tr>
+</tbody>
+</table>
+
+<blockquote>
+<p>Notice the typo with the fourth request. We spelled 'progreming', but still got the correct result thanks to fuzziness.</p>
+</blockquote>
+<h2 id="alternative-libraries">Alternative Libraries</h2>
+<p>The path we took isn't the only way to integrate Django with Elasticsearch. There are a few other libraries you <em>might</em> want to check out:</p>
+<ol>
+<li><a href="https://django-elasticsearch-dsl-drf.readthedocs.io/en/latest/">django-elasicsearch-dsl-drf</a> is a wrapper around Elasticsearch and Django REST Framework. It provides views, serializers, filter backends, pagination and more. It works well, but it might be overkill for smaller projects. I'd recommend using it if you need advanced Elasticsearch features.</li>
+<li><a href="https://haystacksearch.org/">Haystack</a> is a wrapper for a number of search backends, like Elasticsearch, <a href="https://lucene.apache.org/solr/">Solr</a>, and <a href="https://github.com/mchaput/whoosh/">Whoosh</a>. It allows you to write your search code once and reuse it with different search backends. It works great for implementing a simple search box. Because Haystack is another abstraction layer, there's more overhead involved so you shouldn't use it if performance is really important or if you're working with big amounts of data. It also requires some configuration.</li>
+<li><a href="https://github.com/rhblind/drf-haystack">Haystack for Django REST Framework</a> is a small library which tries to simplify integration of Haystack with Django REST Framework. At the time of writing, the project is a bit outdated and their documentation is badly written. I've spent a decent amount of time trying to get it to work with no luck.</li>
+</ol>
+<h2 id="conclusion">Conclusion</h2>
+<p>In this tutorial, you learned the basics of working with Django REST Framework and Elasticsearch. You now know how to integrate them, create Elasticsearch documents and queries, and serve the data via a RESTful API.</p>
+<blockquote>
+<p>Before launching your project in production, consider using one of the managed Elasticsearch services like <a href="https://www.elastic.co/pricing/">Elastic Cloud</a>, <a href="https://aws.amazon.com/elasticsearch-service/">Amazon Elasticsearch Service</a>, or <a href="https://azure.microsoft.com/en-us/overview/linux-on-azure/elastic/">Elastic on Azure</a>. The cost of using a managed service will be higher than managing your own cluster, but they provide all of the infrastructure required for deploying, securing, and running Elasticsearch clusters. Plus, they'll handle version updates, regular backups, and scaling.</p>
+</blockquote>
+<p>Grab the code from <a href="https://github.com/testdrivenio/django-drf-elasticsearch">django-drf-elasticsearch</a> repo on GitHub.</p>
+  </div>
+
+  <nav class="blog-topics">
+    <div class="topics-list">
+  <i class="fas fa-tags fa-sm"></i>
+  
+  <a class="btn btn-light btn-xs topic"
+    href="/blog/topics/api/">
+    API
+  </a>
+  
+  <a class="btn btn-light btn-xs topic"
+    href="/blog/topics/django/">
+    Django
+  </a>
+  
+  <a class="btn btn-light btn-xs topic"
+    href="/blog/topics/django-rest-framework/">
+    Django REST Framework
+  </a>
+  
+</div>
+
+  </nav>
+
+  <footer class="blog-detail-footer">
+    
+      <article class="author-card ">
+  
+    <h2
+      class="author-card-name">
+      <a href="/authors/tomazic/">Nik Tomazic</a>
+    </h2>
+
+    <a href="/authors/tomazic/" class="author-card-photo-wrap">
+      <img
+        class="author-card-photo"
+        src="/static/images/authors/tomazic.png"
+        alt="Nik Tomazic">
+    </a>
+  
+
+    <div class="author-card-bio">
+      <p>Nik is a software developer from Slovenia. He's interested in object-oriented programming and web development. He likes learning new things and accepting new challenges. When he's not coding, Nik's either swimming or watching movies.</p>
+    </div>
+
+    <ul class="author-card-social-links">
+      
+      
+        <li>
+          <a href="https://github.com/duplxey" aria-label="GitHub">
+            <i class="fab fa-github" aria-hidden="true"></i>
+          </a>
+        </li>
+      
+      
+      
+        <li>
+          <a href="https://duplxey.com/" aria-label="Personal Site">
+            <i class="fas fa-globe" aria-hidden="true"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </article>
+
+    
+
+    <div id="divContributors"></div>
+
+    <h2 class="eyebrow mb-0">Share this tutorial</h2>
+    
+    
+    
+      <section class="social-share">
+  <h2 class="social-share-heading sr-only">Share this tutorial</h2>
+  <ul>
+    <li>
+      
+        <a
+        class="btn social-share-link twitter"
+        href="https://twitter.com/intent/tweet/?text=Django%20REST%20Framework%20and%20Elasticsearch%20from%20%40TestDrivenio&amp;url=https%3A//testdriven.io/blog/django-drf-elasticsearch/"
+        target="_blank"
+        rel="noopener"
+        aria-label="Twitter"
+        data-a-social-share="Twitter">
+        <span aria-hidden="true">
+          <i class="fab fa-twitter"></i>
+          <span class="label">Twitter</span>
+        </span>
+      </a>
+      
+    </li>
+
+    <li>
+      <a class="btn social-share-link reddit"
+      href="https://reddit.com/submit/?url=https%3A//testdriven.io/blog/django-drf-elasticsearch/&amp;resubmit=true&amp;title=Django%20REST%20Framework%20and%20Elasticsearch"
+      target="_blank"
+      rel="noopener"
+      aria-label="Reddit"
+      data-a-social-share="Reddit">
+        <span aria-hidden="true">
+          <i class="fab fa-reddit-alien"></i>
+          <span class="label">Reddit</span>
+        </span>
+      </a>
+    </li>
+
+    <li>
+      <a class="btn social-share-link hackernews"
+      href="https://news.ycombinator.com/submitlink?u=https%3A//testdriven.io/blog/django-drf-elasticsearch/&amp;t=Django%20REST%20Framework%20and%20Elasticsearch"
+      target="_blank"
+      rel="noopener"
+      aria-label="Hacker News"
+      data-a-social-share="HackerNews">
+        <span aria-hidden="true">
+          <i class="fab fa-hacker-news"></i>
+          <span class="label">Hacker News</span>
+        </span>
+      </a>
+    </li>
+
+    <li>
+      <a
+        class="btn social-share-link facebook"
+        href="https://facebook.com/sharer/sharer.php?u=https%3A//testdriven.io/blog/django-drf-elasticsearch/"
+        target="_blank"
+        rel="noopener"
+        aria-label="Facebook"
+        data-a-social-share="Facebook">
+          <span aria-hidden="true">
+          <i class="fab fa-facebook-square" aria-hidden="true"></i>
+          <span class="label">Facebook</span>
+          </span>
+      </a>
+    </li>
+  </ul>
+</section>
+
+    
+    
+    
+
+    <div id="divRevisionHistory"></div>
+
+  </footer>
+
+      </div>
+      <div class="col col-12 col-lg-4 blog-sidebar-col">
+        <div
+        class="blog-sidebar"
+          data-a-section="Sidebar">
+            
+              
+                
+
+
+<section class="course-card portrait ">
+  <span class="badge">Featured Course</span>
+  <h2 class="course-card-heading"><a href="/courses/django-full-text-search/">Full-text Search in Django with Postgres and Elasticsearch</a></h2>
+
+  <p class="course-card-description">Learn how to add full-text search to Django with both Postgres and Elasticsearch.</p>
+
+  <div class="course-card-actions">
+    <a
+      href="/payments/django-full-text-search/"
+      class="btn btn-brand1 listing-btn"
+      data-a-buy-course-cta="django-full-text-search">Buy Now <span class="listing-btn-price">$30</span></a>
+    <a
+      href="/courses/django-full-text-search/"
+      class="action-link"
+      >View Course</a>
+  </div>
+</section>
+
+
+              
+
+              <span id="BlogSidebarStickyTop"></span>
+
+              
+                <aside class="card-sidebar search" role="search">
+  <form class="search-form" action="/blog/search/" method="post">
+    <input type="hidden" name="csrfmiddlewaretoken" value="nrBz0xNZEbvESSDQs9XveAhLWzofMfR58u0v4HlcLZgMLVzE6WhFP1v4RUxhkhPm">
+    <div class="form-group">
+      <input
+        type="search"
+        class="form-control search-field"
+        placeholder="Search all tutorials"
+        name="search_term"
+        required>
+    </div>
+  </form>
+</aside>
+
+              
+
+              
+                <aside class="card-sidebar all-topics">
+  <h3 class="eyebrow">Tutorial Topics</h3>
+  <nav class="topics-list">
+    
+    <a
+      class="btn btn-light btn-xs topic"
+      href="/blog/topics/api/">API</a>
+    
+    <a
+      class="btn btn-light btn-xs topic"
+      href="/blog/topics/architecture/">Architecture</a>
+    
+    <a
+      class="btn btn-light btn-xs topic"
+      href="/blog/topics/aws/">AWS</a>
+    
+    <a
+      class="btn btn-light btn-xs topic"
+      href="/blog/topics/devops/">DevOps</a>
+    
+    <a
+      class="btn btn-light btn-xs topic"
+      href="/blog/topics/django/">Django</a>
+    
+    <a
+      class="btn btn-light btn-xs topic"
+      href="/blog/topics/django-rest-framework/">Django REST Framework</a>
+    
+    <a
+      class="btn btn-light btn-xs topic"
+      href="/blog/topics/docker/">Docker</a>
+    
+    <a
+      class="btn btn-light btn-xs topic"
+      href="/blog/topics/fastapi/">FastAPI</a>
+    
+    <a
+      class="btn btn-light btn-xs topic"
+      href="/blog/topics/flask/">Flask</a>
+    
+    <a
+      class="btn btn-light btn-xs topic"
+      href="/blog/topics/front-end/">Front-end</a>
+    
+    <a
+      class="btn btn-light btn-xs topic"
+      href="/blog/topics/heroku/">Heroku</a>
+    
+    <a
+      class="btn btn-light btn-xs topic"
+      href="/blog/topics/kubernetes/">Kubernetes</a>
+    
+    <a
+      class="btn btn-light btn-xs topic"
+      href="/blog/topics/machine-learning/">Machine Learning</a>
+    
+    <a
+      class="btn btn-light btn-xs topic"
+      href="/blog/topics/python/">Python</a>
+    
+    <a
+      class="btn btn-light btn-xs topic"
+      href="/blog/topics/react/">React</a>
+    
+    <a
+      class="btn btn-light btn-xs topic"
+      href="/blog/topics/task-queue/">Task Queue</a>
+    
+    <a
+      class="btn btn-light btn-xs topic"
+      href="/blog/topics/testing/">Testing</a>
+    
+    <a
+      class="btn btn-light btn-xs topic"
+      href="/blog/topics/vue/">Vue</a>
+    
+    <a
+      class="btn btn-light btn-xs topic"
+      href="/blog/topics/web-scraping/">Web Scraping</a>
+    
+  </nav>
+</aside>
+
+              
+
+              
+
+              <div class="blog-sidebar-sticky" id="BlogSidebarStickyBot">
+                
+                  <aside class="card-sidebar blog-toc">
+  <h3 class="eyebrow blog-toc-heading">Table of Contents</h3>
+  <nav class="local-nav">
+    <ol data-local-nav-list id="blog-toc"></ol>
+  </nav>
+</aside>
+
+                
+
+                
+                  
+
+
+<section class="course-card portrait ">
+  <span class="badge">Featured Course</span>
+  <h2 class="course-card-heading"><a href="/courses/django-full-text-search/">Full-text Search in Django with Postgres and Elasticsearch</a></h2>
+
+  <p class="course-card-description">Learn how to add full-text search to Django with both Postgres and Elasticsearch.</p>
+
+  <div class="course-card-actions">
+    <a
+      href="/payments/django-full-text-search/"
+      class="btn btn-brand1 listing-btn"
+      data-a-buy-course-cta="django-full-text-search">Buy Now <span class="listing-btn-price">$30</span></a>
+    <a
+      href="/courses/django-full-text-search/"
+      class="action-link"
+      >View Course</a>
+  </div>
+</section>
+
+
+                
+              </div>
+            
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+<div class="related-listings" id="RelatedListings">
+  <div class="container">
+    <div class="row">
+      <div class="col col-12">
+        <h2 class="eyebrow">Recommended Tutorials</h2>
+      </div>
+    </div>
+    <div id="spinner-loader" class="text-center">
+      <i class="fa fa-spinner fa-pulse fa-3x fa-fw" style="color:#797979;"></i>
+      <span class="sr-only">Loading...</span>
+    </div>
+    <div class="row" id="RelatedListingsBody">
+      <div class="col col-12 col-lg-4 mb-4"></div>
+      <div class="col col-12 col-lg-4 mb-4"></div>
+      <div class="col col-12 col-lg-4 mb-4"></div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<div class="signup-ribbon" role="banner">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-8">
+        <header class="signup-ribbon-header">
+          <h2 class="signup-ribbon-heading">Stay Sharp with Course Updates</h2>
+          <p class="lead">Join our mailing list to be notified about updates and new releases.</p>
+        </header>
+
+        <form action="//testdriven.us17.list-manage.com/subscribe/post?u=bea5ac664532063fe8aa8d6a2&amp;id=eddaf58c2a"
+          method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form"
+          class="signup-ribbon-form validate" target="_blank" novalidate>
+          <div class="signup-ribbon-row">
+            <input placeholder="Enter your email" id="first_name" type="email" name="EMAIL" class="form-control">
+            <button
+              class="btn btn-success btn-hollow"
+              type="submit"
+              name="action"
+              data-a-newsletter-sub>Subscribe</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+    
+
+    <!-- Footer -->
+    
+      
+
+<footer class="footer ">
+  <div class="container">
+    <div class="row footer-main">
+      <div class="col col-12 col-lg-8">
+        <nav class="footer-nav">
+          <ul>
+            <li>
+              <span class="footer-nav-heading">Learn</span>
+              <ul>
+                <li>
+                  <a href="/courses/">Courses</a>
+                </li>
+                <li>
+                  <a href="/bundles/">Bundles</a>
+                </li>
+                <li >
+                  <a href="/blog/">Blog</a>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <span class="footer-nav-heading">Guides</span>
+              <ul>
+                <li><a href="/guides/complete-python/">Complete Python</a></li>
+                <li><a href="/guides/django-celery/">Django and Celery</a></li>
+                <li><a href="/guides/flask-deep-dive/">Deep Dive Into Flask</a></li>
+              </ul>
+            </li>
+
+            <li>
+              <span class="footer-nav-heading">About TestDriven.io</span>
+              <ul>
+                <li><a href="/support/">Support and Consulting</a></li>
+                <li><a href="/test-driven-development/">What is Test-Driven Development?</a></li>
+                <li><a href="/testimonials/">Testimonials</a></li>
+                <li><a href="/opensource/">Open Source Donations</a></li>
+                <li><a href="/about/">About Us</a></li>
+                <li><a href="/authors/">Meet the Authors</a></li>
+                <li><a href="/tips/">Tips and Tricks</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="col col-sm-12 col-lg-4">
+        <div class="donation-blurb">
+
+          <div class="donation-blurb-header">
+            <i class="fa fa-heart"></i>
+            <h3 class="donation-blurb-heading">TestDriven.io is a proud supporter of open source</h3>
+          </div>
+
+          <p>
+            <strong>10% of profits</strong> from each of our <a href="/courses/topics/fastapi/">FastAPI</a> courses and our <a href="/courses/learn-flask/">Flask Web Development</a> course will be donated to the FastAPI and Flask teams, respectively.
+            <br />
+          </p>
+
+          <a href="/opensource/" class="action-link">Follow our contributions</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="row footer-secondary">
+      <div class="col col-12 col-lg-9">
+        <small class="copyright">
+          <p>
+            <span>&copy; Copyright 2017 - 2022 TestDriven Labs.</span>
+            <br>
+            <span>Developed by </span>
+            <a href="http://mherman.org/">Michael Herman</a>.
+          <p>
+        </small>
+
+        <div>
+          <a
+            href="https://twitter.com/testdrivenio?ref_src=twsrc%5Etfw"
+            class="twitter-follow-button"
+            data-show-count="false">
+            Follow @testdrivenio
+          </a>
+          <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        </div>
+      </div>
+
+      <div class="col col-12 col-lg-3 footer-logo-block">
+        <img
+          src=/static/images/test_driven_io_full_logo_white_text.4a6302a91a54.svg
+          alt="testdriven.io"
+          height="38" />
+      </div>
+    </div>
+  </div>
+</footer>
+
+    
+
+    <!-- JavaScript -->
+    
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+<script src="/static/js/utils.9c5895000f5e.js"></script>
+
+    
+
+  <script>
+    if ('loading' in HTMLImageElement.prototype) {
+      const images = document.querySelectorAll('img[loading="lazy"]');
+      images.forEach(img => {
+        img.src = img.dataset.src;
+      });
+    } else {
+      // Dynamically import the LazySizes library
+      const script = document.createElement('script');
+      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.2.0/lazysizes.min.js';
+      document.body.appendChild(script);
+    }
+  </script>
+
+  <script src="/static/js/jquery.waypoints.min.7d05f92297de.js"></script>
+  <script async src="/static/js/local-nav.59f7ef518a39.js"></script>
+  <script async src="/static/js/blog-related-posts.57781d2e9f47.js"></script>
+  <script async src="/static/js/blog-sticky-cta.1b87193fa49b.js"></script>
+
+
+<script>
+  const postId = 86;
+  let relatedShown = false;
+
+  const tables = document.querySelectorAll('.blog-content table');
+  tables.forEach((table) => {
+    let tableWrap = document.createElement('div');
+    tableWrap.setAttribute('class', 'table-responsive');
+    table.after(tableWrap);
+
+    tableWrap = table.nextElementSibling;
+    tableWrap.append(table);
+  });
+</script>
+
+
+    <!-- Feedback Form -->
+    <script async src="/static/js/feedback.c16aa6025d83.js"></script>
+    <script>
+  var generated_csrf_token = 'nrBz0xNZEbvESSDQs9XveAhLWzofMfR58u0v4HlcLZgMLVzE6WhFP1v4RUxhkhPm';
+</script>
+
+<div class="feedback-btn">
+  <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#feedbackModal">Feedback</button>
+</div>
+
+<!-- Feedback Modal -->
+<div class="modal fade" id="feedbackModal" tabindex="-1" role="dialog" aria-labelledby="feedbackModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="feedbackModalTitle">Send Us Feedback</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="send-feedback-form">
+          <div class="form-group">
+            <input type="email" class="form-control email-input" placeholder="Your email address" required>
+          </div>
+          <div class="form-group">
+            <textarea class="form-control feedback-input" rows="5" placeholder="Send us your feedback or report an issue. Please provide as much detail as possible. Thank you." required></textarea>
+          </div>
+          <div class="form-group" style="margin-bottom:2px">
+            <button type="submit" class="btn btn-primary btn btn-block">Send</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="thankyouModal" tabindex="-1" role="dialog" aaria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="text-center">
+          <br><h4 class="thankyou-message"></h4><br>
+          <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" style="margin-bottom: 15px;">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  </body>
+</html>
+
