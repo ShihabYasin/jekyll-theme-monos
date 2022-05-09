@@ -10,11 +10,19 @@ tag: Python
 
 ### This project will consist of multiple models, which will be serialized and served via <a href="https://www.django-rest-framework.org/">Django REST Framework</a>.
 
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  margin: auto;
+}
+</style>
+</head>
 
 
+<body>
 
-
-<div class="container blog-container" style="padding-top: 0;">
 
 
 <h2 id="project-setup">Project Setup</h2>
@@ -824,4 +832,5 @@ Indexing <span class="m">4</span> <span class="s1">&#39;Category&#39;</span> obj
 </table>
 
 
-</div>
+</body>
+</html>
