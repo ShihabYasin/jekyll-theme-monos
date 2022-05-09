@@ -6,7 +6,7 @@ category: Python
 tag: Python
 ---
 
-## A Simple Blog App: 
+## A Simple-Blog-App-Using-Django-and-Elasticsearch: 
 
 ### This project will consist of multiple models, which will be serialized and served via <a href="https://www.django-rest-framework.org/">Django REST Framework</a>.
 
