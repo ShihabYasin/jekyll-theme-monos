@@ -15,12 +15,11 @@ tag: Python
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 body {
-  margin: auto;
+    margin: auto;
+    padding: 10px;
 }
 </style>
 </head>
-
-
 <body>
 
 
