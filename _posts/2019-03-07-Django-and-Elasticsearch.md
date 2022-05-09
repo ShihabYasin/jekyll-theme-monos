@@ -6,9 +6,11 @@ category: Python
 tag: Python
 ---
 
-<div class="container blog-container" style="padding-top: 0;">
-<div class="row">
-
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+    </head>
 
 <h2 id="project-setup">Project Setup ( Simple Blog App ) </h2>
 <p>This blog project will consist of multiple models, which will be serialized and served via <a href="https://www.django-rest-framework.org/">Django REST Framework</a>. After integrating Elasticsearch, we'll create an endpoint that will allow us to look up different authors, categories, and articles.</p>
@@ -818,3 +820,4 @@ Indexing <span class="m">4</span> <span class="s1">&#39;Category&#39;</span> obj
 </tbody>
 </table>
 
+</html>
