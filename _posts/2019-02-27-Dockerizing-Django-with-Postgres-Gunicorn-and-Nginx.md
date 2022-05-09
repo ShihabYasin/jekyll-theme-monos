@@ -6,7 +6,6 @@ category: Python
 tag: Python
 ---
 
-<main>
 
 <p>Configure Django to run on Docker with Postgres. For production environments, we'll add on Nginx and Gunicorn. We'll also take a look at how to serve Django static and media files via Nginx.</p>
 <p><em>Dependencies</em>:</p>
