@@ -7,10 +7,7 @@ tag: Python
 ---
 
 <main>
-<div class="container blog-container" style="padding-top: 0;">
-<div class="row">
 
-<div class="blog-content long-content" data-local-nav-source>
 <p>Configure Django to run on Docker with Postgres. For production environments, we'll add on Nginx and Gunicorn. We'll also take a look at how to serve Django static and media files via Nginx.</p>
 <p><em>Dependencies</em>:</p>
 <ol>
@@ -20,7 +17,7 @@ tag: Python
 </ol>
 
 
-</div>
+
 <h2 id="project-setup">Project Setup</h2>
 <p>Create a new project directory along with a new Django project:</p>
 <div class="codehilite"><pre><span></span><code>$ mkdir django-on-docker <span class="o">&amp;&amp;</span> <span class="nb">cd</span> django-on-docker

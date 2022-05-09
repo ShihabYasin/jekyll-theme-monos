@@ -11,13 +11,6 @@ tag: Python
 ### This project will consist of multiple models, which will be serialized and served via <a href="https://www.django-rest-framework.org/">Django REST Framework</a>.
 
 
-
-
-
-
-
-
-<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
