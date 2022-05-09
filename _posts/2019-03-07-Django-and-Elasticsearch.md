@@ -6,14 +6,14 @@ category: Python
 tag: Python
 ---
 
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-    </head>
 
-<h2 id="project-setup">Project Setup ( Simple Blog App ) </h2>
-<p>This blog project will consist of multiple models, which will be serialized and served via <a href="https://www.django-rest-framework.org/">Django REST Framework</a>. After integrating Elasticsearch, we'll create an endpoint that will allow us to look up different authors, categories, and articles.</p>
+<main>
+<div class="container blog-container" style="padding-top: 0;">
+<div class="row">
+<div class="col col-12 col-lg-8">
+
+<h2 id="project-setup">Project Setup</h2>
+<p>We'll be building a simple blog application. Our project will consist of multiple models, which will be serialized and served via <a href="https://www.django-rest-framework.org/">Django REST Framework</a>. After integrating Elasticsearch, we'll create an endpoint that will allow us to look up different authors, categories, and articles.</p>
 <p>To keep our code clean and modular, we'll split our project into the following two apps:</p>
 <ol>
 <li><code>blog</code> - for our Django models, serializers, and ViewSets</li>
@@ -191,7 +191,6 @@ $ <span class="nb">source</span> env/bin/activate
 <li><code>UserSerializer</code> and <code>CategorySerializer</code> are fairly simple: We just provided the fields we want serialized.</li>
 <li>In the <code>ArticleSerializer</code>, we needed to take care of the relationships to make sure they also get serialized. This is why we provided <code>UserSerializer</code> and <code>CategorySerializer</code>.</li>
 </ol>
-
 <h3 id="create-viewsets">Create ViewSets</h3>
 <p>Let's create a ViewSet for each of our models in <em>blog/views.py</em>:</p>
 <div class="codehilite"><pre><span></span><code><span class="c1"># blog/views.py</span>
@@ -321,7 +320,6 @@ $ <span class="nb">source</span> env/bin/activate
 <p>Manually test the other endpoints as well.</p>
 <h2 id="elasticsearch-setup">Elasticsearch Setup</h2>
 <p>Start by installing and running Elasticsearch in the background.</p>
-
 
 <p>To integrate Elasticsearch with Django, we need to install the following packages:</p>
 <ol>
@@ -820,4 +818,4 @@ Indexing <span class="m">4</span> <span class="s1">&#39;Category&#39;</span> obj
 </tbody>
 </table>
 
-</html>
+
