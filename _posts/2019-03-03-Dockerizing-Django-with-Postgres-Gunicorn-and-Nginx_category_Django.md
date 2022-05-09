@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Dockerizing-Django-with-Postgres-Gunicorn-and-Nginx
-date: 2019-02-27 16:20:23 +0900
+date: 2019-03-03 16:20:23 +0900
 category: Django
 tag: Django
 ---

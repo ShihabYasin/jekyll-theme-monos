@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Concurrent-Web-Scraping-with-Python-and-Selenium
-date: 2019-02-28 16:20:23 +0900
+date: 2019-03-02 16:20:23 +0900
 category: Selenium
 tag: Selenium
 ---

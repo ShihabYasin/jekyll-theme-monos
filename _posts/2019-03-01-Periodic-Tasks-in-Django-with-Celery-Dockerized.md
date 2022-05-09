@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Periodic-Tasks-in-Django-with-Celery-Dockerized
-date: 2019-02-29 16:20:23 +0900
+date: 2019-03-01 16:20:23 +0900
 category: Python
 tag: Python
 ---

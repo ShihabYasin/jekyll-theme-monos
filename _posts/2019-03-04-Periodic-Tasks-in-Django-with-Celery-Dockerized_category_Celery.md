@@ -1,9 +1,9 @@
 ---
 layout: post
 title: Periodic-Tasks-in-Django-with-Celery-Dockerized
-date: 2019-02-29 16:20:23 +0900
-category: Django
-tag: Django
+date: 2019-03-04 16:20:23 +0900
+category: Celery
+tag: Celery
 ---
 
 # How to Handle Periodic Tasks in Django with Celery ( Dockerized )
