@@ -817,5 +817,3 @@ Indexing <span class="m">4</span> <span class="s1">&#39;Category&#39;</span> obj
 </tr>
 </tbody>
 </table>
-
-
