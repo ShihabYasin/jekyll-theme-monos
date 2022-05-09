@@ -1,489 +1,818 @@
 ---
 layout: post
-title: Periodic-Tasks-in-Django-with-Celery-Dockerized
+title: Simple-Blog-App-Using-Django-and-Elasticsearch
 date: 2019-03-07 16:20:23 +0900
-category: Docker
-tag: Docker
+category: Python
+tag: Python
 ---
 
-# How to Handle Periodic Tasks in Django with Celery ( Dockerized )
-
-### * Checkout codebase [here](https://github.com/ShihabYasin/Periodic-Tasks-in-Django-with-Celery)
-
-## Run:
-
-```sh
-$ docker-compose up -d --build
-```
-Check logs:
-
-```sh
-$ docker-compose logs -f 'celery'
-```
-
-## Explanation:
 
 
- <div class="container blog-container" style="padding-top: 0;">
-   <div class="row">
-     <div class="col col-12 col-lg-8">
-      
 
-
-<p>Since we'll need to manage four processes in total (Django, Redis, worker, and scheduler), we'll use Docker to simplify our workflow by wiring them up so that they can all be run from one terminal window with a single command.</p>
-<p>From the project root, create the images and spin up the Docker containers:</p>
-<div class="codehilite"><pre><span></span><code>$ docker-compose up -d --build
-</code></pre></div>
-
-<p>Next, apply the migrations:</p>
-<div class="codehilite"><pre><span></span><code>$ docker-compose <span class="nb">exec</span> web python manage.py migrate
-</code></pre></div>
-
-<p>Once the build is complete, navigate to <a href="http://localhost:1337">http://localhost:1337</a> to ensure the app works as expected. You should see the following text:</p>
-<div class="codehilite"><pre><span></span><code>Orders
-
-No orders found!
-</code></pre></div>
-
-<p>Take a quick look at the project structure before moving on:</p>
-<div class="codehilite"><pre><span></span><code>├── .gitignore
-├── docker-compose.yml
-└── project
-   ├── Dockerfile
-   ├── core
-   │   ├── __init__.py
-   │   ├── asgi.py
-   │   ├── settings.py
-   │   ├── urls.py
-   │   └── wsgi.py
-   ├── entrypoint.sh
-   ├── manage.py
-   ├── orders
-   │   ├── __init__.py
-   │   ├── admin.py
-   │   ├── apps.py
-   │   ├── migrations
-   │   │   ├── 0001_initial.py
-   │   │   └── __init__.py
-   │   ├── models.py
-   │   ├── tests.py
-   │   ├── urls.py
-   │   └── views.py
-   ├── products.json
-   ├── requirements.txt
-   └── templates
-       └── orders
-           └── order_list.html
-</code></pre></div>
-
-
-<h2 id="celery-and-redis">Celery and Redis</h2>
-<p>Now, we need to add containers for Celery, Celery Beat, and Redis.</p>
-<p>We'll begin by adding the dependencies to the <em>requirements.txt</em> file:</p>
-<div class="codehilite"><pre><span></span><code>Django==3.2.4
-celery==5.1.2
-redis==3.5.3
-</code></pre></div>
-
-<p>Next, add the following to the end of the <em>docker-compose.yml</em> file:</p>
-<div class="codehilite"><pre><span></span><code><span class="nt">redis</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redis:alpine</span><span class="w"></span>
-<span class="nt">celery</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">build</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./project</span><span class="w"></span>
-<span class="w">  </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">celery -A core worker -l info</span><span class="w"></span>
-<span class="w">  </span><span class="nt">volumes</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./project/:/usr/src/app/</span><span class="w"></span>
-<span class="w">  </span><span class="nt">environment</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DEBUG=1</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SECRET_KEY=dbaa1_i7%*<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8ebdfcb7a3b3f4a3a5d1e3f4bafca3afffebebeace">[email&#160;protected]</a>(-a_r(<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="432403287b292c7b3a70317174">[email&#160;protected]</a>%m</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]</span><span class="w"></span>
-<span class="w">  </span><span class="nt">depends_on</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redis</span><span class="w"></span>
-<span class="nt">celery-beat</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">build</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./project</span><span class="w"></span>
-<span class="w">  </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">celery -A core beat -l info</span><span class="w"></span>
-<span class="w">  </span><span class="nt">volumes</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./project/:/usr/src/app/</span><span class="w"></span>
-<span class="w">  </span><span class="nt">environment</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DEBUG=1</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SECRET_KEY=dbaa1_i7%*<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ebd899d2c6d691c6c0b48691df99c6ca9a8e8e8fab">[email&#160;protected]</a>(-a_r(<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="583f183360323760216b2a6a6f">[email&#160;protected]</a>%m</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]</span><span class="w"></span>
-<span class="w">  </span><span class="nt">depends_on</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redis</span><span class="w"></span>
-</code></pre></div>
-
-<p>We also need to update the web service's <code>depends_on</code> section:</p>
-<div class="codehilite"><pre><span></span><code><span class="nt">web</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">build</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./project</span><span class="w"></span>
-<span class="w">  </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python manage.py runserver 0.0.0.0:8000</span><span class="w"></span>
-<span class="w">  </span><span class="nt">volumes</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./project/:/usr/src/app/</span><span class="w"></span>
-<span class="w">  </span><span class="nt">ports</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1337:8000</span><span class="w"></span>
-<span class="w">  </span><span class="nt">environment</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DEBUG=1</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SECRET_KEY=dbaa1_i7%*<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b487c68d9989ce999febd9ce80c69995c5d1d1d0f4">[email&#160;protected]</a>(-a_r(<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d2b592b9eab8bdeaabe1a0e0e5">[email&#160;protected]</a>%m</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]</span><span class="w"></span>
-<span class="w">  </span><span class="nt">depends_on</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redis</span><span class="w"> </span><span class="c1"># NEW</span><span class="w"></span>
-</code></pre></div>
-
-<p>The full <em>docker-compose.yml</em> file should now look like this:</p>
-<div class="codehilite"><pre><span></span><code><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;3.8&#39;</span><span class="w"></span>
-
-<span class="nt">services</span><span class="p">:</span><span class="w"></span>
-<span class="w">  </span><span class="nt">web</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">build</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./project</span><span class="w"></span>
-<span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python manage.py runserver 0.0.0.0:8000</span><span class="w"></span>
-<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./project/:/usr/src/app/</span><span class="w"></span>
-<span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1337:8000</span><span class="w"></span>
-<span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DEBUG=1</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SECRET_KEY=dbaa1_i7%*<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3407460d19094e191f6b594e004619154551515074">[email&#160;protected]</a>(-a_r(<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="224562491a484d1a5b11501015">[email&#160;protected]</a>%m</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]</span><span class="w"></span>
-<span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redis</span><span class="w"></span>
-<span class="w">  </span><span class="nt">redis</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redis:alpine</span><span class="w"></span>
-<span class="w">  </span><span class="nt">celery</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">build</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./project</span><span class="w"></span>
-<span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">celery -A core worker -l info</span><span class="w"></span>
-<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./project/:/usr/src/app/</span><span class="w"></span>
-<span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DEBUG=1</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SECRET_KEY=dbaa1_i7%*<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2c1f5e150111560107734156185e010d5d4949486c">[email&#160;protected]</a>(-a_r(<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a7c0e7cc9fcdc89fde94d59590">[email&#160;protected]</a>%m</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]</span><span class="w"></span>
-<span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redis</span><span class="w"></span>
-<span class="w">  </span><span class="nt">celery-beat</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">build</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./project</span><span class="w"></span>
-<span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">celery -A core beat -l info</span><span class="w"></span>
-<span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./project/:/usr/src/app/</span><span class="w"></span>
-<span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DEBUG=1</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SECRET_KEY=dbaa1_i7%*<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4271307b6f7f386f691d2f3876306f633327272602">[email&#160;protected]</a>(-a_r(<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6e092e0556040156175d1c5c59">[email&#160;protected]</a>%m</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]</span><span class="w"></span>
-<span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redis</span><span class="w"></span>
-</code></pre></div>
-
-<p>Before building the new containers we need to configure Celery in our Django app.</p>
-<h2 id="celery-configuration">Celery Configuration</h2>
-<h3 id="setup">Setup</h3>
-<p>In the "core" directory, create a <em>celery.py</em> file and add the following code:</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">os</span>
-
-<span class="kn">from</span> <span class="nn">celery</span> <span class="kn">import</span> <span class="n">Celery</span>
-
-
-<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;DJANGO_SETTINGS_MODULE&quot;</span><span class="p">,</span> <span class="s2">&quot;core.settings&quot;</span><span class="p">)</span>
-
-<span class="n">app</span> <span class="o">=</span> <span class="n">Celery</span><span class="p">(</span><span class="s2">&quot;core&quot;</span><span class="p">)</span>
-<span class="n">app</span><span class="o">.</span><span class="n">config_from_object</span><span class="p">(</span><span class="s2">&quot;django.conf:settings&quot;</span><span class="p">,</span> <span class="n">namespace</span><span class="o">=</span><span class="s2">&quot;CELERY&quot;</span><span class="p">)</span>
-<span class="n">app</span><span class="o">.</span><span class="n">autodiscover_tasks</span><span class="p">()</span>
-</code></pre></div>
-
-<p>What's happening here?</p>
+<h2 id="project-setup">Project Setup ( Simple Blog App ) </h2>
+<p>This blog project will consist of multiple models, which will be serialized and served via <a href="https://www.django-rest-framework.org/">Django REST Framework</a>. After integrating Elasticsearch, we'll create an endpoint that will allow us to look up different authors, categories, and articles.</p>
+<p>To keep our code clean and modular, we'll split our project into the following two apps:</p>
 <ol>
-<li>First, we set a default value for the <code>DJANGO_SETTINGS_MODULE</code> environment variable so that the Celery will know how to find the Django project.</li>
-<li>Next, we created a new Celery instance, with the name <code>core</code>, and assigned the value to a variable called <code>app</code>.</li>
-<li>We then loaded the celery configuration values from the settings object from <code>django.conf</code>. We used <code>namespace="CELERY"</code> to prevent clashes with other Django settings. All config settings for Celery must be prefixed with <code>CELERY_</code>, in other words.</li>
-<li>Finally, <code>app.autodiscover_tasks()</code> tells Celery to look for Celery tasks from applications defined in <code>settings.INSTALLED_APPS</code>.</li>
+<li><code>blog</code> - for our Django models, serializers, and ViewSets</li>
+<li><code>search</code> - for Elasticsearch documents, indexes, and queries</li>
 </ol>
-<p>Add the following code to <em>core/__init__.py</em>:</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">.celery</span> <span class="kn">import</span> <span class="n">app</span> <span class="k">as</span> <span class="n">celery_app</span>
+<p>Start by creating a new directory and setting up a new Django project:</p>
+<div class="codehilite"><pre><span></span><code>$ mkdir django-drf-elasticsearch <span class="o">&amp;&amp;</span> <span class="nb">cd</span> django-drf-elasticsearch
+$ python3.9 -m venv env
+$ <span class="nb">source</span> env/bin/activate
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;celery_app&quot;</span><span class="p">,)</span>
+<span class="o">(</span>env<span class="o">)</span>$ pip install <span class="nv">django</span><span class="o">==</span><span class="m">3</span>.2.6
+<span class="o">(</span>env<span class="o">)</span>$ django-admin.py startproject core .
 </code></pre></div>
 
-<p>Lastly, update the <em>core/settings.py</em> file with the following Celery settings so that it can connect to Redis:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">CELERY_BROKER_URL</span> <span class="o">=</span> <span class="s2">&quot;redis://redis:6379&quot;</span>
-<span class="n">CELERY_RESULT_BACKEND</span> <span class="o">=</span> <span class="s2">&quot;redis://redis:6379&quot;</span>
+<p>After that, create a new app called <code>blog</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="o">(</span>env<span class="o">)</span>$ python manage.py startapp blog
 </code></pre></div>
 
-<p>Build the new containers to ensure that everything works:</p>
-<div class="codehilite"><pre><span></span><code>$ docker-compose up -d --build
+<p>Register the app in <em>core/settings.py</em> under <code>INSTALLED_APPS</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># core/settings.py</span>
+
+<span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">[</span>
+<span class="s1">&#39;django.contrib.admin&#39;</span><span class="p">,</span>
+<span class="s1">&#39;django.contrib.auth&#39;</span><span class="p">,</span>
+<span class="s1">&#39;django.contrib.contenttypes&#39;</span><span class="p">,</span>
+<span class="s1">&#39;django.contrib.sessions&#39;</span><span class="p">,</span>
+<span class="s1">&#39;django.contrib.messages&#39;</span><span class="p">,</span>
+<span class="s1">&#39;django.contrib.staticfiles&#39;</span><span class="p">,</span>
+<span class="s1">&#39;blog.apps.BlogConfig&#39;</span><span class="p">,</span> <span class="c1"># new</span>
+<span class="p">]</span>
 </code></pre></div>
 
-<p>Take a look at the logs for each service to see that they are ready, without errors:</p>
-<div class="codehilite"><pre><span></span><code>$ docker-compose logs <span class="s1">&#39;web&#39;</span>
-$ docker-compose logs <span class="s1">&#39;celery&#39;</span>
-$ docker-compose logs <span class="s1">&#39;celery-beat&#39;</span>
-$ docker-compose logs <span class="s1">&#39;redis&#39;</span>
+<h2 id="database-models">Database Models</h2>
+<p>Next, create <code>Category</code> and <code>Article</code> models in <em>blog/models.py</em>:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># blog/models.py</span>
+
+<span class="kn">from</span> <span class="nn">django.contrib.auth.models</span> <span class="kn">import</span> <span class="n">User</span>
+<span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+
+
+<span class="k">class</span> <span class="nc">Category</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
+<span class="n">description</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+<span class="n">verbose_name_plural</span> <span class="o">=</span> <span class="s1">&#39;categories&#39;</span>
+
+<span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1">&#39;</span>
+
+
+<span class="n">ARTICLE_TYPES</span> <span class="o">=</span> <span class="p">[</span>
+<span class="p">(</span><span class="s1">&#39;UN&#39;</span><span class="p">,</span> <span class="s1">&#39;Unspecified&#39;</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">&#39;TU&#39;</span><span class="p">,</span> <span class="s1">&#39;Tutorial&#39;</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">&#39;RS&#39;</span><span class="p">,</span> <span class="s1">&#39;Research&#39;</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">&#39;RW&#39;</span><span class="p">,</span> <span class="s1">&#39;Review&#39;</span><span class="p">),</span>
+<span class="p">]</span>
+
+
+<span class="k">class</span> <span class="nc">Article</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<span class="n">title</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">256</span><span class="p">)</span>
+<span class="n">author</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="n">User</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">)</span>
+<span class="nb">type</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="n">ARTICLE_TYPES</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;UN&#39;</span><span class="p">)</span>
+<span class="n">categories</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ManyToManyField</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="n">Category</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;categories&#39;</span><span class="p">)</span>
+<span class="n">content</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">()</span>
+<span class="n">created_datetime</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now_add</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">updated_datetime</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">author</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="si">}</span><span class="s1"> (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">created_datetime</span><span class="o">.</span><span class="n">date</span><span class="p">()</span><span class="si">}</span><span class="s1">)&#39;</span>
 </code></pre></div>
 
-<p>If all went well, we now have four containers, each with different services.</p>
-<p>Now we're ready to create a sample task to see that it works as it should.</p>
-<h3 id="create-a-task">Create a Task</h3>
-<p>Create a new file called <em>core/tasks.py</em> and add the following code for a sample task that just logs to the console:</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">celery</span> <span class="kn">import</span> <span class="n">shared_task</span>
-<span class="kn">from</span> <span class="nn">celery.utils.log</span> <span class="kn">import</span> <span class="n">get_task_logger</span>
-
-
-<span class="n">logger</span> <span class="o">=</span> <span class="n">get_task_logger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
-
-
-<span class="nd">@shared_task</span>
-<span class="k">def</span> <span class="nf">sample_task</span><span class="p">():</span>
-   <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;The sample task just ran.&quot;</span><span class="p">)</span>
+<p>Notes:</p>
+<ol>
+<li><code>Category</code> represents an article category -- i.e, programming, Linux, testing.</li>
+<li><code>Article</code> represents an individual article. Each article can have multiple categories. Articles have a specific type -- <code>Tutorial</code>, <code>Research</code>, <code>Review</code>, or <code>Unspecified</code>.</li>
+<li>Authors are represented by the default Django user model.</li>
+</ol>
+<h3 id="run-migrations">Run Migrations</h3>
+<p>Make migrations and then apply them:</p>
+<div class="codehilite"><pre><span></span><code><span class="o">(</span>env<span class="o">)</span>$ python manage.py makemigrations
+<span class="o">(</span>env<span class="o">)</span>$ python manage.py migrate
 </code></pre></div>
 
-<h3 id="schedule-the-task">Schedule the Task</h3>
-<p>At the end of your <em>settings.py</em> file, add the following code to schedule <code>sample_task</code> to run once per minute, using Celery Beat:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">CELERY_BEAT_SCHEDULE</span> <span class="o">=</span> <span class="p">{</span>
-   <span class="s2">&quot;sample_task&quot;</span><span class="p">:</span> <span class="p">{</span>
-       <span class="s2">&quot;task&quot;</span><span class="p">:</span> <span class="s2">&quot;core.tasks.sample_task&quot;</span><span class="p">,</span>
-       <span class="s2">&quot;schedule&quot;</span><span class="p">:</span> <span class="n">crontab</span><span class="p">(</span><span class="n">minute</span><span class="o">=</span><span class="s2">&quot;*/1&quot;</span><span class="p">),</span>
-   <span class="p">},</span>
+<p>Register the models in <em>blog/admin.py</em>:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># blog/admin.py</span>
+
+<span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+
+<span class="kn">from</span> <span class="nn">blog.models</span> <span class="kn">import</span> <span class="n">Category</span><span class="p">,</span> <span class="n">Article</span>
+
+
+<span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">Category</span><span class="p">)</span>
+<span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">Article</span><span class="p">)</span>
+</code></pre></div>
+
+<h3 id="populate-the-database">Populate the Database</h3>
+<p>Before moving to the next step, we need some data to work with. I've created a simple command we can use to populate the database.</p>
+<p>Create a new folder in "blog" called "management", and then inside that folder create another folder called "commands". Inside of the "commands" folder, create a new file called <em>populate_db.py</em>.</p>
+<div class="codehilite"><pre><span></span><code>management
+└── commands
+└── populate_db.py
+</code></pre></div>
+
+<p>Copy the file contents from <a href="https://github.com/testdrivenio/django-drf-elasticsearch/blob/main/blog/management/commands/populate_db.py">populate_db.py</a> and paste it inside your <em>populate_db.py</em>.</p>
+<p>Run the following command to populate the DB:</p>
+<div class="codehilite"><pre><span></span><code><span class="o">(</span>env<span class="o">)</span>$ python manage.py populate_db
+</code></pre></div>
+
+<p>If everything went well you should see a <code>Successfully populated the database.</code> message in the console and there should be a few articles in your database.</p>
+<h2 id="django-rest-framework">Django REST Framework</h2>
+<p>Now let's install <code>djangorestframework</code> using pip:</p>
+<div class="codehilite"><pre><span></span><code><span class="o">(</span>env<span class="o">)</span>$ pip install <span class="nv">djangorestframework</span><span class="o">==</span><span class="m">3</span>.12.4
+</code></pre></div>
+
+<p>Register it in our <em>settings.py</em> like so:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># core/settings.py</span>
+
+<span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">[</span>
+<span class="s1">&#39;django.contrib.admin&#39;</span><span class="p">,</span>
+<span class="s1">&#39;django.contrib.auth&#39;</span><span class="p">,</span>
+<span class="s1">&#39;django.contrib.contenttypes&#39;</span><span class="p">,</span>
+<span class="s1">&#39;django.contrib.sessions&#39;</span><span class="p">,</span>
+<span class="s1">&#39;django.contrib.messages&#39;</span><span class="p">,</span>
+<span class="s1">&#39;django.contrib.staticfiles&#39;</span><span class="p">,</span>
+<span class="s1">&#39;blog.apps.BlogConfig&#39;</span><span class="p">,</span>
+<span class="s1">&#39;rest_framework&#39;</span><span class="p">,</span> <span class="c1"># new</span>
+<span class="p">]</span>
+</code></pre></div>
+
+<p>Add the following settings:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># core/settings.py</span>
+
+<span class="n">REST_FRAMEWORK</span> <span class="o">=</span> <span class="p">{</span>
+<span class="s1">&#39;DEFAULT_PAGINATION_CLASS&#39;</span><span class="p">:</span> <span class="s1">&#39;rest_framework.pagination.LimitOffsetPagination&#39;</span><span class="p">,</span>
+<span class="s1">&#39;PAGE_SIZE&#39;</span><span class="p">:</span> <span class="mi">25</span>
 <span class="p">}</span>
 </code></pre></div>
 
-<p>Here, we defined a periodic task using the <a href="https://docs.celeryq.dev/en/latest/userguide/configuration.html#std:setting-beat_schedule">CELERY_BEAT_SCHEDULE</a> setting. We gave the task a name, <code>sample_task</code>, and then declared two settings:</p>
+<p>We'll need these settings to implement pagination.</p>
+<h3 id="create-serializers">Create Serializers</h3>
+<p>To serialize our Django models, we need to create a serializer for each of them. The easiest way to create serializers that depend on Django models is by using the <code>ModelSerializer</code> class.</p>
+<p><em>blog/serializers.py</em>:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># blog/serializers.py</span>
+
+<span class="kn">from</span> <span class="nn">django.contrib.auth.models</span> <span class="kn">import</span> <span class="n">User</span>
+<span class="kn">from</span> <span class="nn">rest_framework</span> <span class="kn">import</span> <span class="n">serializers</span>
+
+<span class="kn">from</span> <span class="nn">blog.models</span> <span class="kn">import</span> <span class="n">Article</span><span class="p">,</span> <span class="n">Category</span>
+
+
+<span class="k">class</span> <span class="nc">UserSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">ModelSerializer</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">User</span>
+<span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;username&#39;</span><span class="p">,</span> <span class="s1">&#39;first_name&#39;</span><span class="p">,</span> <span class="s1">&#39;last_name&#39;</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">CategorySerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">ModelSerializer</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">Category</span>
+<span class="n">fields</span> <span class="o">=</span> <span class="s1">&#39;__all__&#39;</span>
+
+
+<span class="k">class</span> <span class="nc">ArticleSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">ModelSerializer</span><span class="p">):</span>
+<span class="n">author</span> <span class="o">=</span> <span class="n">UserSerializer</span><span class="p">()</span>
+<span class="n">categories</span> <span class="o">=</span> <span class="n">CategorySerializer</span><span class="p">(</span><span class="n">many</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">Article</span>
+<span class="n">fields</span> <span class="o">=</span> <span class="s1">&#39;__all__&#39;</span>
+</code></pre></div>
+
+<p>Notes:</p>
 <ol>
-<li><code>task</code> declares which task to run.</li>
-<li><code>schedule</code> sets the interval on which the task should run. This can be an integer, a timedelta, or a crontab. We used a crontab pattern for our task to tell it to run once every minute. You can find more info on Celery's scheduling <a href="https://docs.celeryq.dev/en/stable/reference/celery.schedules.html">here</a>.</li>
+<li><code>UserSerializer</code> and <code>CategorySerializer</code> are fairly simple: We just provided the fields we want serialized.</li>
+<li>In the <code>ArticleSerializer</code>, we needed to take care of the relationships to make sure they also get serialized. This is why we provided <code>UserSerializer</code> and <code>CategorySerializer</code>.</li>
 </ol>
-<p>Make sure to add the imports:</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">celery.schedules</span> <span class="kn">import</span> <span class="n">crontab</span>
 
-<span class="kn">import</span> <span class="nn">core.tasks</span>
+<h3 id="create-viewsets">Create ViewSets</h3>
+<p>Let's create a ViewSet for each of our models in <em>blog/views.py</em>:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># blog/views.py</span>
+
+<span class="kn">from</span> <span class="nn">django.contrib.auth.models</span> <span class="kn">import</span> <span class="n">User</span>
+<span class="kn">from</span> <span class="nn">rest_framework</span> <span class="kn">import</span> <span class="n">viewsets</span>
+
+<span class="kn">from</span> <span class="nn">blog.models</span> <span class="kn">import</span> <span class="n">Category</span><span class="p">,</span> <span class="n">Article</span>
+<span class="kn">from</span> <span class="nn">blog.serializers</span> <span class="kn">import</span> <span class="n">CategorySerializer</span><span class="p">,</span> <span class="n">ArticleSerializer</span><span class="p">,</span> <span class="n">UserSerializer</span>
+
+
+<span class="k">class</span> <span class="nc">UserViewSet</span><span class="p">(</span><span class="n">viewsets</span><span class="o">.</span><span class="n">ModelViewSet</span><span class="p">):</span>
+<span class="n">serializer_class</span> <span class="o">=</span> <span class="n">UserSerializer</span>
+<span class="n">queryset</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+
+
+<span class="k">class</span> <span class="nc">CategoryViewSet</span><span class="p">(</span><span class="n">viewsets</span><span class="o">.</span><span class="n">ModelViewSet</span><span class="p">):</span>
+<span class="n">serializer_class</span> <span class="o">=</span> <span class="n">CategorySerializer</span>
+<span class="n">queryset</span> <span class="o">=</span> <span class="n">Category</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+
+
+<span class="k">class</span> <span class="nc">ArticleViewSet</span><span class="p">(</span><span class="n">viewsets</span><span class="o">.</span><span class="n">ModelViewSet</span><span class="p">):</span>
+<span class="n">serializer_class</span> <span class="o">=</span> <span class="n">ArticleSerializer</span>
+<span class="n">queryset</span> <span class="o">=</span> <span class="n">Article</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
 </code></pre></div>
 
-<p>Restart the container to pull in the new settings:</p>
-<div class="codehilite"><pre><span></span><code>$ docker-compose up -d --build
+<p>In this block of code, we created the ViewSets by providing the <code>serializer_class</code> and <code>queryset</code> for each ViewSet.</p>
+<h3 id="define-urls">Define URLs</h3>
+<p>Create the app-level URLs for the ViewSets:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># blog/urls.py</span>
+
+<span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">path</span><span class="p">,</span> <span class="n">include</span>
+<span class="kn">from</span> <span class="nn">rest_framework</span> <span class="kn">import</span> <span class="n">routers</span>
+
+<span class="kn">from</span> <span class="nn">blog.views</span> <span class="kn">import</span> <span class="n">UserViewSet</span><span class="p">,</span> <span class="n">CategoryViewSet</span><span class="p">,</span> <span class="n">ArticleViewSet</span>
+
+<span class="n">router</span> <span class="o">=</span> <span class="n">routers</span><span class="o">.</span><span class="n">DefaultRouter</span><span class="p">()</span>
+<span class="n">router</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;user&#39;</span><span class="p">,</span> <span class="n">UserViewSet</span><span class="p">)</span>
+<span class="n">router</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;category&#39;</span><span class="p">,</span> <span class="n">CategoryViewSet</span><span class="p">)</span>
+<span class="n">router</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;article&#39;</span><span class="p">,</span> <span class="n">ArticleViewSet</span><span class="p">)</span>
+
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+<span class="n">path</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="n">router</span><span class="o">.</span><span class="n">urls</span><span class="p">)),</span>
+<span class="p">]</span>
 </code></pre></div>
 
-<p>Once done, take a look at the celery logs in the container:</p>
-<div class="codehilite"><pre><span></span><code>$ docker-compose logs -f <span class="s1">&#39;celery&#39;</span>
+<p>Then, wire up the app URLs to the project URLs:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># core/urls.py</span>
+
+<span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+<span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">path</span><span class="p">,</span> <span class="n">include</span>
+
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+<span class="n">path</span><span class="p">(</span><span class="s1">&#39;blog/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s1">&#39;blog.urls&#39;</span><span class="p">)),</span>
+<span class="n">path</span><span class="p">(</span><span class="s1">&#39;admin/&#39;</span><span class="p">,</span> <span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">urls</span><span class="p">),</span>
+<span class="p">]</span>
 </code></pre></div>
 
-<p>You should see something similar to:</p>
-<div class="codehilite"><pre><span></span><code>celery_1  <span class="p">|</span>  -------------- <span class="o">[</span>queues<span class="o">]</span>
-celery_1  <span class="p">|</span>                 .&gt; celery           <span class="nv">exchange</span><span class="o">=</span>celery<span class="o">(</span>direct<span class="o">)</span> <span class="nv">key</span><span class="o">=</span>celery
-celery_1  <span class="p">|</span>
-celery_1  <span class="p">|</span>
-celery_1  <span class="p">|</span> <span class="o">[</span>tasks<span class="o">]</span>
-celery_1  <span class="p">|</span>   . core.tasks.sample_task
+<p>Our app now has the following URLs:</p>
+<ol>
+<li><code>/blog/user/</code> lists all users</li>
+<li><code>/blog/user/&lt;USER_ID&gt;/</code> fetches a specific user</li>
+<li><code>/blog/category/</code> lists all categories</li>
+<li><code>/blog/category/&lt;CATEGORY_ID&gt;/</code> fetches a specific category</li>
+<li><code>/blog/article/</code> lists all articles</li>
+<li><code>/blog/article/&lt;ARTICLE_ID&gt;/</code> fetches a specific article</li>
+</ol>
+<h3 id="testing">Testing</h3>
+<p>Now that we've registered the URLs, we can test the endpoints to see if everything works correctly.</p>
+<p>Run the development server:</p>
+<div class="codehilite"><pre><span></span><code><span class="o">(</span>env<span class="o">)</span>$ python manage.py runserver
 </code></pre></div>
 
-<p>We can see that Celery picked up our sample task, <code>core.tasks.sample_task</code>.</p>
-<p>Every minute you should see a row in the log that ends with "The sample task just ran.":</p>
-<div class="codehilite"><pre><span></span><code>celery_1  <span class="p">|</span> <span class="o">[</span><span class="m">2021</span>-07-01 <span class="m">03</span>:06:00,003: INFO/MainProcess<span class="o">]</span>
-             Task core.tasks.sample_task<span class="o">[</span>b8041b6c-bf9b-47ce-ab00-c37c1e837bc7<span class="o">]</span> received
-celery_1  <span class="p">|</span> <span class="o">[</span><span class="m">2021</span>-07-01 <span class="m">03</span>:06:00,004: INFO/ForkPoolWorker-8<span class="o">]</span>
-             core.tasks.sample_task<span class="o">[</span>b8041b6c-bf9b-47ce-ab00-c37c1e837bc7<span class="o">]</span>:
-             The sample task just ran.
+<p>Then, in your browser of choice, navigate to <a href="http://127.0.0.1:8000/blog/article/">http://127.0.0.1:8000/blog/article/</a>. The response should look something like this:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;next&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;previous&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;results&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">        </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;author&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;jess_&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;first_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Jess&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;last_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Brown&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="p">},</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;categories&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">                </span><span class="p">{</span><span class="w"></span>
+<span class="w">                    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"></span>
+<span class="w">                    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SEO optimization&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                    </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w"></span>
+<span class="w">                </span><span class="p">}</span><span class="w"></span>
+<span class="w">            </span><span class="p">],</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;How to improve your Google rating?&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TU&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Firstly, add the correct SEO tags...&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;created_datetime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2021-08-12T17:34:31.271610Z&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;updated_datetime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2021-08-12T17:34:31.322165Z&quot;</span><span class="w"></span>
+<span class="w">        </span><span class="p">},</span><span class="w"></span>
+<span class="w">        </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;author&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;johnny&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;first_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Johnny&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="nt">&quot;last_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Davis&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="p">},</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;categories&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">                </span><span class="p">{</span><span class="w"></span>
+<span class="w">                    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"></span>
+<span class="w">                    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Programming&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                    </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w"></span>
+<span class="w">                </span><span class="p">}</span><span class="w"></span>
+<span class="w">            </span><span class="p">],</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Installing latest version of Ubuntu&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TU&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;In this tutorial, we&#39;ll take a look at how to setup the latest version of Ubuntu. Ubuntu (/ʊˈbʊntuː/ is a Linux distribution based on Debian and composed mostly of free and open-source software. Ubuntu is officially released in three editions: Desktop, Server, and Core for Internet of things devices and robots.&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;created_datetime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2021-08-12T17:34:31.540628Z&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="nt">&quot;updated_datetime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2021-08-12T17:34:31.592555Z&quot;</span><span class="w"></span>
+<span class="w">        </span><span class="p">},</span><span class="w"></span>
+<span class="w">        </span><span class="err">...</span><span class="w"></span>
+<span class="w">    </span><span class="p">]</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 
-<h2 id="custom-django-admin-command">Custom Django Admin Command</h2>
-<p>Django provides a <a href="https://docs.djangoproject.com/en/3.2/ref/django-admin/#available-commands">number</a> of built-in <code>django-admin</code> commands, like:</p>
-<ul>
-<li><code>migrate</code></li>
-<li><code>startproject</code></li>
-<li><code>startapp</code></li>
-<li><code>dumpdata</code></li>
-<li><code>makemigrations</code></li>
-</ul>
-<p>Along with the built-in commands, Django also gives us the option to create our own <a href="https://docs.djangoproject.com/en/3.2/howto/custom-management-commands/">custom commands</a>:</p>
-
-<p>So, we'll first configure a new command and then use Celery Beat to run it automatically.</p>
-<p>Start by creating a new file called <em>orders/management/commands/my_custom_command.py</em>. Then, add the minimal required code for it to run:</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">django.core.management.base</span> <span class="kn">import</span> <span class="n">BaseCommand</span><span class="p">,</span> <span class="n">CommandError</span>
+<p>Manually test the other endpoints as well.</p>
+<h2 id="elasticsearch-setup">Elasticsearch Setup</h2>
+<p>Start by installing and running Elasticsearch in the background.</p>
 
 
-<span class="k">class</span> <span class="nc">Command</span><span class="p">(</span><span class="n">BaseCommand</span><span class="p">):</span>
-   <span class="n">help</span> <span class="o">=</span> <span class="s2">&quot;A description of the command&quot;</span>
-
-<span class="k">def</span> <span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
-       <span class="k">pass</span>
+<p>To integrate Elasticsearch with Django, we need to install the following packages:</p>
+<ol>
+<li><a href="https://elasticsearch-py.readthedocs.io/en/7.x/">elasticsearch</a> - official low-level Python client for Elasticsearch</li>
+<li><a href="https://elasticsearch-dsl.readthedocs.io/en/latest/">elasticsearch-dsl-py</a> - high-level library for writing and running queries against Elasticsearch</li>
+<li><a href="https://django-elasticsearch-dsl.readthedocs.io/en/latest/">django-elasticsearch-dsl</a> - wrapper around elasticsearch-dsl-py that allows indexing Django models in Elasticsearch</li>
+</ol>
+<p>Install:</p>
+<div class="codehilite"><pre><span></span><code><span class="o">(</span>env<span class="o">)</span>$ pip install <span class="nv">elasticsearch</span><span class="o">==</span><span class="m">7</span>.14.0
+<span class="o">(</span>env<span class="o">)</span>$ pip install elasticsearch-dsl<span class="o">==</span><span class="m">7</span>.4.0
+<span class="o">(</span>env<span class="o">)</span>$ pip install django-elasticsearch-dsl<span class="o">==</span><span class="m">7</span>.2.0
 </code></pre></div>
 
-<p>The <code>BaseCommand</code> has a few <a href="https://docs.djangoproject.com/en/3.2/howto/custom-management-commands/#methods">methods</a> that can be overridden, but the only method that's required is <code>handle</code>. <code>handle</code> is the entry point for custom commands. In other words, when we run the command, this method is called.</p>
-<p>To test, we'd normally just add a quick print statement. However, it's recommended to use <code>stdout.write</code> instead per the Django documentation:</p>
-
-<p>So, add a <code>self.stdout.write</code> command:</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">django.core.management.base</span> <span class="kn">import</span> <span class="n">BaseCommand</span><span class="p">,</span> <span class="n">CommandError</span>
-
-
-<span class="k">class</span> <span class="nc">Command</span><span class="p">(</span><span class="n">BaseCommand</span><span class="p">):</span>
-   <span class="n">help</span> <span class="o">=</span> <span class="s2">&quot;A description of the command&quot;</span>
-
-<span class="k">def</span> <span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
-       <span class="bp">self</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;My sample command just ran.&quot;</span><span class="p">)</span> <span class="c1"># NEW</span>
+<p>Start a new app called <code>search</code>, which will hold our Elasticsearch documents, indexes, and queries:</p>
+<div class="codehilite"><pre><span></span><code><span class="o">(</span>env<span class="o">)</span>$ python manage.py startapp search
 </code></pre></div>
 
-<p>To test, from the command line, run:</p>
-<div class="codehilite"><pre><span></span><code>$ docker-compose <span class="nb">exec</span> web python manage.py my_custom_command
+<p>Register the <code>search</code> and <code>django_elasticsearch_dsl</code> in <em>core/settings.py</em> under <code>INSTALLED_APPS</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># core/settings.py</span>
+
+<span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">[</span>
+<span class="s1">&#39;django.contrib.admin&#39;</span><span class="p">,</span>
+<span class="s1">&#39;django.contrib.auth&#39;</span><span class="p">,</span>
+<span class="s1">&#39;django.contrib.contenttypes&#39;</span><span class="p">,</span>
+<span class="s1">&#39;django.contrib.sessions&#39;</span><span class="p">,</span>
+<span class="s1">&#39;django.contrib.messages&#39;</span><span class="p">,</span>
+<span class="s1">&#39;django.contrib.staticfiles&#39;</span><span class="p">,</span>
+<span class="s1">&#39;django_elasticsearch_dsl&#39;</span><span class="p">,</span> <span class="c1"># new</span>
+<span class="s1">&#39;blog.apps.BlogConfig&#39;</span><span class="p">,</span>
+<span class="s1">&#39;search.apps.SearchConfig&#39;</span><span class="p">,</span> <span class="c1"># new</span>
+<span class="s1">&#39;rest_framework&#39;</span><span class="p">,</span>
+<span class="p">]</span>
 </code></pre></div>
 
-<p>You should see:</p>
-<div class="codehilite"><pre><span></span><code>My sample <span class="nb">command</span> just ran.
-</code></pre></div>
+<p>Now we need to let Django know where Elasticsearch is running. We do that by adding the following to our <em>core/settings.py</em> file:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># core/settings.py</span>
 
-<p>With that, let's tie everything together!</p>
-<h2 id="schedule-a-custom-command-with-celery-beat">Schedule a Custom Command with Celery Beat</h2>
-<p>Now that we've spun up the containers, tested that we can schedule a task to run periodically, and wrote a custom Django Admin sample command, it's time to configure Celery Beat to run the custom command periodically.</p>
-<h3 id="setup_1">Setup</h3>
-<p>In the project we have a very basic app called orders. It contains two models, <code>Product</code> and <code>Order</code>. Let's create a custom command that sends an email report of the confirmed orders from the day.</p>
-<p>To begin with, we'll add a few products and orders to the database via the fixture included in this project:</p>
-<div class="codehilite"><pre><span></span><code>$ docker-compose <span class="nb">exec</span> web python manage.py loaddata products.json
-</code></pre></div>
+<span class="c1"># Elasticsearch</span>
+<span class="c1"># https://django-elasticsearch-dsl.readthedocs.io/en/latest/settings.html</span>
 
-<p>Next, add some sample orders via the Django Admin interface. To do so, first create a superuser:</p>
-<div class="codehilite"><pre><span></span><code>$ docker-compose <span class="nb">exec</span> web python manage.py createsuperuser
-</code></pre></div>
-
-<p>Fill in username, email, and password when prompted. Then navigate to <a href="http://127.0.0.1:1337/admin">http://127.0.0.1:1337/admin</a> in your web browser. Log in with the superuser you just created and create a couple of orders. Make sure at least one has a <code>confirmed_date</code> of today.</p>
-<p>Let's create a new custom command for our e-mail report.</p>
-<p>Create a file called <em>orders/management/commands/email_report.py</em>:</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">timedelta</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">datetime</span>
-
-<span class="kn">from</span> <span class="nn">django.core.mail</span> <span class="kn">import</span> <span class="n">mail_admins</span>
-<span class="kn">from</span> <span class="nn">django.core.management</span> <span class="kn">import</span> <span class="n">BaseCommand</span>
-<span class="kn">from</span> <span class="nn">django.utils</span> <span class="kn">import</span> <span class="n">timezone</span>
-<span class="kn">from</span> <span class="nn">django.utils.timezone</span> <span class="kn">import</span> <span class="n">make_aware</span>
-
-<span class="kn">from</span> <span class="nn">orders.models</span> <span class="kn">import</span> <span class="n">Order</span>
-
-<span class="n">today</span> <span class="o">=</span> <span class="n">timezone</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
-<span class="n">tomorrow</span> <span class="o">=</span> <span class="n">today</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">today_start</span> <span class="o">=</span> <span class="n">make_aware</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">combine</span><span class="p">(</span><span class="n">today</span><span class="p">,</span> <span class="n">time</span><span class="p">()))</span>
-<span class="n">today_end</span> <span class="o">=</span> <span class="n">make_aware</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">combine</span><span class="p">(</span><span class="n">tomorrow</span><span class="p">,</span> <span class="n">time</span><span class="p">()))</span>
-
-
-<span class="k">class</span> <span class="nc">Command</span><span class="p">(</span><span class="n">BaseCommand</span><span class="p">):</span>
-   <span class="n">help</span> <span class="o">=</span> <span class="s2">&quot;Send Today&#39;s Orders Report to Admins&quot;</span>
-
-<span class="k">def</span> <span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
-       <span class="n">orders</span> <span class="o">=</span> <span class="n">Order</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">confirmed_date__range</span><span class="o">=</span><span class="p">(</span><span class="n">today_start</span><span class="p">,</span> <span class="n">today_end</span><span class="p">))</span>
-
-<span class="k">if</span> <span class="n">orders</span><span class="p">:</span>
-           <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-
-<span class="k">for</span> <span class="n">order</span> <span class="ow">in</span> <span class="n">orders</span><span class="p">:</span>
-               <span class="n">message</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">order</span><span class="si">}</span><span class="s2"> </span><span class="se">\n</span><span class="s2">&quot;</span>
-
-<span class="n">subject</span> <span class="o">=</span> <span class="p">(</span>
-               <span class="sa">f</span><span class="s2">&quot;Order Report for </span><span class="si">{</span><span class="n">today_start</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2"> &quot;</span>
-               <span class="sa">f</span><span class="s2">&quot;to </span><span class="si">{</span><span class="n">today_end</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
-           <span class="p">)</span>
-
-<span class="n">mail_admins</span><span class="p">(</span><span class="n">subject</span><span class="o">=</span><span class="n">subject</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="n">message</span><span class="p">,</span> <span class="n">html_message</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-
-<span class="bp">self</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;E-mail Report was sent.&quot;</span><span class="p">)</span>
-       <span class="k">else</span><span class="p">:</span>
-           <span class="bp">self</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;No orders confirmed today.&quot;</span><span class="p">)</span>
-</code></pre></div>
-
-<p>In the code, we queried the database for orders with a <code>confirmed_date</code> of today, combined the orders into a single message for the email body, and used Django's built in <code>mail_admins</code> command to send the emails to the admins.</p>
-<p>Add a dummy admin email and set the <code>EMAIL_BACKEND</code> to use the <a href="https://docs.djangoproject.com/en/3.2/topics/email/#console-backend">Console backend</a>, so the email is sent to stdout, in the settings file:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">EMAIL_BACKEND</span> <span class="o">=</span> <span class="s2">&quot;django.core.mail.backends.console.EmailBackend&quot;</span>
-<span class="n">DEFAULT_FROM_EMAIL</span> <span class="o">=</span> <span class="s2">&quot;<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="432d2c3126332f3a03262e222a2f6d202c2e">[email&#160;protected]</a>&quot;</span>
-<span class="n">ADMINS</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;testuser&quot;</span><span class="p">,</span> <span class="s2">&quot;<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="51253422257f2422342311343c30383d7f323e3c">[email&#160;protected]</a>&quot;</span><span class="p">),</span> <span class="p">]</span>
-</code></pre></div>
-
-<p>It should now be possible to run our new command from the terminal.</p>
-<div class="codehilite"><pre><span></span><code>$ docker-compose <span class="nb">exec</span> web python manage.py email_report
-</code></pre></div>
-
-<p>And the output should look similar to this:</p>
-<div class="codehilite"><pre><span></span><code>Content-Type: text/plain<span class="p">;</span> <span class="nv">charset</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span>
-MIME-Version: <span class="m">1</span>.0
-Content-Transfer-Encoding: 7bit
-Subject: <span class="o">[</span>Django<span class="o">]</span> Order Report <span class="k">for</span> <span class="m">2021</span>-07-01 to <span class="m">2021</span>-07-02
-From: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1e6c71716a5e72717d7f7276716d6a">[email&#160;protected]</a>
-To: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="93e7f6e0e7bde6e0f6e1d3f6fef2faffbdf0fcfe">[email&#160;protected]</a>
-Date: Thu, <span class="m">01</span> Jul <span class="m">2021</span> <span class="m">12</span>:15:50 -0000
-Message-ID: &lt;<span class="m">162514175053</span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1a342e2a342f2d2a2f222328292d2b2f29222f22292b2b2f5a2f2b2e2a222e2e7f78782b2f">[email&#160;protected]</a>&gt;
-
-Order: 3947963f-1860-44d1-9b9a-4648fed04581 - product: Coffee
-Order: ff449e6e-3dfd-48a8-9d5c-79a145d08253 - product: Rice
-
--------------------------------------------------------------------------------
-E-mail Report was sent.
-</code></pre></div>
-
-<h3 id="celery-beat">Celery Beat</h3>
-<p>We now need to create a periodic task to run this command daily.</p>
-<p>Add a new task to <em>core/tasks.py</em>:</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">celery</span> <span class="kn">import</span> <span class="n">shared_task</span>
-<span class="kn">from</span> <span class="nn">celery.utils.log</span> <span class="kn">import</span> <span class="n">get_task_logger</span>
-<span class="kn">from</span> <span class="nn">django.core.management</span> <span class="kn">import</span> <span class="n">call_command</span> <span class="c1"># NEW</span>
-
-
-<span class="n">logger</span> <span class="o">=</span> <span class="n">get_task_logger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
-
-
-<span class="nd">@shared_task</span>
-<span class="k">def</span> <span class="nf">sample_task</span><span class="p">():</span>
-   <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;The sample task just ran.&quot;</span><span class="p">)</span>
-
-
-<span class="c1"># NEW</span>
-<span class="nd">@shared_task</span>
-<span class="k">def</span> <span class="nf">send_email_report</span><span class="p">():</span>
-   <span class="n">call_command</span><span class="p">(</span><span class="s2">&quot;email_report&quot;</span><span class="p">,</span> <span class="p">)</span>
-</code></pre></div>
-
-<p>So, first we added a <code>call_command</code> import, which is used for programmatically calling django-admin commands. In the new task, we then used the <code>call_command</code> with the name of our custom command as an argument.</p>
-<p>To schedule this task, open the <em>core/settings.py</em> file, and update the <code>CELERY_BEAT_SCHEDULE</code> setting to include the new task:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">CELERY_BEAT_SCHEDULE</span> <span class="o">=</span> <span class="p">{</span>
-   <span class="s2">&quot;sample_task&quot;</span><span class="p">:</span> <span class="p">{</span>
-       <span class="s2">&quot;task&quot;</span><span class="p">:</span> <span class="s2">&quot;core.tasks.sample_task&quot;</span><span class="p">,</span>
-       <span class="s2">&quot;schedule&quot;</span><span class="p">:</span> <span class="n">crontab</span><span class="p">(</span><span class="n">minute</span><span class="o">=</span><span class="s2">&quot;*/1&quot;</span><span class="p">),</span>
-   <span class="p">},</span>
-   <span class="s2">&quot;send_email_report&quot;</span><span class="p">:</span> <span class="p">{</span>
-       <span class="s2">&quot;task&quot;</span><span class="p">:</span> <span class="s2">&quot;core.tasks.send_email_report&quot;</span><span class="p">,</span>
-       <span class="s2">&quot;schedule&quot;</span><span class="p">:</span> <span class="n">crontab</span><span class="p">(</span><span class="n">hour</span><span class="o">=</span><span class="s2">&quot;*/1&quot;</span><span class="p">),</span>
-   <span class="p">},</span>
+<span class="n">ELASTICSEARCH_DSL</span> <span class="o">=</span> <span class="p">{</span>
+<span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="p">{</span>
+<span class="s1">&#39;hosts&#39;</span><span class="p">:</span> <span class="s1">&#39;localhost:9200&#39;</span>
+<span class="p">},</span>
 <span class="p">}</span>
 </code></pre></div>
 
-<p>Here we added a new entry to the <code>CELERY_BEAT_SCHEDULE</code> called <code>send_email_report</code>. As we did for our previous task, we declared which task it should run -- e.g., <code>core.tasks.send_email_report</code> -- and used a crontab pattern to set the recurrence.</p>
-<p>Restart the containers to make sure the new settings become active:</p>
-<div class="codehilite"><pre><span></span><code>$ docker-compose up -d --build
+<p>We can test if Django can connect to the Elasticsearch by starting our server:</p>
+<div class="codehilite"><pre><span></span><code><span class="o">(</span>env<span class="o">)</span>$ python manage.py runserver
 </code></pre></div>
 
-<p>Open the logs associated with the <code>celery</code> service:</p>
-<div class="codehilite"><pre><span></span><code>$ docker-compose logs -f <span class="s1">&#39;celery&#39;</span>
+<p>If your Django server fails, Elasticsearch is probably not working correctly.</p>
+<h2 id="creating-documents">Creating Documents</h2>
+<p>Before creating the documents, we need to make sure all the data is going to get saved in the proper format. We're using <code>CharField(max_length=2)</code> for our article <code>type</code>, which by itself doesn't make much sense. This is why we'll transform it to human-readable text.</p>
+<p>We'll achieve this by adding a <code>type_to_string()</code> method inside our model like so:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># blog/models.py</span>
+
+<span class="k">class</span> <span class="nc">Article</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<span class="n">title</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">256</span><span class="p">)</span>
+<span class="n">author</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="n">User</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">)</span>
+<span class="nb">type</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="n">ARTICLE_TYPES</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;UN&#39;</span><span class="p">)</span>
+<span class="n">categories</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ManyToManyField</span><span class="p">(</span><span class="n">to</span><span class="o">=</span><span class="n">Category</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;categories&#39;</span><span class="p">)</span>
+<span class="n">content</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">()</span>
+<span class="n">created_datetime</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now_add</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">updated_datetime</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># new</span>
+<span class="k">def</span> <span class="nf">type_to_string</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;UN&#39;</span><span class="p">:</span>
+<span class="k">return</span> <span class="s1">&#39;Unspecified&#39;</span>
+<span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;TU&#39;</span><span class="p">:</span>
+<span class="k">return</span> <span class="s1">&#39;Tutorial&#39;</span>
+<span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;RS&#39;</span><span class="p">:</span>
+<span class="k">return</span> <span class="s1">&#39;Research&#39;</span>
+<span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;RW&#39;</span><span class="p">:</span>
+<span class="k">return</span> <span class="s1">&#39;Review&#39;</span>
+
+<span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">author</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="si">}</span><span class="s1"> (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">created_datetime</span><span class="o">.</span><span class="n">date</span><span class="p">()</span><span class="si">}</span><span class="s1">)&#39;</span>
 </code></pre></div>
 
-<p>You should see the <code>send_email_report</code> listed:</p>
-<div class="codehilite"><pre><span></span><code>celery_1  <span class="p">|</span>  -------------- <span class="o">[</span>queues<span class="o">]</span>
-celery_1  <span class="p">|</span>                 .&gt; celery           <span class="nv">exchange</span><span class="o">=</span>celery<span class="o">(</span>direct<span class="o">)</span> <span class="nv">key</span><span class="o">=</span>celery
-celery_1  <span class="p">|</span>
-celery_1  <span class="p">|</span>
-celery_1  <span class="p">|</span> <span class="o">[</span>tasks<span class="o">]</span>
-celery_1  <span class="p">|</span>   . core.tasks.sample_task
-celery_1  <span class="p">|</span>   . core.tasks.send_email_report
+<p>Without <code>type_to_string()</code> our model would be serialized like this:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;This is my article.&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;TU&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="err">...</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div>
 
-<p>A minute or so later you should see that the e-mail report is sent:</p>
-<div class="codehilite"><pre><span></span><code>celery_1  <span class="p">|</span> <span class="o">[</span><span class="m">2021</span>-07-01 <span class="m">12</span>:22:00,071: WARNING/ForkPoolWorker-8<span class="o">]</span> Content-Type: text/plain<span class="p">;</span> <span class="nv">charset</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span>
-celery_1  <span class="p">|</span> MIME-Version: <span class="m">1</span>.0
-celery_1  <span class="p">|</span> Content-Transfer-Encoding: 7bit
-celery_1  <span class="p">|</span> Subject: <span class="o">[</span>Django<span class="o">]</span> Order Report <span class="k">for</span> <span class="m">2021</span>-07-01 to <span class="m">2021</span>-07-02
-celery_1  <span class="p">|</span> From: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="65170a0a1125090a0604090d0a1611">[email&#160;protected]</a>
-celery_1  <span class="p">|</span> To: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0e7a6b7d7a207b7d6b7c4e6b636f6762206d6163">[email&#160;protected]</a>
-celery_1  <span class="p">|</span> Date: Thu, <span class="m">01</span> Jul <span class="m">2021</span> <span class="m">12</span>:22:00 -0000
-celery_1  <span class="p">|</span> Message-ID: &lt;<span class="m">162514212006</span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="82acb3b5acb4b2bab2b6b7bbb0bbbbb7b7bab1b7b4bab5b4c2b7b7e0bbbabab1e1b7b6b3b6">[email&#160;protected]</a>&gt;
-celery_1  <span class="p">|</span>
-celery_1  <span class="p">|</span> Order: 3947963f-1860-44d1-9b9a-4648fed04581 - product: Coffee
-celery_1  <span class="p">|</span> Order: ff449e6e-3dfd-48a8-9d5c-79a145d08253 - product: Rice
-celery_1  <span class="p">|</span>
-celery_1  <span class="p">|</span>
-celery_1  <span class="p">|</span> <span class="o">[</span><span class="m">2021</span>-07-01 <span class="m">12</span>:22:00,071: WARNING/ForkPoolWorker-8<span class="o">]</span> -------------------------------------------------------------------------------
-celery_1  <span class="p">|</span> <span class="o">[</span><span class="m">2021</span>-07-01 <span class="m">12</span>:22:00,071: WARNING/ForkPoolWorker-8<span class="o">]</span>
-celery_1  <span class="p">|</span>
-celery_1  <span class="p">|</span> <span class="o">[</span><span class="m">2021</span>-07-01 <span class="m">12</span>:22:00,071: WARNING/ForkPoolWorker-8<span class="o">]</span> E-mail Report was sent.
-</code>
-</pre>
-</div>
+<p>After implementing <code>type_to_string()</code> our model is serialized like this:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;This is my article.&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Tutorial&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="err">...</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+
+<p>Now let's create the documents. Each document needs to have an <code>Index</code> and <code>Django</code> class. In the <code>Index</code> class, we need to provide the index name and <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-update-settings.html">Elasticsearch index settings</a>. In the <code>Django</code> class, we tell the document which Django model to associate it to and provide the fields we want to be indexed.</p>
+<p><em>blog/documents.py</em>:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># blog/documents.py</span>
+
+<span class="kn">from</span> <span class="nn">django.contrib.auth.models</span> <span class="kn">import</span> <span class="n">User</span>
+<span class="kn">from</span> <span class="nn">django_elasticsearch_dsl</span> <span class="kn">import</span> <span class="n">Document</span><span class="p">,</span> <span class="n">fields</span>
+<span class="kn">from</span> <span class="nn">django_elasticsearch_dsl.registries</span> <span class="kn">import</span> <span class="n">registry</span>
+
+<span class="kn">from</span> <span class="nn">blog.models</span> <span class="kn">import</span> <span class="n">Category</span><span class="p">,</span> <span class="n">Article</span>
 
 
+<span class="nd">@registry</span><span class="o">.</span><span class="n">register_document</span>
+<span class="k">class</span> <span class="nc">UserDocument</span><span class="p">(</span><span class="n">Document</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">Index</span><span class="p">:</span>
+<span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;users&#39;</span>
+<span class="n">settings</span> <span class="o">=</span> <span class="p">{</span>
+<span class="s1">&#39;number_of_shards&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="s1">&#39;number_of_replicas&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="k">class</span> <span class="nc">Django</span><span class="p">:</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">User</span>
+<span class="n">fields</span> <span class="o">=</span> <span class="p">[</span>
+<span class="s1">&#39;id&#39;</span><span class="p">,</span>
+<span class="s1">&#39;first_name&#39;</span><span class="p">,</span>
+<span class="s1">&#39;last_name&#39;</span><span class="p">,</span>
+<span class="s1">&#39;username&#39;</span><span class="p">,</span>
+<span class="p">]</span>
 
 
+<span class="nd">@registry</span><span class="o">.</span><span class="n">register_document</span>
+<span class="k">class</span> <span class="nc">CategoryDocument</span><span class="p">(</span><span class="n">Document</span><span class="p">):</span>
+<span class="nb">id</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">()</span>
+
+<span class="k">class</span> <span class="nc">Index</span><span class="p">:</span>
+<span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;categories&#39;</span>
+<span class="n">settings</span> <span class="o">=</span> <span class="p">{</span>
+<span class="s1">&#39;number_of_shards&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="s1">&#39;number_of_replicas&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="k">class</span> <span class="nc">Django</span><span class="p">:</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">Category</span>
+<span class="n">fields</span> <span class="o">=</span> <span class="p">[</span>
+<span class="s1">&#39;name&#39;</span><span class="p">,</span>
+<span class="s1">&#39;description&#39;</span><span class="p">,</span>
+<span class="p">]</span>
+
+
+<span class="nd">@registry</span><span class="o">.</span><span class="n">register_document</span>
+<span class="k">class</span> <span class="nc">ArticleDocument</span><span class="p">(</span><span class="n">Document</span><span class="p">):</span>
+<span class="n">author</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">ObjectField</span><span class="p">(</span><span class="n">properties</span><span class="o">=</span><span class="p">{</span>
+<span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">fields</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(),</span>
+<span class="s1">&#39;first_name&#39;</span><span class="p">:</span> <span class="n">fields</span><span class="o">.</span><span class="n">TextField</span><span class="p">(),</span>
+<span class="s1">&#39;last_name&#39;</span><span class="p">:</span> <span class="n">fields</span><span class="o">.</span><span class="n">TextField</span><span class="p">(),</span>
+<span class="s1">&#39;username&#39;</span><span class="p">:</span> <span class="n">fields</span><span class="o">.</span><span class="n">TextField</span><span class="p">(),</span>
+<span class="p">})</span>
+<span class="n">categories</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">ObjectField</span><span class="p">(</span><span class="n">properties</span><span class="o">=</span><span class="p">{</span>
+<span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">fields</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(),</span>
+<span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">fields</span><span class="o">.</span><span class="n">TextField</span><span class="p">(),</span>
+<span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="n">fields</span><span class="o">.</span><span class="n">TextField</span><span class="p">(),</span>
+<span class="p">})</span>
+<span class="nb">type</span> <span class="o">=</span> <span class="n">fields</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="n">attr</span><span class="o">=</span><span class="s1">&#39;type_to_string&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Index</span><span class="p">:</span>
+<span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;articles&#39;</span>
+<span class="n">settings</span> <span class="o">=</span> <span class="p">{</span>
+<span class="s1">&#39;number_of_shards&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="s1">&#39;number_of_replicas&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="k">class</span> <span class="nc">Django</span><span class="p">:</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">Article</span>
+<span class="n">fields</span> <span class="o">=</span> <span class="p">[</span>
+<span class="s1">&#39;title&#39;</span><span class="p">,</span>
+<span class="s1">&#39;content&#39;</span><span class="p">,</span>
+<span class="s1">&#39;created_datetime&#39;</span><span class="p">,</span>
+<span class="s1">&#39;updated_datetime&#39;</span><span class="p">,</span>
+<span class="p">]</span>
+</code></pre></div>
+
+<p>Notes:</p>
+<ol>
+<li>In order to transform the article type, we added the <code>type</code> attribute to the <code>ArticleDocument</code>.</li>
+<li>Because our <code>Article</code> model is in a many-to-many (M:N) relationship with <code>Category</code> and a many-to-one (N:1) relationship with <code>User</code> we needed to take care of the relationships. We did that by adding <code>ObjectField</code> attributes.</li>
+</ol>
+<h3 id="populate-elasticsearch">Populate Elasticsearch</h3>
+<p>To create and populate the Elasticsearch index and mapping, use the <code>search_index</code> command:</p>
+<div class="codehilite"><pre><span></span><code><span class="o">(</span>env<span class="o">)</span>$ python manage.py search_index --rebuild
+
+Deleting index <span class="s1">&#39;users&#39;</span>
+Deleting index <span class="s1">&#39;categories&#39;</span>
+Deleting index <span class="s1">&#39;articles&#39;</span>
+Creating index <span class="s1">&#39;users&#39;</span>
+Creating index <span class="s1">&#39;categories&#39;</span>
+Creating index <span class="s1">&#39;articles&#39;</span>
+Indexing <span class="m">3</span> <span class="s1">&#39;User&#39;</span> objects
+Indexing <span class="m">4</span> <span class="s1">&#39;Article&#39;</span> objects
+Indexing <span class="m">4</span> <span class="s1">&#39;Category&#39;</span> objects
+</code></pre></div>
+
+<p>django-elasticsearch-dsl created the appropriate database signals so that your Elasticsearch storage gets updated every time an instance of a model is created, deleted, or edited.</p>
+<h2 id="elasticsearch-queries">Elasticsearch Queries</h2>
+<p>Before creating the appropriate views, let's look at how Elasticsearch queries work.</p>
+<p>We first have to obtain the <code>Search</code> instance. We do that by calling <code>search()</code> on our Document like so:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">blog.documents</span> <span class="kn">import</span> <span class="n">ArticleDocument</span>
+
+<span class="n">search</span> <span class="o">=</span> <span class="n">ArticleDocument</span><span class="o">.</span><span class="n">search</span><span class="p">()</span>
+</code></pre></div>
+
+<p>Once we have the <code>Search</code> instance we can pass queries to the <code>query()</code> method and fetch the response:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">elasticsearch_dsl</span> <span class="kn">import</span> <span class="n">Q</span>
+<span class="kn">from</span> <span class="nn">blog.documents</span> <span class="kn">import</span> <span class="n">ArticleDocument</span>
+
+
+<span class="c1"># Looks up all the articles that contain `How to` in the title.</span>
+<span class="n">query</span> <span class="o">=</span> <span class="s1">&#39;How to&#39;</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">Q</span><span class="p">(</span>
+<span class="s1">&#39;multi_match&#39;</span><span class="p">,</span>
+<span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">,</span>
+<span class="n">fields</span><span class="o">=</span><span class="p">[</span>
+<span class="s1">&#39;title&#39;</span>
+<span class="p">])</span>
+<span class="n">search</span> <span class="o">=</span> <span class="n">ArticleDocument</span><span class="o">.</span><span class="n">search</span><span class="p">()</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">search</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+
+<span class="c1"># print all the hits</span>
+<span class="k">for</span> <span class="n">hit</span> <span class="ow">in</span> <span class="n">search</span><span class="p">:</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">hit</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
+</code></pre></div>
+
+<p>We can also combine multiple Q statements like so:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">elasticsearch_dsl</span> <span class="kn">import</span> <span class="n">Q</span>
+<span class="kn">from</span> <span class="nn">blog.documents</span> <span class="kn">import</span> <span class="n">ArticleDocument</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Looks up all the articles that:</span>
+<span class="sd">1) Contain &#39;language&#39; in the &#39;title&#39;</span>
+<span class="sd">2) Don&#39;t contain &#39;ruby&#39; or &#39;javascript&#39; in the &#39;title&#39;</span>
+<span class="sd">3) And contain the query either in the &#39;title&#39; or &#39;description&#39;</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">query</span> <span class="o">=</span> <span class="s1">&#39;programming&#39;</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">Q</span><span class="p">(</span>
+<span class="s1">&#39;bool&#39;</span><span class="p">,</span>
+<span class="n">must</span><span class="o">=</span><span class="p">[</span>
+<span class="n">Q</span><span class="p">(</span><span class="s1">&#39;match&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;language&#39;</span><span class="p">),</span>
+<span class="p">],</span>
+<span class="n">must_not</span><span class="o">=</span><span class="p">[</span>
+<span class="n">Q</span><span class="p">(</span><span class="s1">&#39;match&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;ruby&#39;</span><span class="p">),</span>
+<span class="n">Q</span><span class="p">(</span><span class="s1">&#39;match&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;javascript&#39;</span><span class="p">),</span>
+<span class="p">],</span>
+<span class="n">should</span><span class="o">=</span><span class="p">[</span>
+<span class="n">Q</span><span class="p">(</span><span class="s1">&#39;match&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">query</span><span class="p">),</span>
+<span class="n">Q</span><span class="p">(</span><span class="s1">&#39;match&#39;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="n">query</span><span class="p">),</span>
+<span class="p">],</span>
+<span class="n">minimum_should_match</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">search</span> <span class="o">=</span> <span class="n">ArticleDocument</span><span class="o">.</span><span class="n">search</span><span class="p">()</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">search</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+
+<span class="c1"># print all the hits</span>
+<span class="k">for</span> <span class="n">hit</span> <span class="ow">in</span> <span class="n">search</span><span class="p">:</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">hit</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Another important thing when working with Elasticsearch queries is fuzziness. Fuzzy queries are queries that allow us to handle typos. They use the <a href="https://en.wikipedia.org/wiki/Levenshtein_distance">Levenshtein Distance Algorithm</a> which calculates the distance between the result in our database and the query.</p>
+<p>Let's look at an example.</p>
+<p>By running the following query we won't get any results, because the user misspelled 'django'.</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">elasticsearch_dsl</span> <span class="kn">import</span> <span class="n">Q</span>
+<span class="kn">from</span> <span class="nn">blog.documents</span> <span class="kn">import</span> <span class="n">ArticleDocument</span>
+
+<span class="n">query</span> <span class="o">=</span> <span class="s1">&#39;djengo&#39;</span>  <span class="c1"># notice the typo</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">Q</span><span class="p">(</span>
+<span class="s1">&#39;multi_match&#39;</span><span class="p">,</span>
+<span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">,</span>
+<span class="n">fields</span><span class="o">=</span><span class="p">[</span>
+<span class="s1">&#39;title&#39;</span>
+<span class="p">])</span>
+<span class="n">search</span> <span class="o">=</span> <span class="n">ArticleDocument</span><span class="o">.</span><span class="n">search</span><span class="p">()</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">search</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+
+<span class="c1"># print all the hits</span>
+<span class="k">for</span> <span class="n">hit</span> <span class="ow">in</span> <span class="n">search</span><span class="p">:</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">hit</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
+</code></pre></div>
+
+<p>If we enable fuzziness like so:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">elasticsearch_dsl</span> <span class="kn">import</span> <span class="n">Q</span>
+<span class="kn">from</span> <span class="nn">blog.documents</span> <span class="kn">import</span> <span class="n">ArticleDocument</span>
+
+<span class="n">query</span> <span class="o">=</span> <span class="s1">&#39;djengo&#39;</span>  <span class="c1"># notice the typo</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">Q</span><span class="p">(</span>
+<span class="s1">&#39;multi_match&#39;</span><span class="p">,</span>
+<span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">,</span>
+<span class="n">fields</span><span class="o">=</span><span class="p">[</span>
+<span class="s1">&#39;title&#39;</span>
+<span class="p">],</span>
+<span class="n">fuzziness</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>
+<span class="n">search</span> <span class="o">=</span> <span class="n">ArticleDocument</span><span class="o">.</span><span class="n">search</span><span class="p">()</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">search</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+
+<span class="c1"># print all the hits</span>
+<span class="k">for</span> <span class="n">hit</span> <span class="ow">in</span> <span class="n">search</span><span class="p">:</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">hit</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
+</code></pre></div>
+
+<p>The user will get the correct result.</p>
+<p>Elasticsearch has a number of additional features. To get familiar with the API, try implementing:</p>
+<ol>
+<li>Your own <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-custom-analyzer.html">analyzer</a>.</li>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/6.8/search-suggesters-completion.html">Completion suggester</a> - when a user queries 'j' your app should suggest 'johhny' or 'jess_'.</li>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/highlighting.html">Highlighting</a> - when user makes a typo, highlight it (e.g., Linuks -&gt; <em>Linux</em>).</li>
+</ol>
+<p>You can see all the <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search.html">Elasticsearch Search APIs</a> here.</p>
+<h2 id="search-views">Search Views</h2>
+<p>With that, let's create sime views. To make our code more DRY we can use the following abstract class in <em>search/views.py</em>:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># search/views.py</span>
+
+<span class="kn">import</span> <span class="nn">abc</span>
+
+<span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span>
+<span class="kn">from</span> <span class="nn">elasticsearch_dsl</span> <span class="kn">import</span> <span class="n">Q</span>
+<span class="kn">from</span> <span class="nn">rest_framework.pagination</span> <span class="kn">import</span> <span class="n">LimitOffsetPagination</span>
+<span class="kn">from</span> <span class="nn">rest_framework.views</span> <span class="kn">import</span> <span class="n">APIView</span>
+
+
+<span class="k">class</span> <span class="nc">PaginatedElasticSearchAPIView</span><span class="p">(</span><span class="n">APIView</span><span class="p">,</span> <span class="n">LimitOffsetPagination</span><span class="p">):</span>
+<span class="n">serializer_class</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">document_class</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+<span class="k">def</span> <span class="nf">generate_q_expression</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">):</span>
+<span class="sd">&quot;&quot;&quot;This method should be overridden</span>
+<span class="sd">        and return a Q() expression.&quot;&quot;&quot;</span>
+
+<span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">query</span><span class="p">):</span>
+<span class="k">try</span><span class="p">:</span>
+<span class="n">q</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate_q_expression</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+<span class="n">search</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">document_class</span><span class="o">.</span><span class="n">search</span><span class="p">()</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">search</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Found </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">hits</span><span class="o">.</span><span class="n">total</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s1"> hit(s) for query: &quot;</span><span class="si">{</span><span class="n">query</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
+
+<span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">paginate_queryset</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">view</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+<span class="n">serializer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">serializer_class</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">many</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_paginated_response</span><span class="p">(</span><span class="n">serializer</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Notes:</p>
+<ol>
+<li>To use the class, we have to provide our <code>serializer_class</code> and <code>document_class</code> and override <code>generate_q_expression()</code>.</li>
+<li>The class does nothing else than run the <code>generate_q_expression()</code> query, fetch the response, paginate it, and return serialized data.</li>
+</ol>
+<p>All the views should now inherit from <code>PaginatedElasticSearchAPIView</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># search/views.py</span>
+
+<span class="kn">import</span> <span class="nn">abc</span>
+
+<span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span>
+<span class="kn">from</span> <span class="nn">elasticsearch_dsl</span> <span class="kn">import</span> <span class="n">Q</span>
+<span class="kn">from</span> <span class="nn">rest_framework.pagination</span> <span class="kn">import</span> <span class="n">LimitOffsetPagination</span>
+<span class="kn">from</span> <span class="nn">rest_framework.views</span> <span class="kn">import</span> <span class="n">APIView</span>
+
+<span class="kn">from</span> <span class="nn">blog.documents</span> <span class="kn">import</span> <span class="n">ArticleDocument</span><span class="p">,</span> <span class="n">UserDocument</span><span class="p">,</span> <span class="n">CategoryDocument</span>
+<span class="kn">from</span> <span class="nn">blog.serializers</span> <span class="kn">import</span> <span class="n">ArticleSerializer</span><span class="p">,</span> <span class="n">UserSerializer</span><span class="p">,</span> <span class="n">CategorySerializer</span>
+
+
+<span class="k">class</span> <span class="nc">PaginatedElasticSearchAPIView</span><span class="p">(</span><span class="n">APIView</span><span class="p">,</span> <span class="n">LimitOffsetPagination</span><span class="p">):</span>
+<span class="n">serializer_class</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">document_class</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
+<span class="k">def</span> <span class="nf">generate_q_expression</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">):</span>
+<span class="sd">&quot;&quot;&quot;This method should be overridden</span>
+<span class="sd">        and return a Q() expression.&quot;&quot;&quot;</span>
+
+<span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">query</span><span class="p">):</span>
+<span class="k">try</span><span class="p">:</span>
+<span class="n">q</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate_q_expression</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+<span class="n">search</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">document_class</span><span class="o">.</span><span class="n">search</span><span class="p">()</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">search</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Found </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">hits</span><span class="o">.</span><span class="n">total</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s1"> hit(s) for query: &quot;</span><span class="si">{</span><span class="n">query</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">)</span>
+
+<span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">paginate_queryset</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">view</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+<span class="n">serializer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">serializer_class</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">many</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_paginated_response</span><span class="p">(</span><span class="n">serializer</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+
+
+<span class="c1"># views</span>
+
+
+<span class="k">class</span> <span class="nc">SearchUsers</span><span class="p">(</span><span class="n">PaginatedElasticSearchAPIView</span><span class="p">):</span>
+<span class="n">serializer_class</span> <span class="o">=</span> <span class="n">UserSerializer</span>
+<span class="n">document_class</span> <span class="o">=</span> <span class="n">UserDocument</span>
+
+<span class="k">def</span> <span class="nf">generate_q_expression</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">):</span>
+<span class="k">return</span> <span class="n">Q</span><span class="p">(</span><span class="s1">&#39;bool&#39;</span><span class="p">,</span>
+<span class="n">should</span><span class="o">=</span><span class="p">[</span>
+<span class="n">Q</span><span class="p">(</span><span class="s1">&#39;match&#39;</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="n">query</span><span class="p">),</span>
+<span class="n">Q</span><span class="p">(</span><span class="s1">&#39;match&#39;</span><span class="p">,</span> <span class="n">first_name</span><span class="o">=</span><span class="n">query</span><span class="p">),</span>
+<span class="n">Q</span><span class="p">(</span><span class="s1">&#39;match&#39;</span><span class="p">,</span> <span class="n">last_name</span><span class="o">=</span><span class="n">query</span><span class="p">),</span>
+<span class="p">],</span> <span class="n">minimum_should_match</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">SearchCategories</span><span class="p">(</span><span class="n">PaginatedElasticSearchAPIView</span><span class="p">):</span>
+<span class="n">serializer_class</span> <span class="o">=</span> <span class="n">CategorySerializer</span>
+<span class="n">document_class</span> <span class="o">=</span> <span class="n">CategoryDocument</span>
+
+<span class="k">def</span> <span class="nf">generate_q_expression</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">):</span>
+<span class="k">return</span> <span class="n">Q</span><span class="p">(</span>
+<span class="s1">&#39;multi_match&#39;</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">,</span>
+<span class="n">fields</span><span class="o">=</span><span class="p">[</span>
+<span class="s1">&#39;name&#39;</span><span class="p">,</span>
+<span class="s1">&#39;description&#39;</span><span class="p">,</span>
+<span class="p">],</span> <span class="n">fuzziness</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">SearchArticles</span><span class="p">(</span><span class="n">PaginatedElasticSearchAPIView</span><span class="p">):</span>
+<span class="n">serializer_class</span> <span class="o">=</span> <span class="n">ArticleSerializer</span>
+<span class="n">document_class</span> <span class="o">=</span> <span class="n">ArticleDocument</span>
+
+<span class="k">def</span> <span class="nf">generate_q_expression</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">):</span>
+<span class="k">return</span> <span class="n">Q</span><span class="p">(</span>
+<span class="s1">&#39;multi_match&#39;</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">,</span>
+<span class="n">fields</span><span class="o">=</span><span class="p">[</span>
+<span class="s1">&#39;title&#39;</span><span class="p">,</span>
+<span class="s1">&#39;author&#39;</span><span class="p">,</span>
+<span class="s1">&#39;type&#39;</span><span class="p">,</span>
+<span class="s1">&#39;content&#39;</span>
+<span class="p">],</span> <span class="n">fuzziness</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<h3 id="define-urls_1">Define URLs</h3>
+<p>Lastly, let's create the URLs for our views:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># search.urls.py</span>
+
+<span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">path</span>
+
+<span class="kn">from</span> <span class="nn">search.views</span> <span class="kn">import</span> <span class="n">SearchArticles</span><span class="p">,</span> <span class="n">SearchCategories</span><span class="p">,</span> <span class="n">SearchUsers</span>
+
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+<span class="n">path</span><span class="p">(</span><span class="s1">&#39;user/&lt;str:query&gt;/&#39;</span><span class="p">,</span> <span class="n">SearchUsers</span><span class="o">.</span><span class="n">as_view</span><span class="p">()),</span>
+<span class="n">path</span><span class="p">(</span><span class="s1">&#39;category/&lt;str:query&gt;/&#39;</span><span class="p">,</span> <span class="n">SearchCategories</span><span class="o">.</span><span class="n">as_view</span><span class="p">()),</span>
+<span class="n">path</span><span class="p">(</span><span class="s1">&#39;article/&lt;str:query&gt;/&#39;</span><span class="p">,</span> <span class="n">SearchArticles</span><span class="o">.</span><span class="n">as_view</span><span class="p">()),</span>
+<span class="p">]</span>
+</code></pre></div>
+
+<p>Then, wire up the app URLs to the project URLs:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># core/urls.py</span>
+
+<span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+<span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">path</span><span class="p">,</span> <span class="n">include</span>
+
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+<span class="n">path</span><span class="p">(</span><span class="s1">&#39;blog/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s1">&#39;blog.urls&#39;</span><span class="p">)),</span>
+<span class="n">path</span><span class="p">(</span><span class="s1">&#39;search/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s1">&#39;search.urls&#39;</span><span class="p">)),</span> <span class="c1"># new</span>
+<span class="n">path</span><span class="p">(</span><span class="s1">&#39;admin/&#39;</span><span class="p">,</span> <span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">urls</span><span class="p">),</span>
+<span class="p">]</span>
+</code></pre></div>
+
+<h3 id="testing_1">Testing</h3>
+<p>Our web application is done. We can test our search endpoints by visiting the following URLs:</p>
+<table>
+<thead>
+<tr>
+<th>URL</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="http://127.0.0.1:8000/search/user/mike/">http://127.0.0.1:8000/search/user/mike/</a></td>
+<td>Returns user 'mike13'</td>
+</tr>
+<tr>
+<td><a href="http://127.0.0.1:8000/search/user/jess_/">http://127.0.0.1:8000/search/user/jess_/</a></td>
+<td>Returns user 'jess_'</td>
+</tr>
+<tr>
+<td><a href="http://127.0.0.1:8000/search/category/seo/">http://127.0.0.1:8000/search/category/seo/</a></td>
+<td>Returns category 'SEO optimization'</td>
+</tr>
+<tr>
+<td><a href="http://127.0.0.1:8000/search/category/progreming/">http://127.0.0.1:8000/search/category/progreming/</a></td>
+<td>Returns category 'Programming'</td>
+</tr>
+<tr>
+<td><a href="http://127.0.0.1:8000/search/article/linux/">http://127.0.0.1:8000/search/article/linux/</a></td>
+<td>Returns article 'Installing the latest version of Ubuntu'</td>
+</tr>
+<tr>
+<td><a href="http://127.0.0.1:8000/search/article/java/">http://127.0.0.1:8000/search/article/java/</a></td>
+<td>Returns article 'Which programming language is the best?'</td>
+</tr>
+</tbody>
+</table>
