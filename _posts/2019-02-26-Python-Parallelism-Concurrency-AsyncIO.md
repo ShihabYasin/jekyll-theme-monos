@@ -357,13 +357,3 @@ tag: Python
 </code></pre></div>
 
 <p><code>concurrent.futures.ProcessPoolExecutor</code> is a wrapper around <code>multiprocessing.Pool</code>. It has the same limitations as the <code>ThreadPoolExecutor</code>. If you want more control over multiprocessing, use <code>multiprocessing.Pool</code>. <code>concurrent.futures</code> provides an abstraction over both multiprocessing and threading, making it easy to switch between the two.</p>
-<h2 id="conclusion">Conclusion</h2>
-<p>It's worth noting that using multiprocessing to execute the <code>make_request</code> function will be much slower than the threading flavor since the processes will be need to wait for the IO. The multiprocessing approach will be faster then the sync approach, though.</p>
-<p>Similarly, using concurrency for CPU-bound tasks is not worth the effort when compared to parallelism.</p>
-<p>That being said, using concurrency or parallelism to execute your scripts adds complexity. Your code will generally be harder to read, test, and debug, so only use them when absolutely necessary for long-running scripts.</p>
-<p><code>concurrent.futures</code> is where I generally start since-</p>
-<ol>
-<li>It's easy to switch back and forth between concurrency and parallelism</li>
-<li>The dependent libraries don't need to support asyncio (<code>requests</code> vs <code>httpx</code>)</li>
-<li>It's cleaner and easier to read over the other approaches</li>
-</ol>
