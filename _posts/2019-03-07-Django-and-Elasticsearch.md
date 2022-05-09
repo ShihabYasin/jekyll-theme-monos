@@ -10,9 +10,13 @@ tag: Python
 
 ### This project will consist of multiple models, which will be serialized and served via <a href="https://www.django-rest-framework.org/">Django REST Framework</a>.
 
-<div class="container blog-container" style="padding-top: 0;">
-   <div class="row">
-     <div class="col col-12 col-lg-8">
+<html lang="en">
+<head>
+</head>
+<body>
+<div class="container">
+<div class="content">
+
 
 <h2 id="project-setup">Project Setup</h2>
 <p> After integrating Elasticsearch, we'll create an endpoint that will allow us to look up different authors, categories, and articles.</p>
@@ -819,3 +823,11 @@ Indexing <span class="m">4</span> <span class="s1">&#39;Category&#39;</span> obj
 </tr>
 </tbody>
 </table>
+
+
+</div> <!-- content -->
+<div class="rtow">
+</div>
+</div> <!-- container -->
+</body>
+</html>

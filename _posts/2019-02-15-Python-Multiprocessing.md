@@ -9,18 +9,13 @@ tag: Python
 
 
 <html lang="en">
-
 <head>
-
 </head>
-
 <body>
-
-
 <div class="container">
-
-
 <div class="content">
+
+
 
 <h1>Python Multiprocessing</h1>
 
@@ -1404,16 +1399,11 @@ When running the example in parallel with four cores, the calculations took
 <!-- events, password cracking, image resizing, apply_async -->
 
 
+
+
 </div> <!-- content -->
-
 <div class="rtow">
-
-
 </div>
-
 </div> <!-- container -->
-
-
-
 </body>
 </html>
