@@ -18,7 +18,7 @@ Natural language processing, DevOps.
 * I also love to hear & study people from different expertise like Philosophy, Mathematics, Physics, Cognitive Computational Neuroscience and Psychology.
 
 
-### [**My Tech Stack**](https://shihabyasin.github.io/my-tech-stack/2020/01/15/my-tech-stack.html) | [My Short CV/Résumé](https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/cv/Yasin_Resume.pdf)   
+### [**My Tech Stack**](https://shihabyasin.github.io/category/#MY-TECH-STACK) | [My Short CV/Résumé](https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/cv/Yasin_Resume.pdf)   
 
 
 ### **Check detail on:**    [LinkedIN](https://www.linkedin.com/in/yasinshihab/) | [Github](https://github.com/ShihabYasin) | [Projects](https://shihabyasin.github.io/category/#Projects) | [My Blog](https://shihabyasin.github.io/) | [Research](https://shihabyasin.github.io/category/#Research)
