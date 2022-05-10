@@ -11,26 +11,26 @@
 	{%- endif -%}
 </div>
 
-<div class="sidebar-item sidebar-nav">
-	<ul class="nav">
-      <li class="nav-title">Pages</li>
-<!--	  <li>-->
-<!--	  	<a class="nav-item" href="/">Articles</a>-->
-<!--	  </li>-->
-	  {% assign pages_list = site.pages %}
-	  {% for node in pages_list %}
-	    {% if node.title != null %}
-	      {% if node.layout == "page" %}
-	        <li>
-	        	<a class="nav-item" href="{{ node.url }}">
-	            	{{ node.title }}
-	            </a>
-	        </li>
-	      {% endif %}
-	    {% endif %}
-	  {% endfor %}
-	</ul>
-</div>
+<!--<div class="sidebar-item sidebar-nav">-->
+<!--	<ul class="nav">-->
+<!--      <li class="nav-title">Pages</li>-->
+<!--&lt;!&ndash;	  <li>&ndash;&gt;-->
+<!--&lt;!&ndash;	  	<a class="nav-item" href="/">Articles</a>&ndash;&gt;-->
+<!--&lt;!&ndash;	  </li>&ndash;&gt;-->
+<!--	  {% assign pages_list = site.pages %}-->
+<!--	  {% for node in pages_list %}-->
+<!--	    {% if node.title != null %}-->
+<!--	      {% if node.layout == "page" %}-->
+<!--	        <li>-->
+<!--	        	<a class="nav-item" href="{{ node.url }}">-->
+<!--	            	{{ node.title }}-->
+<!--	            </a>-->
+<!--	        </li>-->
+<!--	      {% endif %}-->
+<!--	    {% endif %}-->
+<!--	  {% endfor %}-->
+<!--	</ul>-->
+<!--</div>-->
 
 <div class="sidebar-item sidebar-nav">
   	<ul class="nav">
