@@ -8,7 +8,7 @@ tag: Algorithm
 
 Given a k–sorted array(any element may be misplaced by no more than k positions) from the correct sorted order.
 
-</pre>
+<pre>
 For example,
 
 Input:
@@ -28,7 +28,7 @@ Output:[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 * K+1 sized min-heap will do the job. ```arr = [already-sorted] <- [on-k+1-min-heap] <- [upcoming-elements].```
 * Initially [already-sorted] has no element, for a k+1-min heap from arr[:k+1] elements, ```heapreplace(pop, collect & then push)``` for remaining elements in arr.
 
-</pre>
+<pre>
 Time Complexity: O(nlog(k))
 Space Complexity: O(k)
 </pre>
