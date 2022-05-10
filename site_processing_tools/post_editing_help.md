@@ -10,5 +10,6 @@ int a = 10
 
 <textarea rows="10" cols="150" readonly>
 
-
+hello line
+hello line 2
 </textarea>
