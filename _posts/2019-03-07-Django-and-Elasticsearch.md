@@ -733,8 +733,4 @@ Indexing <span class="m">4</span> <span class="s1">'Category'</span> objects
 <span class="n">path</span><span class="p">(</span><span class="s1">'admin/'</span><span class="p">,</span> <span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">urls</span><span class="p">),</span>
 <span class="p">]</span>
 </code></pre>
-<h3 id="testing_1">Testing</h3>
-<p>Our web application is done. We can test our search endpoints by visiting the following URLs:</p>
-<p>Notice the typo with the fourth request. We spelled 'progreming', but still got the correct result thanks to fuzziness.</p>
-
 
