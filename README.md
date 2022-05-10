@@ -21,7 +21,7 @@ Natural language processing, DevOps.
 ### [**My Tech Stack**](https://shihabyasin.github.io/my-tech-stack/2020/01/15/my-tech-stack.html) | [My Short CV/Résumé](https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/cv/Yasin_Resume.pdf)   
 
 
-### **Check detail on:**    [LinkedIN](https://www.linkedin.com/in/yasinshihab/) | [Github](https://github.com/ShihabYasin) | [Projects](https://shihabyasin.github.io/projects/2017/01/15/Projects.html) | [My Blog](https://shihabyasin.github.io/) | [Research](https://shihabyasin.github.io/research/2017/01/15/Research.html)
+### **Check detail on:**    [LinkedIN](https://www.linkedin.com/in/yasinshihab/) | [Github](https://github.com/ShihabYasin) | [Projects](https://shihabyasin.github.io/category/#Projects) | [My Blog](https://shihabyasin.github.io/) | [Research](https://shihabyasin.github.io/category/#Research)
 
 [//]: # (### [My Short CV/Résumé]&#40;https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/cv/Yasin_Resume.pdf&#41;  )
 
