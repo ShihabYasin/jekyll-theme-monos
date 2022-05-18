@@ -1,11 +1,10 @@
 ---
 layout: post
-title: Get-Weather-Station-Data
-date: 2019-03-11 16:20:23 +0900
+title: Application Logging with Fluentd Elasticsearch and Kibana
+date: 2019-03-12 16:20:23 +0900
 category: Elasticsearch
 tag: Elasticsearch
 ---
-
 
 <h1 class="pw-post-title ig ih ii bn ij ik il im in io ip iq ir is it iu iv iw ix iy iz ja jb jc jd je gj" id="30fc">Application Logging with Fluentd Elasticsearch and Kibana</h1>
 
@@ -43,4 +42,3 @@ tag: Elasticsearch
 <p class="pw-post-body-paragraph kr ks ii kt b ku lp kw kx ky lq la lb lc lr le lf lg ls li lj lk lt lm ln lo ib gj" id="67c2"><strong class="kt ij">Searching logs in Kibana</strong></p>
 <p class="pw-post-body-paragraph kr ks ii kt b ku lp kw kx ky lq la lb lc lr le lf lg ls li lj lk lt lm ln lo ib gj" id="da45">Once the plugin configuration is setuped you can reload fluentd to reflect new plugins configuration. You can open kibana dashboard on your machine at localhost:5601</p>
 <p class="pw-post-body-paragraph kr ks ii kt b ku lp kw kx ky lq la lb lc lr le lf lg ls li lj lk lt lm ln lo ib gj" id="6444">And search for messages in the search box using DSL.</p>
-
