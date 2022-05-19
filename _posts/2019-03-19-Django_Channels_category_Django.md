@@ -8,4 +8,4 @@ tag: Django
 
 
 <h2 id="what-is-django-channels">Django Channels</h2>
-<p><a href="https://github.com/ShihabYasin/simple-django-channels">Click to check out deatil and code  here.</a> </p>
+<h3><a href="https://github.com/ShihabYasin/simple-django-channels">Click to check out deatil and code  here.</a> </h3>
