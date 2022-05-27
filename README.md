@@ -11,7 +11,7 @@ Yasin Shihab
 
 **Software people, love to code, practice software engineering ethics & create soft-stuffs.**
 
-**Technology domain interest:** Software Development, Machine Learning, 
+**Technology domain interest:** Software Development (Python,nodejs), Machine Learning, 
 Natural language processing, DevOps. 
 
 
