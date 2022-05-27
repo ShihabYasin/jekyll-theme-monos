@@ -15,7 +15,7 @@ Yasin Shihab
 Natural language processing, DevOps. 
 
 
-* I also love to hear & study people from different expertise like Philosophy, Mathematics, Physics, Cognitive Computational Neuroscience and Psychology.
+* I also love to hear & study people from different expertise like Philosophy, Mathematics, Physics, Cognitive Computational Neuroscience and Psychology
 
 
 ### [**My Tech Stack**](https://shihabyasin.github.io/category/#MY-TECH-STACK) | [My Short CV/Résumé](https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/cv/Yasin_Resume.pdf)   
