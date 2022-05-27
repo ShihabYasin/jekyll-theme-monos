@@ -2,8 +2,8 @@
 layout: post
 title: Concurrent Web Scraping with Selenium Grid and Docker Swarm
 date: 2019-04-13 16:20:23 +0900
-category: Docker
-tag: Docker
+category: Selenium
+tag: Selenium
 ---
 
 <h1>Concurrent Web Scraping with Selenium Grid and Docker Swarm</h1>
