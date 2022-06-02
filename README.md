@@ -52,7 +52,7 @@ Natural language processing, DevOps.
 * Published for Samsung: ["Customizing Grapheme-to-Phoneme System for Non-Trivial Transcription Problems in Bangla Language" on North American Chapter of the Association for Computational Linguistics (NAACL-HLT 2019), At Minneapolis, USA.](https://web.archive.org/web/20200705150821/https://www.aclweb.org/anthology/N19-1322/)
 * Scrum, Smart documentation, agile activity, guided Samsung interns.
 * Developed Samsung Apps(using Android SDK,Galaxy SDK,Tizen Mobile SDK,Tizen Wearables SDK), debugging & testing Samsung Galaxy Watch Studio.
-* Developed IoT Client-Server app. Worked on IoT stack of [IoTivity](https://web.archive.org/web/20220527134113/http://iotivity.org/) in Linux, Tizen & ARTIK board.
+* Developed IoT Client-Server app. Worked on IoT stack of [IoTivity](https://web.archive.org/web/20220527134113/http://iotivity.org/) in Linux, Tizen & [ARTIK](https://web.archive.org/web/20211028063225/https://news.samsung.com/global/samsung-introduces-new-artik-secure-iot-modules-and-security-services-to-deliver-comprehensive-device-to-cloud-protection-for-iot) board.
 * Modified ColorPhun Game (Android) with Deeplearning AI to play between human & AI.
 * Wearable Smart Watch Face development (using Tizen Native APIs, Web APIs & Samsung Galaxy Watch Studio) for Gear S2,S3,Fit2 etc.
 * Samsung Developer advocacy, prepared dev tutorials, provided platform(C,C++,Web) support to Samsung devs.
