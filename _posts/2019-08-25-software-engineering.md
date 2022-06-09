@@ -7,7 +7,7 @@ tag: software-concept-gist
 ---
 
 1. [The SOLID Principles of Object-Oriented Programming](https://web.archive.org/web/20220531214013/https://www.freecodecamp.org/news/solid-principles-explained-in-plain-english/)
-2. [Important Software Design Patterns](https://web.archive.org/web/20220609044252/https://learningdaily.dev/the-7-most-important-software-design-patterns-d60e546afb0e)
+2. [Important Software Design Patterns](https://web.archive.org/web/20220609044252/https://learningdaily.dev/the-7-most-important-software-design-patterns-d60e546afb0e), [Queue-Based Load Leveling pattern](https://web.archive.org/web/20211228172351/https://docs.microsoft.com/en-us/azure/architecture/patterns/queue-based-load-leveling)
 3. [SOA](https://web.archive.org/web/20220323235313/https://www.ibm.com/cloud/learn/soa)
 4. Micro-services: [1](https://microservices.io/), [2](https://web.archive.org/web/20211203182453/https://docs.microsoft.com/en-us/azure/architecture/guide/architecture-styles/microservices), [3](https://web.archive.org/web/20210812130220/https://medium.com/hashmapinc/the-what-why-and-how-of-a-microservices-architecture-4179579423a9)
 5. [Polyglot programming](https://web.archive.org/web/20210620035717/https://www.torocloud.com/blog/what-is-polyglot-programming)
