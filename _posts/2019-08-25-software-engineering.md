@@ -5,7 +5,7 @@ date: 2020-01-02 19:20:23 +0900
 category: MY-TECH-STACK
 tag: software-concept-gist
 ---
-
+### Software 
 1. [The SOLID Principles of Object-Oriented Programming](https://web.archive.org/web/20220531214013/https://www.freecodecamp.org/news/solid-principles-explained-in-plain-english/)
 2. [Important Software Design Patterns](https://web.archive.org/web/20220609044252/https://learningdaily.dev/the-7-most-important-software-design-patterns-d60e546afb0e), [Queue-Based Load Leveling pattern](https://web.archive.org/web/20211228172351/https://docs.microsoft.com/en-us/azure/architecture/patterns/queue-based-load-leveling)
 3. [SOA](https://web.archive.org/web/20220323235313/https://www.ibm.com/cloud/learn/soa)
@@ -13,7 +13,7 @@ tag: software-concept-gist
 5. [Polyglot programming](https://web.archive.org/web/20210620035717/https://www.torocloud.com/blog/what-is-polyglot-programming)
 6. Message Queuing Protocol: [AMQP, wire-level protocol](https://en.wikipedia.org/wiki/Advanced_Message_Queuing_Protocol), [Publish–subscribe pattern](https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern)
 7. Topic Modeling and Latent Dirichlet Allocation(LDA) [study resource](https://monkeylearn.com/blog/introduction-to-topic-modeling/)
-
+### NLP 
 8. Latent Semantic Analysis (LSA)
 9. Bag of Words/Concept/Narratives [study resource](https://web.archive.org/web/2020*/https://sentic.net/computing/)
 
