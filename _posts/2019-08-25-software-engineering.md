@@ -11,7 +11,8 @@ tag: software-concept-gist
 3. [SOA](https://web.archive.org/web/20220323235313/https://www.ibm.com/cloud/learn/soa)
 4. Micro-services: [1](https://microservices.io/), [2](https://web.archive.org/web/20211203182453/https://docs.microsoft.com/en-us/azure/architecture/guide/architecture-styles/microservices), [3](https://web.archive.org/web/20210812130220/https://medium.com/hashmapinc/the-what-why-and-how-of-a-microservices-architecture-4179579423a9)
 5. [Polyglot programming](https://web.archive.org/web/20210620035717/https://www.torocloud.com/blog/what-is-polyglot-programming)
-6. Topic Modeling and Latent Dirichlet Allocation(LDA) [study resource](https://monkeylearn.com/blog/introduction-to-topic-modeling/)
+6. Message Queuing Protocol: [AMQP, wire-level protocol](https://en.wikipedia.org/wiki/Advanced_Message_Queuing_Protocol), [Publish–subscribe pattern](https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern)
+7. Topic Modeling and Latent Dirichlet Allocation(LDA) [study resource](https://monkeylearn.com/blog/introduction-to-topic-modeling/)
 
 3.1. Latent Semantic Analysis (LSA)
 4. Bag of Words/Concept/Narratives [study resource](https://web.archive.org/web/2020*/https://sentic.net/computing/)
