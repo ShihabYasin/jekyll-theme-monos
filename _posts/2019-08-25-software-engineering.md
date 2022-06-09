@@ -7,8 +7,8 @@ tag: software-concept-gist
 ---
 
 1. [The SOLID Principles of Object-Oriented Programming](https://web.archive.org/web/20220531214013/https://www.freecodecamp.org/news/solid-principles-explained-in-plain-english/)
-2. SOA:
-3. Micro-services:
+2. [SOA](https://web.archive.org/web/20220323235313/https://www.ibm.com/cloud/learn/soa)
+3. Micro-services: [1](https://microservices.io/), [2](https://web.archive.org/web/20211203182453/https://docs.microsoft.com/en-us/azure/architecture/guide/architecture-styles/microservices), [3](https://web.archive.org/web/20210812130220/https://medium.com/hashmapinc/the-what-why-and-how-of-a-microservices-architecture-4179579423a9)
 4. Topic Modeling and Latent Dirichlet Allocation(LDA) [study resource](https://monkeylearn.com/blog/introduction-to-topic-modeling/)
 
 3.1. Latent Semantic Analysis (LSA)
