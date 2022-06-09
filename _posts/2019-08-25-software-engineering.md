@@ -6,9 +6,10 @@ category: MY-TECH-STACK
 tag: software-concept-gist
 ---
 
-1. SOA:
-2. Micro-services:
-3. Topic Modeling and Latent Dirichlet Allocation(LDA) [study resource](https://monkeylearn.com/blog/introduction-to-topic-modeling/)
+1. [The SOLID Principles of Object-Oriented Programming](https://web.archive.org/web/20220531214013/https://www.freecodecamp.org/news/solid-principles-explained-in-plain-english/)
+2. SOA:
+3. Micro-services:
+4. Topic Modeling and Latent Dirichlet Allocation(LDA) [study resource](https://monkeylearn.com/blog/introduction-to-topic-modeling/)
 
 3.1. Latent Semantic Analysis (LSA)
 4. Bag of Words/Concept/Narratives [study resource](https://web.archive.org/web/2020*/https://sentic.net/computing/)
