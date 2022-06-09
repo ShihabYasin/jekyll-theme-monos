@@ -14,8 +14,8 @@ tag: software-concept-gist
 6. Message Queuing Protocol: [AMQP, wire-level protocol](https://en.wikipedia.org/wiki/Advanced_Message_Queuing_Protocol), [Publish–subscribe pattern](https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern)
 7. Topic Modeling and Latent Dirichlet Allocation(LDA) [study resource](https://monkeylearn.com/blog/introduction-to-topic-modeling/)
 
-3.1. Latent Semantic Analysis (LSA)
-4. Bag of Words/Concept/Narratives [study resource](https://web.archive.org/web/2020*/https://sentic.net/computing/)
+8. Latent Semantic Analysis (LSA)
+9. Bag of Words/Concept/Narratives [study resource](https://web.archive.org/web/2020*/https://sentic.net/computing/)
 
 <p align="center">
 <img title="Evolution of NLP Systems" width="530" height="300" src="https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/nlp-bag-of-words-etc.jpg?raw=true" alt="Evolution of NLP Systems">
