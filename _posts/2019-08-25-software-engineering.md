@@ -13,6 +13,9 @@ tag: software-concept-gist
 5. [Polyglot programming](https://web.archive.org/web/20210620035717/https://www.torocloud.com/blog/what-is-polyglot-programming)
 6. Message Queuing Protocol: [AMQP, wire-level protocol](https://en.wikipedia.org/wiki/Advanced_Message_Queuing_Protocol), [Publish–subscribe pattern](https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern)
 7. Topic Modeling and Latent Dirichlet Allocation(LDA) [study resource](https://monkeylearn.com/blog/introduction-to-topic-modeling/)
+8. Clean Code: [1](https://dev.to/alexomeyer/10-must-know-patterns-for-writing-clean-code-with-python-56bf), [2](https://towardsdatascience.com/python-clean-code-6-best-practices-to-make-your-python-functions-more-readable-7ea4c6171d60)
+
+
 ### NLP/ ML
 8. Latent Semantic Analysis (LSA)
 9. Bag of Words/Concept/Narratives [study resource](https://web.archive.org/web/2020*/https://sentic.net/computing/)
