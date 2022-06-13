@@ -15,19 +15,20 @@ tag: software-concept-gist
 7. [Polyglot programming](https://web.archive.org/web/20210620035717/https://www.torocloud.com/blog/what-is-polyglot-programming)
 8. Message Queuing Protocol: [AMQP, wire-level protocol](https://en.wikipedia.org/wiki/Advanced_Message_Queuing_Protocol), [Publish–subscribe pattern](https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern)
 9. Topic Modeling and Latent Dirichlet Allocation(LDA) [study resource](https://monkeylearn.com/blog/introduction-to-topic-modeling/)
-10. Clean Code: [1](https://dev.to/alexomeyer/10-must-know-patterns-for-writing-clean-code-with-python-56bf), [2](https://towardsdatascience.com/python-clean-code-6-best-practices-to-make-your-python-functions-more-readable-7ea4c6171d60), [3](https://www.youtube.com/watch?v=HcijbAI4eB0), [Python-Clean-Code-1](https://testdriven.io/blog/clean-code-python/), [Python-Clean-Code-2](https://github.com/zedr/clean-code-python)
+10. Clean Code: [1](https://dev.to/alexomeyer/10-must-know-patterns-for-writing-clean-code-with-python-56bf), [2](https://towardsdatascience.com/python-clean-code-6-best-practices-to-make-your-python-functions-more-readable-7ea4c6171d60), [3](https://www.youtube.com/watch?v=HcijbAI4eB0), [Python-Clean-Code-1](https://testdriven.io/blog/clean-code-python/), [Python-Clean-Code-2](https://github.com/zedr/clean-code-python),[Clean Code - Uncle Bob - Series](https://www.youtube.com/watch?v=7EmboKQH8lM)
+
 
 
 
 ###     NLP/ ML
-10. Latent Semantic Analysis (LSA)
-11. Bag of Words/Concept/Narratives [study resource](https://web.archive.org/web/2020*/https://sentic.net/computing/)
+1. Latent Semantic Analysis (LSA)
+2. Bag of Words/Concept/Narratives [study resource](https://web.archive.org/web/2020*/https://sentic.net/computing/)
 
-    <p align="center">
-    <img title="Evolution of NLP Systems" width="530" height="300" src="https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/nlp-bag-of-words-etc.jpg?raw=true" alt="Evolution of NLP Systems">
-    </p>
-    <center>Evolution of NLP Systems</center>
+   <p align="center">
+   <img title="Evolution of NLP Systems" width="530" height="300" src="https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/public/img/nlp-bag-of-words-etc.jpg?raw=true" alt="Evolution of NLP Systems">
+   </p>
+   <center>Evolution of NLP Systems</center>
 
-12. tf-idf
-13. n-gram(0/1/2/3/n-gram)
-14. Transfer Learning
+3. tf-idf
+4. n-gram(0/1/2/3/n-gram)
+5. Transfer Learning
