@@ -21,12 +21,11 @@ Natural language processing, DevOps.
 ### [**My Tech Stack**](https://shihabyasin.github.io/category/#MY-TECH-STACK) | [My Short CV/Résumé](https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/cv/Yasin_Resume.pdf)   
 
 
-### **Check detail on:**    [LinkedIN](https://www.linkedin.com/in/yasinshihab/) | [Github](https://github.com/ShihabYasin) | [Projects](https://shihabyasin.github.io/category/#Projects) | [My Blog](https://shihabyasin.github.io/) | [Research](https://shihabyasin.github.io/category/#Research)
-
-[//]: # (### [My Short CV/Résumé]&#40;https://github.com/ShihabYasin/shihabyasin.github.io/blob/gh-pages/cv/Yasin_Resume.pdf&#41;  )
-
-
-
+### **Check detail on:**    [LinkedIN](https://www.linkedin.com/in/yasinshihab/) | [Github](https://github.com/ShihabYasin) | [Projects](https://shihabyasin.github.io/category/#Projects) | [My Blog](https://shihabyasin.github.io/) | [Research](https://shihabyasin.github.io/category/#Research)   
+ 
+<!--- | [LeetCode](https://leetcode.com/shihabyasin/) ---> 
+ 
+ 
 ## Education: 
 2011-2015 :   **BSc, Computer Science and Engineering**; Chittagong University of Engineering & Technology, Bangladesh.
 
